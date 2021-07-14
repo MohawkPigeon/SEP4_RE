@@ -1,0 +1,50 @@
+﻿@model sep4.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sauna.Establishment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sauna.Establishment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

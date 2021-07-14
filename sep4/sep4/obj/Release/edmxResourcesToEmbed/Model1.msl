@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+    <EntitySetMapping Name="Datapoint">
+      <EntityTypeMapping TypeName="DatabaseModel.Datapoint">
+        <MappingFragment StoreEntitySet="Datapoint">
+          <ScalarProperty Name="DatapointID" ColumnName="DatapointID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="Co2" ColumnName="Co2" />
+          <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+          <ScalarProperty Name="ServoSettingAtTime" ColumnName="ServoSettingAtTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservation">
+      <EntityTypeMapping TypeName="DatabaseModel.Reservation">
+        <MappingFragment StoreEntitySet="Reservation">
+          <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
+          <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sauna">
+      <EntityTypeMapping TypeName="DatabaseModel.Sauna">
+        <MappingFragment StoreEntitySet="Sauna">
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="Establishment" ColumnName="Establishment" />
+          <ScalarProperty Name="ServoSetting" ColumnName="ServoSetting" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="DatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotificationHistory">
+      <EntityTypeMapping TypeName="DatabaseModel.NotificationHistory">
+        <MappingFragment StoreEntitySet="NotificationHistory">
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

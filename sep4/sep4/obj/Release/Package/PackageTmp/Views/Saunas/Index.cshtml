@@ -1,0 +1,39 @@
+﻿@model IEnumerable<sep4.Sauna>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Establishment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServoSetting)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Establishment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServoSetting)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SaunaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SaunaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SaunaID })
+        </td>
+    </tr>
+}
+
+</table>

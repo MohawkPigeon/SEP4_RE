@@ -1,0 +1,34 @@
+﻿@model sep4.Sauna
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sauna</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Establishment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Establishment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServoSetting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServoSetting)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SaunaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

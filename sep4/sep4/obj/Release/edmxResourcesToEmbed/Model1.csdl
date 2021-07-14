@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Datapoint">
+    <Key>
+      <PropertyRef Name="DatapointID" />
+    </Key>
+    <Property Name="DatapointID" Type="Int32" Nullable="false" />
+    <Property Name="SaunaID" Type="Int32" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="Temperature" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Co2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Humidity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Sauna" Relationship="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID" FromRole="Datapoint" ToRole="Sauna" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="SaunaID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="SaunaID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sauna" Relationship="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID" FromRole="Reservation" ToRole="Sauna" />
+    <NavigationProperty Name="User" Relationship="Self.FK_dbo_Reservation_dbo_User_UserID" FromRole="Reservation" ToRole="User" />
+    <Property Name="ToDateTime" Type="DateTime" Precision="3" />
+    <Property Name="FromDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Sauna">
+    <Key>
+      <PropertyRef Name="SaunaID" />
+    </Key>
+    <Property Name="SaunaID" Type="Int32" Nullable="false" />
+    <Property Name="Establishment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ServoSetting" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Datapoint" Relationship="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID" FromRole="Sauna" ToRole="Datapoint" />
+    <NavigationProperty Name="Reservation" Relationship="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID" FromRole="Sauna" ToRole="Reservation" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Reservation" Relationship="Self.FK_dbo_Reservation_dbo_User_UserID" FromRole="User" ToRole="Reservation" />
+    <NavigationProperty Name="NotificationHistory" Relationship="DatabaseModel.UserID_NotificationHistory" FromRole="User" ToRole="NotificationHistory" />
+  </EntityType>
+  <Association Name="FK_dbo_Datapoint_dbo_Sauna_SaunaID">
+    <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Datapoint" Type="Self.Datapoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sauna">
+        <PropertyRef Name="SaunaID" />
+      </Principal>
+      <Dependent Role="Datapoint">
+        <PropertyRef Name="SaunaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Reservation_dbo_Sauna_SaunaID">
+    <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sauna">
+        <PropertyRef Name="SaunaID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="SaunaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Reservation_dbo_User_UserID">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Datapoint" EntityType="Self.Datapoint" />
+    <EntitySet Name="Reservation" EntityType="Self.Reservation" />
+    <EntitySet Name="Sauna" EntityType="Self.Sauna" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_dbo_Datapoint_dbo_Sauna_SaunaID" Association="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID">
+      <End Role="Sauna" EntitySet="Sauna" />
+      <End Role="Datapoint" EntitySet="Datapoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Reservation_dbo_Sauna_SaunaID" Association="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID">
+      <End Role="Sauna" EntitySet="Sauna" />
+      <End Role="Reservation" EntitySet="Reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Reservation_dbo_User_UserID" Association="Self.FK_dbo_Reservation_dbo_User_UserID">
+      <End Role="User" EntitySet="User" />
+      <End Role="Reservation" EntitySet="Reservation" />
+    </AssociationSet>
+    <EntitySet Name="NotificationHistory" EntityType="DatabaseModel.NotificationHistory" />
+    <AssociationSet Name="UserID_NotificationHistory" Association="DatabaseModel.UserID_NotificationHistory">
+      <End Role="User" EntitySet="User" />
+      <End Role="NotificationHistory" EntitySet="NotificationHistory" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="NotificationHistory">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="DatabaseModel.UserID_NotificationHistory" FromRole="NotificationHistory" ToRole="User" />
+  </EntityType>
+  <Association Name="UserID_NotificationHistory">
+    <End Type="DatabaseModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DatabaseModel.NotificationHistory" Role="NotificationHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="NotificationHistory">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<sep4.Datapoint>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Temperature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Co2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServoSettingAtTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sauna.Establishment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temperature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Co2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Humidity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServoSettingAtTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sauna.Establishment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DatapointID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DatapointID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DatapointID })
+        </td>
+    </tr>
+}
+
+</table>
