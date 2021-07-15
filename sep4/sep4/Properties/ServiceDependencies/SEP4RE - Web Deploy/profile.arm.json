@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "SEP4RE",
+      "defaultValue": "sep4RE",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
