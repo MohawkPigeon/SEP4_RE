@@ -225,6 +225,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\APIDatapointsController.cs" />
+    <Compile Include="Controllers\APINotificationHistoriesController.cs" />
+    <Compile Include="Controllers\APIReservationsController.cs" />
+    <Compile Include="Controllers\APISaunasController.cs" />
+    <Compile Include="Controllers\APIUsersController.cs" />
     <Compile Include="Controllers\DatapointsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationHistoriesController.cs" />
