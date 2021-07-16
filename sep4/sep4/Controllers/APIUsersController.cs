@@ -35,6 +35,29 @@ namespace sep4.Controllers
             return Ok(user);
         }
 
+        // GET: api/APIUsers/username/password
+        [Route("api/apiuser/{username}/{password}")]
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUserWithLogin(String username, String password) 
+        {
+            User user = null;
+            foreach (User userItem in db.User.ToList())
+            {
+                String name = userItem.Username.Trim();
+                String pass = userItem.Password.Trim();
+                if (name.Equals(username) && pass.Equals(password))
+                {
+                     user = db.User.Find(userItem.UserID);
+                }
+            }
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
         // PUT: api/APIUsers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, User user)
