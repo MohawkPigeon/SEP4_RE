@@ -9,21 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sep4;
+using sep4.Models;
 
 namespace sep4.Controllers
 {
     public class APIReservationsController : ApiController
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APIReservations
-        public IQueryable<Reservation> GetReservation()
+        [ResponseType(typeof(List<ReservationDTO>))]
+        public IHttpActionResult GetReservations()
         {
-            return db.Reservation;
+            List<ReservationDTO> reservationDTOs = new List<ReservationDTO>();
+            foreach (var reservation in db.Reservation.ToList())
+            {
+                ReservationDTO reservationDTO = new ReservationDTO(reservation.UserID, reservation.SaunaID, reservation.FromDateTime, reservation.ToDateTime);
+                reservationDTOs.Add(reservationDTO);
+            }
+
+            return Ok(reservationDTOs);
         }
 
         // GET: api/APIReservations/5
-        [ResponseType(typeof(Reservation))]
+        [ResponseType(typeof(ReservationDTO))]
         public IHttpActionResult GetReservation(int id)
         {
             Reservation reservation = db.Reservation.Find(id);
@@ -31,8 +40,9 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            ReservationDTO reservationDTO = new ReservationDTO(reservation.UserID, reservation.SaunaID, reservation.FromDateTime, reservation.ToDateTime);
 
-            return Ok(reservation);
+            return Ok(reservationDTO);
         }
 
         // PUT: api/APIReservations/5

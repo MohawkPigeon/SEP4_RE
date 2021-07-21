@@ -19,15 +19,19 @@ namespace sep4
         {
             this.Datapoint = new HashSet<Datapoint>();
             this.Reservation = new HashSet<Reservation>();
+            this.ServoSetting = new HashSet<ServoSetting>();
         }
     
         public int SaunaID { get; set; }
-        public string Establishment { get; set; }
-        public string ServoSetting { get; set; }
+        public int EstablishmentID { get; set; }
+        public string Threshold { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Datapoint> Datapoint { get; set; }
+        public virtual Establishment Establishment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServoSetting> ServoSetting { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+  <EntityContainerMapping StorageEntityContainer="sep4_dbModelStoreContainer" CdmEntityContainer="sep4_dbEntities1">
     <EntitySetMapping Name="Datapoint">
-      <EntityTypeMapping TypeName="DatabaseModel.Datapoint">
+      <EntityTypeMapping TypeName="sep4_dbModel.Datapoint">
         <MappingFragment StoreEntitySet="Datapoint">
           <ScalarProperty Name="DatapointID" ColumnName="DatapointID" />
           <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
@@ -14,40 +14,59 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Reservation">
-      <EntityTypeMapping TypeName="DatabaseModel.Reservation">
-        <MappingFragment StoreEntitySet="Reservation">
-          <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
-          <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Sauna">
-      <EntityTypeMapping TypeName="DatabaseModel.Sauna">
-        <MappingFragment StoreEntitySet="Sauna">
-          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
-          <ScalarProperty Name="Establishment" ColumnName="Establishment" />
-          <ScalarProperty Name="ServoSetting" ColumnName="ServoSetting" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="DatabaseModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
+    <EntitySetMapping Name="Establishment">
+      <EntityTypeMapping TypeName="sep4_dbModel.Establishment">
+        <MappingFragment StoreEntitySet="Establishment">
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NotificationHistory">
-      <EntityTypeMapping TypeName="DatabaseModel.NotificationHistory">
+      <EntityTypeMapping TypeName="sep4_dbModel.NotificationHistory">
         <MappingFragment StoreEntitySet="NotificationHistory">
-          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservation">
+      <EntityTypeMapping TypeName="sep4_dbModel.Reservation">
+        <MappingFragment StoreEntitySet="Reservation">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
+          <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sauna">
+      <EntityTypeMapping TypeName="sep4_dbModel.Sauna">
+        <MappingFragment StoreEntitySet="Sauna">
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServoSetting">
+      <EntityTypeMapping TypeName="sep4_dbModel.ServoSetting">
+        <MappingFragment StoreEntitySet="ServoSetting">
+          <ScalarProperty Name="ServoSettingID" ColumnName="ServoSettingID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+          <ScalarProperty Name="ServoSetting1" ColumnName="ServoSetting" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="sep4_dbModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

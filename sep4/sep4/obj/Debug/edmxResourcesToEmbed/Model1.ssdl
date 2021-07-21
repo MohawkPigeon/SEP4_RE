@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="sep4_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Datapoint">
     <Key>
       <PropertyRef Name="DatapointID" />
@@ -11,6 +11,13 @@
     <Property Name="Co2" Type="nchar" MaxLength="10" />
     <Property Name="Humidity" Type="nchar" MaxLength="10" />
     <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Establishment">
+    <Key>
+      <PropertyRef Name="EstablishmentID" />
+    </Key>
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="NotificationHistory">
     <Key>
@@ -35,7 +42,16 @@
       <PropertyRef Name="SaunaID" />
     </Key>
     <Property Name="SaunaID" Type="int" Nullable="false" />
-    <Property Name="Establishment" Type="nchar" MaxLength="10" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="Threshold" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ServoSetting">
+    <Key>
+      <PropertyRef Name="ServoSettingID" />
+    </Key>
+    <Property Name="ServoSettingID" Type="int" Nullable="false" />
+    <Property Name="SaunaID" Type="int" Nullable="false" />
+    <Property Name="Datetime" Type="datetime" />
     <Property Name="ServoSetting" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="User">
@@ -45,9 +61,22 @@
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" />
     <Property Name="Password" Type="nchar" MaxLength="10" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <Association Name="EstablishmentID_Sauna">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Sauna" Type="Self.Sauna" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="Sauna">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="SaunaID_Datapoint">
     <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -72,6 +101,20 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
         <PropertyRef Name="SaunaID" />
       </Principal>
       <Dependent Role="Reservation">
+        <PropertyRef Name="SaunaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SaunaID_ServoSetting">
+    <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ServoSetting" Type="Self.ServoSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sauna">
+        <PropertyRef Name="SaunaID" />
+      </Principal>
+      <Dependent Role="ServoSetting">
         <PropertyRef Name="SaunaID" />
       </Dependent>
     </ReferentialConstraint>
@@ -104,12 +147,18 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DatabaseModelStoreContainer">
+  <EntityContainer Name="sep4_dbModelStoreContainer">
     <EntitySet Name="Datapoint" EntityType="Self.Datapoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Establishment" EntityType="Self.Establishment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NotificationHistory" EntityType="Self.NotificationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sauna" EntityType="Self.Sauna" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServoSetting" EntityType="Self.ServoSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="EstablishmentID_Sauna" Association="Self.EstablishmentID_Sauna">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="Sauna" EntitySet="Sauna" />
+    </AssociationSet>
     <AssociationSet Name="SaunaID_Datapoint" Association="Self.SaunaID_Datapoint">
       <End Role="Sauna" EntitySet="Sauna" />
       <End Role="Datapoint" EntitySet="Datapoint" />
@@ -117,6 +166,10 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
     <AssociationSet Name="SaunaID_Reservation" Association="Self.SaunaID_Reservation">
       <End Role="Sauna" EntitySet="Sauna" />
       <End Role="Reservation" EntitySet="Reservation" />
+    </AssociationSet>
+    <AssociationSet Name="SaunaID_ServoSetting" Association="Self.SaunaID_ServoSetting">
+      <End Role="Sauna" EntitySet="Sauna" />
+      <End Role="ServoSetting" EntitySet="ServoSetting" />
     </AssociationSet>
     <AssociationSet Name="UserID_NotificationHistory" Association="Self.UserID_NotificationHistory">
       <End Role="User" EntitySet="User" />

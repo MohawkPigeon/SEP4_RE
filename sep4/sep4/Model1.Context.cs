@@ -13,10 +13,10 @@ namespace sep4
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DatabaseEntities : DbContext
+    public partial class sep4_dbEntities1 : DbContext
     {
-        public DatabaseEntities()
-            : base("name=DatabaseEntities")
+        public sep4_dbEntities1()
+            : base("name=sep4_dbEntities1")
         {
         }
     
@@ -26,9 +26,11 @@ namespace sep4
         }
     
         public virtual DbSet<Datapoint> Datapoint { get; set; }
+        public virtual DbSet<Establishment> Establishment { get; set; }
+        public virtual DbSet<NotificationHistory> NotificationHistory { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
         public virtual DbSet<Sauna> Sauna { get; set; }
+        public virtual DbSet<ServoSetting> ServoSetting { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<NotificationHistory> NotificationHistory { get; set; }
     }
 }

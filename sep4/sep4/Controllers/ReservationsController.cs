@@ -12,7 +12,7 @@ namespace sep4.Controllers
 {
     public class ReservationsController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: Reservations
         public ActionResult Index()
@@ -39,7 +39,7 @@ namespace sep4.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment");
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold");
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username");
             return View();
         }
@@ -49,7 +49,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,SaunaID,ToDateTime,FromDateTime")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "UserID,SaunaID,FromDateTime,ToDateTime")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }
@@ -75,7 +75,7 @@ namespace sep4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }
@@ -85,7 +85,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,SaunaID,ToDateTime,FromDateTime")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "UserID,SaunaID,FromDateTime,ToDateTime")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }

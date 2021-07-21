@@ -9,21 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sep4;
+using sep4.Models;
 
 namespace sep4.Controllers
 {
     public class APINotificationHistoriesController : ApiController
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APINotificationHistories
-        public IQueryable<NotificationHistory> GetNotificationHistory()
+        [ResponseType(typeof(List<NotificationHistoryDTO>))]
+        public IHttpActionResult GetNotificationHistorys()
         {
-            return db.NotificationHistory;
+            List<NotificationHistoryDTO> notificationHistoryDTOs = new List<NotificationHistoryDTO>();
+            foreach (var notificationHistory in db.NotificationHistory.ToList())
+            {
+                NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
+                notificationHistoryDTOs.Add(notificationHistoryDTO);
+            }
+
+            return Ok(notificationHistoryDTOs);
         }
 
         // GET: api/APINotificationHistories/5
-        [ResponseType(typeof(NotificationHistory))]
+        [ResponseType(typeof(NotificationHistoryDTO))]
         public IHttpActionResult GetNotificationHistory(int id)
         {
             NotificationHistory notificationHistory = db.NotificationHistory.Find(id);
@@ -31,8 +40,9 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
 
-            return Ok(notificationHistory);
+            return Ok(notificationHistoryDTO);
         }
 
         // PUT: api/APINotificationHistories/5

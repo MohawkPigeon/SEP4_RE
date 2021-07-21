@@ -12,12 +12,13 @@ namespace sep4.Controllers
 {
     public class SaunasController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: Saunas
         public ActionResult Index()
         {
-            return View(db.Sauna.ToList());
+            var sauna = db.Sauna.Include(s => s.Establishment);
+            return View(sauna.ToList());
         }
 
         // GET: Saunas/Details/5
@@ -38,6 +39,7 @@ namespace sep4.Controllers
         // GET: Saunas/Create
         public ActionResult Create()
         {
+            ViewBag.EstablishmentID = new SelectList(db.Establishment, "EstablishmentID", "Name");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SaunaID,Establishment,ServoSetting")] Sauna sauna)
+        public ActionResult Create([Bind(Include = "SaunaID,EstablishmentID,Threshold")] Sauna sauna)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.EstablishmentID = new SelectList(db.Establishment, "EstablishmentID", "Name", sauna.EstablishmentID);
             return View(sauna);
         }
 
@@ -70,6 +73,7 @@ namespace sep4.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.EstablishmentID = new SelectList(db.Establishment, "EstablishmentID", "Name", sauna.EstablishmentID);
             return View(sauna);
         }
 
@@ -78,7 +82,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SaunaID,Establishment,ServoSetting")] Sauna sauna)
+        public ActionResult Edit([Bind(Include = "SaunaID,EstablishmentID,Threshold")] Sauna sauna)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.EstablishmentID = new SelectList(db.Establishment, "EstablishmentID", "Name", sauna.EstablishmentID);
             return View(sauna);
         }
 

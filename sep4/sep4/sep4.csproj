@@ -226,18 +226,25 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\APIDatapointsController.cs" />
+    <Compile Include="Controllers\APIEstablishmentsController.cs" />
     <Compile Include="Controllers\APINotificationHistoriesController.cs" />
     <Compile Include="Controllers\APIReservationsController.cs" />
     <Compile Include="Controllers\APISaunasController.cs" />
+    <Compile Include="Controllers\APIServoSettingsController.cs" />
     <Compile Include="Controllers\APIUsersController.cs" />
     <Compile Include="Controllers\DatapointsController.cs" />
+    <Compile Include="Controllers\EstablishmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationHistoriesController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\SaunasController.cs" />
+    <Compile Include="Controllers\ServoSettingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Datapoint.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Establishment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -258,6 +265,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatapointDTO.cs" />
+    <Compile Include="Models\EstablishmentDTO.cs" />
+    <Compile Include="Models\NotificationHistoryDTO.cs" />
+    <Compile Include="Models\ReservationDTO.cs" />
+    <Compile Include="Models\SaunaDTO.cs" />
+    <Compile Include="Models\ServoSettingDTO.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="NotificationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -266,6 +280,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Sauna.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServoSetting.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
@@ -283,8 +300,8 @@
     <Content Include="Global.asax" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -344,11 +361,21 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Establishments\Create.cshtml" />
+    <Content Include="Views\Establishments\Delete.cshtml" />
+    <Content Include="Views\Establishments\Details.cshtml" />
+    <Content Include="Views\Establishments\Edit.cshtml" />
+    <Content Include="Views\Establishments\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\NotificationHistories\Create.cshtml" />
+    <Content Include="Views\NotificationHistories\Delete.cshtml" />
+    <Content Include="Views\NotificationHistories\Details.cshtml" />
+    <Content Include="Views\NotificationHistories\Edit.cshtml" />
+    <Content Include="Views\NotificationHistories\Index.cshtml" />
     <Content Include="Views\Saunas\Create.cshtml" />
     <Content Include="Views\Saunas\Delete.cshtml" />
     <Content Include="Views\Saunas\Details.cshtml" />
@@ -359,20 +386,19 @@
     <Content Include="Views\Datapoints\Details.cshtml" />
     <Content Include="Views\Datapoints\Edit.cshtml" />
     <Content Include="Views\Datapoints\Index.cshtml" />
-    <Content Include="Views\NotificationHistories\Create.cshtml" />
-    <Content Include="Views\NotificationHistories\Delete.cshtml" />
-    <Content Include="Views\NotificationHistories\Details.cshtml" />
-    <Content Include="Views\NotificationHistories\Edit.cshtml" />
-    <Content Include="Views\NotificationHistories\Index.cshtml" />
     <Content Include="Views\Reservations\Create.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
     <Content Include="Views\Reservations\Details.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\ServoSettings\Create.cshtml" />
+    <Content Include="Views\ServoSettings\Delete.cshtml" />
+    <Content Include="Views\ServoSettings\Details.cshtml" />
+    <Content Include="Views\ServoSettings\Edit.cshtml" />
+    <Content Include="Views\ServoSettings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

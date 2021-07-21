@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="sep4_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Datapoint">
           <Key>
             <PropertyRef Name="DatapointID" />
@@ -16,6 +16,13 @@
           <Property Name="Co2" Type="nchar" MaxLength="10" />
           <Property Name="Humidity" Type="nchar" MaxLength="10" />
           <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Establishment">
+          <Key>
+            <PropertyRef Name="EstablishmentID" />
+          </Key>
+          <Property Name="EstablishmentID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="NotificationHistory">
           <Key>
@@ -40,7 +47,16 @@
             <PropertyRef Name="SaunaID" />
           </Key>
           <Property Name="SaunaID" Type="int" Nullable="false" />
-          <Property Name="Establishment" Type="nchar" MaxLength="10" />
+          <Property Name="EstablishmentID" Type="int" Nullable="false" />
+          <Property Name="Threshold" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ServoSetting">
+          <Key>
+            <PropertyRef Name="ServoSettingID" />
+          </Key>
+          <Property Name="ServoSettingID" Type="int" Nullable="false" />
+          <Property Name="SaunaID" Type="int" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" />
           <Property Name="ServoSetting" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="User">
@@ -50,9 +66,22 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Username" Type="nchar" MaxLength="10" />
           <Property Name="Password" Type="nchar" MaxLength="10" />
+          <Property Name="Rights" Type="nchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <Association Name="EstablishmentID_Sauna">
+          <End Role="Establishment" Type="Self.Establishment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sauna" Type="Self.Sauna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Establishment">
+              <PropertyRef Name="EstablishmentID" />
+            </Principal>
+            <Dependent Role="Sauna">
+              <PropertyRef Name="EstablishmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="SaunaID_Datapoint">
           <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -77,6 +106,20 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
               <PropertyRef Name="SaunaID" />
             </Principal>
             <Dependent Role="Reservation">
+              <PropertyRef Name="SaunaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SaunaID_ServoSetting">
+          <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ServoSetting" Type="Self.ServoSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sauna">
+              <PropertyRef Name="SaunaID" />
+            </Principal>
+            <Dependent Role="ServoSetting">
               <PropertyRef Name="SaunaID" />
             </Dependent>
           </ReferentialConstraint>
@@ -109,12 +152,18 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DatabaseModelStoreContainer">
+        <EntityContainer Name="sep4_dbModelStoreContainer">
           <EntitySet Name="Datapoint" EntityType="Self.Datapoint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Establishment" EntityType="Self.Establishment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationHistory" EntityType="Self.NotificationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sauna" EntityType="Self.Sauna" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServoSetting" EntityType="Self.ServoSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="EstablishmentID_Sauna" Association="Self.EstablishmentID_Sauna">
+            <End Role="Establishment" EntitySet="Establishment" />
+            <End Role="Sauna" EntitySet="Sauna" />
+          </AssociationSet>
           <AssociationSet Name="SaunaID_Datapoint" Association="Self.SaunaID_Datapoint">
             <End Role="Sauna" EntitySet="Sauna" />
             <End Role="Datapoint" EntitySet="Datapoint" />
@@ -122,6 +171,10 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <AssociationSet Name="SaunaID_Reservation" Association="Self.SaunaID_Reservation">
             <End Role="Sauna" EntitySet="Sauna" />
             <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="SaunaID_ServoSetting" Association="Self.SaunaID_ServoSetting">
+            <End Role="Sauna" EntitySet="Sauna" />
+            <End Role="ServoSetting" EntitySet="ServoSetting" />
           </AssociationSet>
           <AssociationSet Name="UserID_NotificationHistory" Association="Self.UserID_NotificationHistory">
             <End Role="User" EntitySet="User" />
@@ -132,10 +185,11 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="sep4_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Datapoint">
           <Key>
             <PropertyRef Name="DatapointID" />
@@ -147,7 +201,24 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Co2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Humidity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Sauna" Relationship="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID" FromRole="Datapoint" ToRole="Sauna" />
+          <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Datapoint" FromRole="Datapoint" ToRole="Sauna" />
+        </EntityType>
+        <EntityType Name="Establishment">
+          <Key>
+            <PropertyRef Name="EstablishmentID" />
+          </Key>
+          <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Sauna" Relationship="Self.EstablishmentID_Sauna" FromRole="Establishment" ToRole="Sauna" />
+        </EntityType>
+        <EntityType Name="NotificationHistory">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.UserID_NotificationHistory" FromRole="NotificationHistory" ToRole="User" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -156,20 +227,32 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Sauna" Relationship="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID" FromRole="Reservation" ToRole="Sauna" />
-          <NavigationProperty Name="User" Relationship="Self.FK_dbo_Reservation_dbo_User_UserID" FromRole="Reservation" ToRole="User" />
-          <Property Name="ToDateTime" Type="DateTime" Precision="3" />
           <Property Name="FromDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ToDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Reservation" FromRole="Reservation" ToRole="Sauna" />
+          <NavigationProperty Name="User" Relationship="Self.UserID_Reservation" FromRole="Reservation" ToRole="User" />
         </EntityType>
         <EntityType Name="Sauna">
           <Key>
             <PropertyRef Name="SaunaID" />
           </Key>
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
-          <Property Name="Establishment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ServoSetting" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Datapoint" Relationship="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID" FromRole="Sauna" ToRole="Datapoint" />
-          <NavigationProperty Name="Reservation" Relationship="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID" FromRole="Sauna" ToRole="Reservation" />
+          <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
+          <Property Name="Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Datapoint" Relationship="Self.SaunaID_Datapoint" FromRole="Sauna" ToRole="Datapoint" />
+          <NavigationProperty Name="Establishment" Relationship="Self.EstablishmentID_Sauna" FromRole="Sauna" ToRole="Establishment" />
+          <NavigationProperty Name="Reservation" Relationship="Self.SaunaID_Reservation" FromRole="Sauna" ToRole="Reservation" />
+          <NavigationProperty Name="ServoSetting" Relationship="Self.SaunaID_ServoSetting" FromRole="Sauna" ToRole="ServoSetting" />
+        </EntityType>
+        <EntityType Name="ServoSetting">
+          <Key>
+            <PropertyRef Name="ServoSettingID" />
+          </Key>
+          <Property Name="ServoSettingID" Type="Int32" Nullable="false" />
+          <Property Name="SaunaID" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
+          <Property Name="ServoSetting1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_ServoSetting" FromRole="ServoSetting" ToRole="Sauna" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -178,10 +261,11 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Reservation" Relationship="Self.FK_dbo_Reservation_dbo_User_UserID" FromRole="User" ToRole="Reservation" />
-          <NavigationProperty Name="NotificationHistory" Relationship="DatabaseModel.UserID_NotificationHistory" FromRole="User" ToRole="NotificationHistory" />
+          <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="NotificationHistory" Relationship="Self.UserID_NotificationHistory" FromRole="User" ToRole="NotificationHistory" />
+          <NavigationProperty Name="Reservation" Relationship="Self.UserID_Reservation" FromRole="User" ToRole="Reservation" />
         </EntityType>
-        <Association Name="FK_dbo_Datapoint_dbo_Sauna_SaunaID">
+        <Association Name="SaunaID_Datapoint">
           <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -195,7 +279,35 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Reservation_dbo_Sauna_SaunaID">
+        <Association Name="EstablishmentID_Sauna">
+          <End Role="Establishment" Type="Self.Establishment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sauna" Type="Self.Sauna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Establishment">
+              <PropertyRef Name="EstablishmentID" />
+            </Principal>
+            <Dependent Role="Sauna">
+              <PropertyRef Name="EstablishmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserID_NotificationHistory">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NotificationHistory" Type="Self.NotificationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="NotificationHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SaunaID_Reservation">
           <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -209,7 +321,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Reservation_dbo_User_UserID">
+        <Association Name="UserID_Reservation">
           <End Role="User" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -223,60 +335,61 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Datapoint" EntityType="Self.Datapoint" />
-          <EntitySet Name="Reservation" EntityType="Self.Reservation" />
-          <EntitySet Name="Sauna" EntityType="Self.Sauna" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK_dbo_Datapoint_dbo_Sauna_SaunaID" Association="Self.FK_dbo_Datapoint_dbo_Sauna_SaunaID">
-            <End Role="Sauna" EntitySet="Sauna" />
-            <End Role="Datapoint" EntitySet="Datapoint" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Reservation_dbo_Sauna_SaunaID" Association="Self.FK_dbo_Reservation_dbo_Sauna_SaunaID">
-            <End Role="Sauna" EntitySet="Sauna" />
-            <End Role="Reservation" EntitySet="Reservation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Reservation_dbo_User_UserID" Association="Self.FK_dbo_Reservation_dbo_User_UserID">
-            <End Role="User" EntitySet="User" />
-            <End Role="Reservation" EntitySet="Reservation" />
-          </AssociationSet>
-          <EntitySet Name="NotificationHistory" EntityType="DatabaseModel.NotificationHistory" />
-          <AssociationSet Name="UserID_NotificationHistory" Association="DatabaseModel.UserID_NotificationHistory">
-            <End Role="User" EntitySet="User" />
-            <End Role="NotificationHistory" EntitySet="NotificationHistory" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="NotificationHistory">
-          <Key>
-            <PropertyRef Name="NotificationID" />
-          </Key>
-          <Property Name="NotificationID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="DateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="User" Relationship="DatabaseModel.UserID_NotificationHistory" FromRole="NotificationHistory" ToRole="User" />
-        </EntityType>
-        <Association Name="UserID_NotificationHistory">
-          <End Type="DatabaseModel.User" Role="User" Multiplicity="1">
+        <Association Name="SaunaID_ServoSetting">
+          <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="DatabaseModel.NotificationHistory" Role="NotificationHistory" Multiplicity="*" />
+          <End Role="ServoSetting" Type="Self.ServoSetting" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
+            <Principal Role="Sauna">
+              <PropertyRef Name="SaunaID" />
             </Principal>
-            <Dependent Role="NotificationHistory">
-              <PropertyRef Name="UserID" />
+            <Dependent Role="ServoSetting">
+              <PropertyRef Name="SaunaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="sep4_dbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Datapoint" EntityType="Self.Datapoint" />
+          <EntitySet Name="Establishment" EntityType="Self.Establishment" />
+          <EntitySet Name="NotificationHistory" EntityType="Self.NotificationHistory" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" />
+          <EntitySet Name="Sauna" EntityType="Self.Sauna" />
+          <EntitySet Name="ServoSetting" EntityType="Self.ServoSetting" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="SaunaID_Datapoint" Association="Self.SaunaID_Datapoint">
+            <End Role="Sauna" EntitySet="Sauna" />
+            <End Role="Datapoint" EntitySet="Datapoint" />
+          </AssociationSet>
+          <AssociationSet Name="EstablishmentID_Sauna" Association="Self.EstablishmentID_Sauna">
+            <End Role="Establishment" EntitySet="Establishment" />
+            <End Role="Sauna" EntitySet="Sauna" />
+          </AssociationSet>
+          <AssociationSet Name="UserID_NotificationHistory" Association="Self.UserID_NotificationHistory">
+            <End Role="User" EntitySet="User" />
+            <End Role="NotificationHistory" EntitySet="NotificationHistory" />
+          </AssociationSet>
+          <AssociationSet Name="SaunaID_Reservation" Association="Self.SaunaID_Reservation">
+            <End Role="Sauna" EntitySet="Sauna" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="UserID_Reservation" Association="Self.UserID_Reservation">
+            <End Role="User" EntitySet="User" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="SaunaID_ServoSetting" Association="Self.SaunaID_ServoSetting">
+            <End Role="Sauna" EntitySet="Sauna" />
+            <End Role="ServoSetting" EntitySet="ServoSetting" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="sep4_dbModelStoreContainer" CdmEntityContainer="sep4_dbEntities1">
           <EntitySetMapping Name="Datapoint">
-            <EntityTypeMapping TypeName="DatabaseModel.Datapoint">
+            <EntityTypeMapping TypeName="sep4_dbModel.Datapoint">
               <MappingFragment StoreEntitySet="Datapoint">
                 <ScalarProperty Name="DatapointID" ColumnName="DatapointID" />
                 <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
@@ -288,40 +401,59 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reservation">
-            <EntityTypeMapping TypeName="DatabaseModel.Reservation">
-              <MappingFragment StoreEntitySet="Reservation">
-                <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
-                <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sauna">
-            <EntityTypeMapping TypeName="DatabaseModel.Sauna">
-              <MappingFragment StoreEntitySet="Sauna">
-                <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
-                <ScalarProperty Name="Establishment" ColumnName="Establishment" />
-                <ScalarProperty Name="ServoSetting" ColumnName="ServoSetting" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="DatabaseModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+          <EntitySetMapping Name="Establishment">
+            <EntityTypeMapping TypeName="sep4_dbModel.Establishment">
+              <MappingFragment StoreEntitySet="Establishment">
+                <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NotificationHistory">
-            <EntityTypeMapping TypeName="DatabaseModel.NotificationHistory">
+            <EntityTypeMapping TypeName="sep4_dbModel.NotificationHistory">
               <MappingFragment StoreEntitySet="NotificationHistory">
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservation">
+            <EntityTypeMapping TypeName="sep4_dbModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+                <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
+                <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sauna">
+            <EntityTypeMapping TypeName="sep4_dbModel.Sauna">
+              <MappingFragment StoreEntitySet="Sauna">
+                <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+                <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServoSetting">
+            <EntityTypeMapping TypeName="sep4_dbModel.ServoSetting">
+              <MappingFragment StoreEntitySet="ServoSetting">
+                <ScalarProperty Name="ServoSettingID" ColumnName="ServoSettingID" />
+                <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="ServoSetting1" ColumnName="ServoSetting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="sep4_dbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Rights" ColumnName="Rights" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

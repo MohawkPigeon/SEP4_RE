@@ -9,21 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sep4;
+using sep4.Models;
 
 namespace sep4.Controllers
 {
     public class APIUsersController : ApiController
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APIUsers
-        public IQueryable<User> GetUser()
+        [ResponseType(typeof(List<UserDTO>))]
+        public IHttpActionResult GetUsers()
         {
-            return db.User;
+            List<UserDTO> userDTOs = new List<UserDTO>();
+            foreach (var user in db.User.ToList())
+            {
+                UserDTO userDTO = new UserDTO(user.UserID, user.Username, user.Password, user.Rights);
+                userDTOs.Add(userDTO);
+            }
+
+            return Ok(userDTOs);
         }
 
         // GET: api/APIUsers/5
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(UserDTO))]
         public IHttpActionResult GetUser(int id)
         {
             User user = db.User.Find(id);
@@ -31,13 +40,14 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            UserDTO userDTO = new UserDTO(user.UserID, user.Username, user.Password, user.Rights);
 
-            return Ok(user);
+            return Ok(userDTO);
         }
 
         // GET: api/APIUsers/username/password
         [Route("api/apiuser/{username}/{password}")]
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(UserDTO))]
         public IHttpActionResult GetUserWithLogin(String username, String password) 
         {
             User user = null;
@@ -55,7 +65,9 @@ namespace sep4.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            UserDTO userDTO = new UserDTO(user.UserID, user.Username, user.Password, user.Rights);
+
+            return Ok(userDTO);
         }
 
         // PUT: api/APIUsers/5

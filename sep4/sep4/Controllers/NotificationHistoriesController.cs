@@ -12,7 +12,7 @@ namespace sep4.Controllers
 {
     public class NotificationHistoriesController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: NotificationHistories
         public ActionResult Index()

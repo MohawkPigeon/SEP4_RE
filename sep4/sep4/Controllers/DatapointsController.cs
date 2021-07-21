@@ -12,7 +12,7 @@ namespace sep4.Controllers
 {
     public class DatapointsController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: Datapoints
         public ActionResult Index()
@@ -39,7 +39,7 @@ namespace sep4.Controllers
         // GET: Datapoints/Create
         public ActionResult Create()
         {
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment");
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
             return View(datapoint);
         }
 
@@ -73,7 +73,7 @@ namespace sep4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
             return View(datapoint);
         }
 
@@ -90,7 +90,7 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Establishment", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
             return View(datapoint);
         }
 

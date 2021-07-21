@@ -12,7 +12,7 @@ namespace sep4.Controllers
 {
     public class UsersController : Controller
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: Users
         public ActionResult Index()
@@ -46,7 +46,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,Username,Password")] User user)
+        public ActionResult Create([Bind(Include = "UserID,Username,Password,Rights")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,Username,Password")] User user)
+        public ActionResult Edit([Bind(Include = "UserID,Username,Password,Rights")] User user)
         {
             if (ModelState.IsValid)
             {

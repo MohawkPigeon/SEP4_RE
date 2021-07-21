@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ToDateTime)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FromDateTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sauna.Establishment)
+            @Html.DisplayNameFor(model => model.ToDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sauna.Threshold)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Username)
@@ -29,13 +29,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ToDateTime)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.FromDateTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sauna.Establishment)
+            @Html.DisplayFor(modelItem => item.ToDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sauna.Threshold)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.Username)

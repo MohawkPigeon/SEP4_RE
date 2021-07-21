@@ -9,21 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sep4;
+using sep4.Models;
 
 namespace sep4.Controllers
 {
     public class APIDatapointsController : ApiController
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APIDatapoints
-        public IQueryable<Datapoint> GetDatapoint()
+        [ResponseType(typeof(List<DatapointDTO>))]
+        public IHttpActionResult GetDatapoints()
         {
-            return db.Datapoint;
+            List<DatapointDTO> datapointDTOs = new List<DatapointDTO>();
+            foreach (var datapoint in db.Datapoint.ToList())
+            {
+                DatapointDTO datapointDTO = new DatapointDTO(datapoint.DatapointID, datapoint.SaunaID, datapoint.DateTime, datapoint.Temperature, datapoint.Co2, datapoint.Humidity, datapoint.ServoSettingAtTime);
+                datapointDTOs.Add(datapointDTO);
+            }
+
+            return Ok(datapointDTOs);
         }
 
         // GET: api/APIDatapoints/5
-        [ResponseType(typeof(Datapoint))]
+        [ResponseType(typeof(DatapointDTO))]
         public IHttpActionResult GetDatapoint(int id)
         {
             Datapoint datapoint = db.Datapoint.Find(id);
@@ -31,8 +40,10 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            DatapointDTO datapointDTO = new DatapointDTO(datapoint.DatapointID, datapoint.SaunaID, datapoint.DateTime, datapoint.Temperature, datapoint.Co2, datapoint.Humidity, datapoint.ServoSettingAtTime);
 
-            return Ok(datapoint);
+
+            return Ok(datapointDTO);
         }
 
         // PUT: api/APIDatapoints/5

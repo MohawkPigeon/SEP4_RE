@@ -1,0 +1,42 @@
+﻿@model sep4.ServoSetting
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServoSetting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServoSetting1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServoSetting1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sauna.Threshold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sauna.Threshold)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ServoSettingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

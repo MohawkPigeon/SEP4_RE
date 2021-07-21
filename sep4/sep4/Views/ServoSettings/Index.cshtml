@@ -1,0 +1,45 @@
+﻿@model IEnumerable<sep4.ServoSetting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServoSetting1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sauna.Threshold)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServoSetting1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sauna.Threshold)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ServoSettingID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ServoSettingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ServoSettingID })
+        </td>
+    </tr>
+}
+
+</table>

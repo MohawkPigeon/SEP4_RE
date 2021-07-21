@@ -9,21 +9,30 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using sep4;
+using sep4.Models;
 
 namespace sep4.Controllers
 {
     public class APISaunasController : ApiController
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APISaunas
-        public IQueryable<Sauna> GetSauna()
+        [ResponseType(typeof(List<SaunaDTO>))]
+        public IHttpActionResult GetSaunas()
         {
-            return db.Sauna;
+            List<SaunaDTO> saunaDTOs = new List<SaunaDTO>();
+            foreach (var sauna in db.Sauna.ToList())
+            {
+                SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID,sauna.EstablishmentID,sauna.Threshold);
+                saunaDTOs.Add(saunaDTO);
+            }
+
+            return Ok(saunaDTOs);
         }
 
         // GET: api/APISaunas/5
-        [ResponseType(typeof(Sauna))]
+        [ResponseType(typeof(SaunaDTO))]
         public IHttpActionResult GetSauna(int id)
         {
             Sauna sauna = db.Sauna.Find(id);
@@ -31,8 +40,15 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            List<DatapointDTO> datapoints = new List<DatapointDTO>();
+            foreach (var datapoint in sauna.Datapoint.ToList())
+            {
+                DatapointDTO datapointDTO = new DatapointDTO(datapoint.DatapointID, datapoint.SaunaID, datapoint.DateTime, datapoint.Temperature, datapoint.Co2, datapoint.Humidity, datapoint.ServoSettingAtTime);
+                datapoints.Add(datapointDTO);
+            }
 
-            return Ok(sauna);
+            SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID, sauna.EstablishmentID, sauna.Threshold, datapoints);
+            return Ok(saunaDTO);
         }
 
         // PUT: api/APISaunas/5

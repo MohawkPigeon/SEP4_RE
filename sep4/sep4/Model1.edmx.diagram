@@ -4,16 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="20b273848bfb41e2b8fa0cf0695d45d9" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="DatabaseModel.Datapoint" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Reservation" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Sauna" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.User" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="DatabaseModel.FK_dbo_Datapoint_dbo_Sauna_SaunaID" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK_dbo_Reservation_dbo_Sauna_SaunaID" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK_dbo_Reservation_dbo_User_UserID" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DatabaseModel.NotificationHistory" Width="1.5" PointX="6" PointY="0.875" />
-        <AssociationConnector Association="DatabaseModel.UserID_NotificationHistory" />
+      <Diagram DiagramId="47173bb926e34855b4a8edd75654090d" Name="Diagram1">
+        <EntityTypeShape EntityType="sep4_dbModel.Datapoint" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.Establishment" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.NotificationHistory" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.Reservation" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.Sauna" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.ServoSetting" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sep4_dbModel.User" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="sep4_dbModel.SaunaID_Datapoint" ManuallyRouted="false" />
+        <AssociationConnector Association="sep4_dbModel.EstablishmentID_Sauna" ManuallyRouted="false" />
+        <AssociationConnector Association="sep4_dbModel.UserID_NotificationHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="sep4_dbModel.SaunaID_Reservation" ManuallyRouted="false" />
+        <AssociationConnector Association="sep4_dbModel.UserID_Reservation" ManuallyRouted="false" />
+        <AssociationConnector Association="sep4_dbModel.SaunaID_ServoSetting" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
