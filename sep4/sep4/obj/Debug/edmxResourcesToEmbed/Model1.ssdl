@@ -43,7 +43,9 @@
     </Key>
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
-    <Property Name="Threshold" Type="nchar" MaxLength="10" />
+    <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" />
+    <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
+    <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="ServoSetting">
     <Key>
@@ -52,7 +54,7 @@
     <Property Name="ServoSettingID" Type="int" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="Datetime" Type="datetime" />
-    <Property Name="ServoSetting" Type="nchar" MaxLength="10" />
+    <Property Name="Setting" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="User">
     <Key>

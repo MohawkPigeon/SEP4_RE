@@ -39,7 +39,7 @@ namespace sep4.Controllers
         // GET: ServoSettings/Create
         public ActionResult Create()
         {
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold");
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ServoSettingID,SaunaID,Datetime,ServoSetting1")] ServoSetting servoSetting)
+        public ActionResult Create([Bind(Include = "ServoSettingID,SaunaID,Datetime,Setting")] ServoSetting servoSetting)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", servoSetting.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", servoSetting.SaunaID);
             return View(servoSetting);
         }
 
@@ -73,7 +73,7 @@ namespace sep4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", servoSetting.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", servoSetting.SaunaID);
             return View(servoSetting);
         }
 
@@ -82,7 +82,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ServoSettingID,SaunaID,Datetime,ServoSetting1")] ServoSetting servoSetting)
+        public ActionResult Edit([Bind(Include = "ServoSettingID,SaunaID,Datetime,Setting")] ServoSetting servoSetting)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", servoSetting.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", servoSetting.SaunaID);
             return View(servoSetting);
         }
 

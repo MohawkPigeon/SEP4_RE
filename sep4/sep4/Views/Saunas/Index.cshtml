@@ -12,7 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Threshold)
+            @Html.DisplayNameFor(model => model.TemperatureThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CO2Threshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HumidityThreshold)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Establishment.Name)
@@ -23,7 +29,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Threshold)
+            @Html.DisplayFor(modelItem => item.TemperatureThreshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CO2Threshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HumidityThreshold)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Establishment.Name)

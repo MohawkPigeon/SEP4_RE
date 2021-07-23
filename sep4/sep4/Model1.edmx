@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="sep4_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="sep4_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Datapoint">
           <Key>
             <PropertyRef Name="DatapointID" />
@@ -48,7 +48,9 @@
           </Key>
           <Property Name="SaunaID" Type="int" Nullable="false" />
           <Property Name="EstablishmentID" Type="int" Nullable="false" />
-          <Property Name="Threshold" Type="nchar" MaxLength="10" />
+          <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" />
+          <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
+          <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ServoSetting">
           <Key>
@@ -57,7 +59,7 @@
           <Property Name="ServoSettingID" Type="int" Nullable="false" />
           <Property Name="SaunaID" Type="int" Nullable="false" />
           <Property Name="Datetime" Type="datetime" />
-          <Property Name="ServoSetting" Type="nchar" MaxLength="10" />
+          <Property Name="Setting" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -185,8 +187,7 @@
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="sep4_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -238,11 +239,13 @@
           </Key>
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
           <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
-          <Property Name="Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Datapoint" Relationship="Self.SaunaID_Datapoint" FromRole="Sauna" ToRole="Datapoint" />
           <NavigationProperty Name="Establishment" Relationship="Self.EstablishmentID_Sauna" FromRole="Sauna" ToRole="Establishment" />
           <NavigationProperty Name="Reservation" Relationship="Self.SaunaID_Reservation" FromRole="Sauna" ToRole="Reservation" />
           <NavigationProperty Name="ServoSetting" Relationship="Self.SaunaID_ServoSetting" FromRole="Sauna" ToRole="ServoSetting" />
+          <Property Name="TemperatureThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="ServoSetting">
           <Key>
@@ -251,8 +254,8 @@
           <Property Name="ServoSettingID" Type="Int32" Nullable="false" />
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
           <Property Name="Datetime" Type="DateTime" Precision="3" />
-          <Property Name="ServoSetting1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_ServoSetting" FromRole="ServoSetting" ToRole="Sauna" />
+          <Property Name="Setting" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -431,19 +434,21 @@
           <EntitySetMapping Name="Sauna">
             <EntityTypeMapping TypeName="sep4_dbModel.Sauna">
               <MappingFragment StoreEntitySet="Sauna">
+                <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
+                <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
+                <ScalarProperty Name="TemperatureThreshold" ColumnName="TemperatureThreshold" />
                 <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
                 <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
-                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ServoSetting">
             <EntityTypeMapping TypeName="sep4_dbModel.ServoSetting">
               <MappingFragment StoreEntitySet="ServoSetting">
+                <ScalarProperty Name="Setting" ColumnName="Setting" />
                 <ScalarProperty Name="ServoSettingID" ColumnName="ServoSettingID" />
                 <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
                 <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-                <ScalarProperty Name="ServoSetting1" ColumnName="ServoSetting" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

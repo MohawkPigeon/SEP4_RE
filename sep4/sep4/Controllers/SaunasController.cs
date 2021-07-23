@@ -48,7 +48,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SaunaID,EstablishmentID,Threshold")] Sauna sauna)
+        public ActionResult Create([Bind(Include = "SaunaID,EstablishmentID,TemperatureThreshold,CO2Threshold,HumidityThreshold")] Sauna sauna)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace sep4.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SaunaID,EstablishmentID,Threshold")] Sauna sauna)
+        public ActionResult Edit([Bind(Include = "SaunaID,EstablishmentID,TemperatureThreshold,CO2Threshold,HumidityThreshold")] Sauna sauna)
         {
             if (ModelState.IsValid)
             {

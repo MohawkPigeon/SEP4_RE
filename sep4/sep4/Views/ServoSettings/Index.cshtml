@@ -15,10 +15,10 @@
             @Html.DisplayNameFor(model => model.Datetime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ServoSetting1)
+            @Html.DisplayNameFor(model => model.Setting)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sauna.Threshold)
+            @Html.DisplayNameFor(model => model.Sauna.TemperatureThreshold)
         </th>
         <th></th>
     </tr>
@@ -29,10 +29,10 @@
             @Html.DisplayFor(modelItem => item.Datetime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ServoSetting1)
+            @Html.DisplayFor(modelItem => item.Setting)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sauna.Threshold)
+            @Html.DisplayFor(modelItem => item.Sauna.TemperatureThreshold)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ServoSettingID }) |

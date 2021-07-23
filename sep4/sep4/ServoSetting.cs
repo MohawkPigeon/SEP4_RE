@@ -17,7 +17,7 @@ namespace sep4
         public int ServoSettingID { get; set; }
         public int SaunaID { get; set; }
         public Nullable<System.DateTime> Datetime { get; set; }
-        public string ServoSetting1 { get; set; }
+        public string Setting { get; set; }
     
         public virtual Sauna Sauna { get; set; }
     }

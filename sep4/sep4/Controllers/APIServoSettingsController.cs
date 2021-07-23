@@ -24,7 +24,7 @@ namespace sep4.Controllers
             List<ServoSettingDTO> servoSettingDTOs = new List<ServoSettingDTO>();
             foreach (var servoSetting in db.ServoSetting.ToList())
             {
-                ServoSettingDTO servoSettingDTO = new ServoSettingDTO(servoSetting.ServoSettingID, servoSetting.SaunaID, servoSetting.Datetime, servoSetting.ServoSetting1);
+                ServoSettingDTO servoSettingDTO = new ServoSettingDTO(servoSetting.ServoSettingID, servoSetting.SaunaID, servoSetting.Datetime, servoSetting.Setting);
                 servoSettingDTOs.Add(servoSettingDTO);
             }
 
@@ -40,7 +40,7 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
-            ServoSettingDTO servoSettingDTO = new ServoSettingDTO(servoSetting.ServoSettingID, servoSetting.SaunaID, servoSetting.Datetime, servoSetting.ServoSetting1);
+            ServoSettingDTO servoSettingDTO = new ServoSettingDTO(servoSetting.ServoSettingID, servoSetting.SaunaID, servoSetting.Datetime, servoSetting.Setting);
 
             return Ok(servoSettingDTO);
         }

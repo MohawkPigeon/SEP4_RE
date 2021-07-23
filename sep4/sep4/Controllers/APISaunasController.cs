@@ -24,7 +24,7 @@ namespace sep4.Controllers
             List<SaunaDTO> saunaDTOs = new List<SaunaDTO>();
             foreach (var sauna in db.Sauna.ToList())
             {
-                SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID,sauna.EstablishmentID,sauna.Threshold);
+                SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID,sauna.EstablishmentID, sauna.TemperatureThreshold, sauna.CO2Threshold, sauna.HumidityThreshold);
                 saunaDTOs.Add(saunaDTO);
             }
 
@@ -47,7 +47,7 @@ namespace sep4.Controllers
                 datapoints.Add(datapointDTO);
             }
 
-            SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID, sauna.EstablishmentID, sauna.Threshold, datapoints);
+            SaunaDTO saunaDTO = new SaunaDTO(sauna.SaunaID, sauna.EstablishmentID, sauna.TemperatureThreshold, sauna.CO2Threshold, sauna.HumidityThreshold, datapoints);
             return Ok(saunaDTO);
         }
 
@@ -86,6 +86,39 @@ namespace sep4.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // PUT: api/APISaunas/{servoSetting}
+        [Route("api/APISaunas/{servoSetting}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutSaunaSetting(ServoSetting servoSetting)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Sauna sauna = db.Sauna.Find(servoSetting.SaunaID);
+            sauna.ServoSetting.Add(servoSetting);
+
+            db.Entry(sauna).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SaunaExists(servoSetting.SaunaID))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
         // POST: api/APISaunas
         [ResponseType(typeof(Sauna))]
         public IHttpActionResult PostSauna(Sauna sauna)

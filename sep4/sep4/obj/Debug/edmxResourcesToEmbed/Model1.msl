@@ -44,19 +44,21 @@
     <EntitySetMapping Name="Sauna">
       <EntityTypeMapping TypeName="sep4_dbModel.Sauna">
         <MappingFragment StoreEntitySet="Sauna">
+          <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
+          <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
+          <ScalarProperty Name="TemperatureThreshold" ColumnName="TemperatureThreshold" />
           <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
-          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ServoSetting">
       <EntityTypeMapping TypeName="sep4_dbModel.ServoSetting">
         <MappingFragment StoreEntitySet="ServoSetting">
+          <ScalarProperty Name="Setting" ColumnName="Setting" />
           <ScalarProperty Name="ServoSettingID" ColumnName="ServoSettingID" />
           <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="Datetime" ColumnName="Datetime" />
-          <ScalarProperty Name="ServoSetting1" ColumnName="ServoSetting" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

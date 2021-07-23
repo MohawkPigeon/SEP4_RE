@@ -48,11 +48,13 @@
     </Key>
     <Property Name="SaunaID" Type="Int32" Nullable="false" />
     <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
-    <Property Name="Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="Datapoint" Relationship="Self.SaunaID_Datapoint" FromRole="Sauna" ToRole="Datapoint" />
     <NavigationProperty Name="Establishment" Relationship="Self.EstablishmentID_Sauna" FromRole="Sauna" ToRole="Establishment" />
     <NavigationProperty Name="Reservation" Relationship="Self.SaunaID_Reservation" FromRole="Sauna" ToRole="Reservation" />
     <NavigationProperty Name="ServoSetting" Relationship="Self.SaunaID_ServoSetting" FromRole="Sauna" ToRole="ServoSetting" />
+    <Property Name="TemperatureThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="ServoSetting">
     <Key>
@@ -61,8 +63,8 @@
     <Property Name="ServoSettingID" Type="Int32" Nullable="false" />
     <Property Name="SaunaID" Type="Int32" Nullable="false" />
     <Property Name="Datetime" Type="DateTime" Precision="3" />
-    <Property Name="ServoSetting1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_ServoSetting" FromRole="ServoSetting" ToRole="Sauna" />
+    <Property Name="Setting" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="User">
     <Key>
