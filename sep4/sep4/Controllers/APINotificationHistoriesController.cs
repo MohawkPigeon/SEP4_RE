@@ -18,21 +18,36 @@ namespace sep4.Controllers
         private sep4_dbEntities1 db = new sep4_dbEntities1();
 
         // GET: api/APINotificationHistories
-        [ResponseType(typeof(List<NotificationHistoryDTO>))]
-        public IHttpActionResult GetNotificationHistorys()
-        {
-            List<NotificationHistoryDTO> notificationHistoryDTOs = new List<NotificationHistoryDTO>();
-            foreach (var notificationHistory in db.NotificationHistory.ToList())
+        [ResponseType(typeof(List<int>))]
+    public IHttpActionResult GetNotificationHistorys()
+    {
+            var notificationHistory = db.NotificationHistory.Include(n => n.User);
+            List<int> userIDList = new List<int>();
+
+            foreach (var user in notificationHistory.ToList())
             {
-                NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
-                notificationHistoryDTOs.Add(notificationHistoryDTO);
+                userIDList.Add(user.UserID);
             }
 
-            return Ok(notificationHistoryDTOs);
-        }
+            return Ok(userIDList);
+    }
 
-        // GET: api/APINotificationHistories/5
-        [ResponseType(typeof(NotificationHistoryDTO))]
+    // GET: api/APINotificationHistories
+    //[ResponseType(typeof(List<NotificationHistoryDTO>))]
+    //    public IHttpActionResult GetNotificationHistorys()
+    //    {
+    //        List<NotificationHistoryDTO> notificationHistoryDTOs = new List<NotificationHistoryDTO>();
+    //        foreach (var notificationHistory in db.NotificationHistory.ToList())
+    //        {
+    //            NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
+    //            notificationHistoryDTOs.Add(notificationHistoryDTO);
+    //        }
+
+    //        return Ok(notificationHistoryDTOs);
+    //    }
+
+    // GET: api/APINotificationHistories/5
+    [ResponseType(typeof(NotificationHistoryDTO))]
         public IHttpActionResult GetNotificationHistory(int id)
         {
             NotificationHistory notificationHistory = db.NotificationHistory.Find(id);
