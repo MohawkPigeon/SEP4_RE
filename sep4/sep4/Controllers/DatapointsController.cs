@@ -39,7 +39,7 @@ namespace sep4.Controllers
         // GET: Datapoints/Create
         public ActionResult Create()
         {
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold");
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", datapoint.SaunaID);
             return View(datapoint);
         }
 
@@ -73,7 +73,7 @@ namespace sep4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", datapoint.SaunaID);
             return View(datapoint);
         }
 
@@ -90,7 +90,7 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", datapoint.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", datapoint.SaunaID);
             return View(datapoint);
         }
 

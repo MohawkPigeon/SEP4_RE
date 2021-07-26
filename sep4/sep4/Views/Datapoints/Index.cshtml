@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.ServoSettingAtTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sauna.CO2Threshold)
+            @Html.DisplayNameFor(model => model.Sauna.TemperatureThreshold)
         </th>
         <th></th>
     </tr>
@@ -50,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.ServoSettingAtTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sauna.CO2Threshold)
+            @Html.DisplayFor(modelItem => item.Sauna.TemperatureThreshold)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DatapointID }) |

@@ -376,16 +376,6 @@
     <Content Include="Views\NotificationHistories\Details.cshtml" />
     <Content Include="Views\NotificationHistories\Edit.cshtml" />
     <Content Include="Views\NotificationHistories\Index.cshtml" />
-    <Content Include="Views\Datapoints\Create.cshtml" />
-    <Content Include="Views\Datapoints\Delete.cshtml" />
-    <Content Include="Views\Datapoints\Details.cshtml" />
-    <Content Include="Views\Datapoints\Edit.cshtml" />
-    <Content Include="Views\Datapoints\Index.cshtml" />
-    <Content Include="Views\Reservations\Create.cshtml" />
-    <Content Include="Views\Reservations\Delete.cshtml" />
-    <Content Include="Views\Reservations\Details.cshtml" />
-    <Content Include="Views\Reservations\Edit.cshtml" />
-    <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Saunas\Create.cshtml" />
     <Content Include="Views\Saunas\Delete.cshtml" />
     <Content Include="Views\Saunas\Details.cshtml" />
@@ -396,9 +386,21 @@
     <Content Include="Views\ServoSettings\Details.cshtml" />
     <Content Include="Views\ServoSettings\Edit.cshtml" />
     <Content Include="Views\ServoSettings\Index.cshtml" />
+    <Content Include="Views\Datapoints\Create.cshtml" />
+    <Content Include="Views\Datapoints\Delete.cshtml" />
+    <Content Include="Views\Datapoints\Details.cshtml" />
+    <Content Include="Views\Datapoints\Edit.cshtml" />
+    <Content Include="Views\Datapoints\Index.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\Reservations\Details.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Stage\" />
+    <Folder Include="Models\Warehouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

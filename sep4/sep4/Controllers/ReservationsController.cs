@@ -22,13 +22,13 @@ namespace sep4.Controllers
         }
 
         // GET: Reservations/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? SaunaID, int? UserID)
         {
-            if (id == null)
+            if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace sep4.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold");
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold");
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username");
             return View();
         }
@@ -58,24 +58,24 @@ namespace sep4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }
 
         // GET: Reservations/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? SaunaID, int? UserID)
         {
-            if (id == null)
+            if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
             if (reservation == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }
@@ -93,19 +93,19 @@ namespace sep4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "Threshold", reservation.SaunaID);
+            ViewBag.SaunaID = new SelectList(db.Sauna, "SaunaID", "TemperatureThreshold", reservation.SaunaID);
             ViewBag.UserID = new SelectList(db.User, "UserID", "Username", reservation.UserID);
             return View(reservation);
         }
 
         // GET: Reservations/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? SaunaID, int? UserID)
         {
-            if (id == null)
+            if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -116,9 +116,9 @@ namespace sep4.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? SaunaID, int? UserID)
         {
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
             db.Reservation.Remove(reservation);
             db.SaveChanges();
             return RedirectToAction("Index");

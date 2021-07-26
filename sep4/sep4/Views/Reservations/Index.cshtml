@@ -18,7 +18,7 @@
             @Html.DisplayNameFor(model => model.ToDateTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sauna.CO2Threshold)
+            @Html.DisplayNameFor(model => model.Sauna.TemperatureThreshold)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Username)
@@ -35,15 +35,15 @@
             @Html.DisplayFor(modelItem => item.ToDateTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Sauna.CO2Threshold)
+            @Html.DisplayFor(modelItem => item.Sauna.TemperatureThreshold)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User.Username)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { SaunaID=item.SaunaID, UserID=item.UserID }) |
+            @Html.ActionLink("Details", "Details", new { SaunaID = item.SaunaID, UserID = item.UserID }) |
+            @Html.ActionLink("Delete", "Delete", new { SaunaID = item.SaunaID, UserID = item.UserID })
         </td>
     </tr>
 }
