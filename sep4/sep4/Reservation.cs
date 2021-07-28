@@ -18,6 +18,7 @@ namespace sep4
         public int SaunaID { get; set; }
         public Nullable<System.DateTime> FromDateTime { get; set; }
         public Nullable<System.DateTime> ToDateTime { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
     
         public virtual Sauna Sauna { get; set; }
         public virtual User User { get; set; }

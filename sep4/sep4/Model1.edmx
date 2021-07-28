@@ -36,6 +36,7 @@
           </Key>
           <Property Name="EstablishmentID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="DateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="EstablishmentDim">
           <Key>
@@ -65,6 +66,7 @@
           <Property Name="SaunaID" Type="int" Nullable="false" />
           <Property Name="FromDateTime" Type="datetime" />
           <Property Name="ToDateTime" Type="datetime" />
+          <Property Name="DateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="ReservationDim">
           <Key>
@@ -86,6 +88,7 @@
           <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" />
           <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
           <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
+          <Property Name="DateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="SaunaDim">
           <Key>
@@ -232,6 +235,7 @@
           <Property Name="Username" Type="nchar" MaxLength="10" />
           <Property Name="Password" Type="nchar" MaxLength="10" />
           <Property Name="Rights" Type="nchar" MaxLength="10" />
+          <Property Name="DateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="UserDim">
           <Key>
@@ -495,6 +499,7 @@
           <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Sauna" Relationship="Self.EstablishmentID_Sauna" FromRole="Establishment" ToRole="Sauna" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="NotificationHistory">
           <Key>
@@ -516,6 +521,7 @@
           <Property Name="ToDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Reservation" FromRole="Reservation" ToRole="Sauna" />
           <NavigationProperty Name="User" Relationship="Self.UserID_Reservation" FromRole="Reservation" ToRole="User" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sauna">
           <Key>
@@ -530,6 +536,7 @@
           <Property Name="TemperatureThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ServoSetting">
           <Key>
@@ -551,6 +558,7 @@
           <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="NotificationHistory" Relationship="Self.UserID_NotificationHistory" FromRole="User" ToRole="NotificationHistory" />
           <NavigationProperty Name="Reservation" Relationship="Self.UserID_Reservation" FromRole="User" ToRole="Reservation" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="SaunaID_Datapoint">
           <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">
@@ -987,6 +995,7 @@
           <EntitySetMapping Name="Establishment">
             <EntityTypeMapping TypeName="sep4_dbModel.Establishment">
               <MappingFragment StoreEntitySet="Establishment">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -1004,6 +1013,7 @@
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="sep4_dbModel.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
                 <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
@@ -1014,6 +1024,7 @@
           <EntitySetMapping Name="Sauna">
             <EntityTypeMapping TypeName="sep4_dbModel.Sauna">
               <MappingFragment StoreEntitySet="Sauna">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
                 <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
                 <ScalarProperty Name="TemperatureThreshold" ColumnName="TemperatureThreshold" />
@@ -1035,6 +1046,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="sep4_dbModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

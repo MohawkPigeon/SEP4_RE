@@ -31,6 +31,7 @@
     </Key>
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="10" />
+    <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="EstablishmentDim">
     <Key>
@@ -60,6 +61,7 @@
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="FromDateTime" Type="datetime" />
     <Property Name="ToDateTime" Type="datetime" />
+    <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="ReservationDim">
     <Key>
@@ -81,6 +83,7 @@
     <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" />
     <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
     <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
+    <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="SaunaDim">
     <Key>
@@ -227,6 +230,7 @@
     <Property Name="Username" Type="nchar" MaxLength="10" />
     <Property Name="Password" Type="nchar" MaxLength="10" />
     <Property Name="Rights" Type="nchar" MaxLength="10" />
+    <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="UserDim">
     <Key>

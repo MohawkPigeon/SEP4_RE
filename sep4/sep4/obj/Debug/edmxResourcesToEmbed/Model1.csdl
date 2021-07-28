@@ -20,6 +20,7 @@
     <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="Sauna" Relationship="Self.EstablishmentID_Sauna" FromRole="Establishment" ToRole="Sauna" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="NotificationHistory">
     <Key>
@@ -41,6 +42,7 @@
     <Property Name="ToDateTime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Reservation" FromRole="Reservation" ToRole="Sauna" />
     <NavigationProperty Name="User" Relationship="Self.UserID_Reservation" FromRole="Reservation" ToRole="User" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Sauna">
     <Key>
@@ -55,6 +57,7 @@
     <Property Name="TemperatureThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="ServoSetting">
     <Key>
@@ -76,6 +79,7 @@
     <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="NotificationHistory" Relationship="Self.UserID_NotificationHistory" FromRole="User" ToRole="NotificationHistory" />
     <NavigationProperty Name="Reservation" Relationship="Self.UserID_Reservation" FromRole="User" ToRole="Reservation" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="SaunaID_Datapoint">
     <End Role="Sauna" Type="Self.Sauna" Multiplicity="1">

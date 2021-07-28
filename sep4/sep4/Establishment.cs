@@ -22,6 +22,7 @@ namespace sep4
     
         public int EstablishmentID { get; set; }
         public string Name { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sauna> Sauna { get; set; }

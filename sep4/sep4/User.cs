@@ -25,6 +25,7 @@ namespace sep4
         public string Username { get; set; }
         public string Password { get; set; }
         public string Rights { get; set; }
+        public Nullable<System.DateTime> DateTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NotificationHistory> NotificationHistory { get; set; }
