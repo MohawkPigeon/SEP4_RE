@@ -2,35 +2,69 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using sep4.HardwareSimulator;
-using sep4.HardwareSimulator.Models;
+using sep4.IoTSimulator.WebSocket;
+using sep4.IoTSimulator.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace sep4.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class HardwareController : ControllerBase
+    public class HardwareController : ApiController
     {
-
-        private WebSocketClient webSocketClient = new WebSocketClient();
+        private WebSocketClient webSocketClient = WebSocketClient.getInstance();
 
         // GET Hardware/id
-        [HttpGet("{id}")]
-        public ActionResult<string> GetDataFromSensor(int id)
+        [Route("api/openDoor/{id}")]
+        [HttpGet]
+        public IHttpActionResult OpenTheDoor(int id)
         {
             string deviceId = string.Parse(id);
-            DownlinkDataFormat downlinkData = new DownlinkDataFormat("tx", deviceId, 1, true, "0102AABB");
+            bool openDoor = true;
+
+            DoorBooleanFormat data = new DoorBooleanFormat(true);
+            string openDoorDataJson = JsonConvert.SerializeObject(data);
+
+            DownlinkDataFormat downlinkData = new DownlinkDataFormat("tx", deviceId, 1, true, "0102AABB", openDoorDataJson);
             string json2Send = JsonConvert.SerializeObject(downlinkData);
 
-            string jsonReceived = webSocketClient.sendDownLink(json);
+            foreach (IoTSimulator simulator in webSocketClient.getAllDevice())
+            {
+                if (simulator.getDatapointId() == id)
+                {
+                    webSocketClient.sendDownLink(simulator, json2Send);
+                }
+            }
 
-            UplinkDataFormat uplinkData = JsonSerializer.Deserialize<UplinkDataFormat>(json);
-            string data = uplinkData.getdata();
-
-            return data;
+            //return success
+            return Ok(downlinkData);
         }
+
+        // GET Hardware/id
+        [Route("api/closeDoor/{id}")]
+        [HttpGet]
+        public IHttpActionResult CloseTheDoor(int id)
+        {
+            string deviceId = string.Parse(id);
+            bool openDoor = false;
+
+            DoorBooleanFormat data = new DoorBooleanFormat(true);
+            string openDoorDataJson = JsonConvert.SerializeObject(data);
+
+            DownlinkDataFormat downlinkData = new DownlinkDataFormat("tx", deviceId, 1, true, "0102AABB", openDoorDataJson);
+            string json2Send = JsonConvert.SerializeObject(downlinkData);
+
+            foreach (IoTSimulator simulator in webSocketClient.getAllDevice())
+            {
+                if (simulator.getDatapointId() == id)
+                {
+                    webSocketClient.sendDownLink(simulator, json2Send);
+                }
+            }
+
+            //return success
+            return Ok(downlinkData);
+        }
+
 
     }
 }
