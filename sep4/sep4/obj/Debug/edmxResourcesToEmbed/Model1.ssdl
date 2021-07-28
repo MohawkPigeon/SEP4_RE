@@ -12,12 +12,36 @@
     <Property Name="Humidity" Type="nchar" MaxLength="10" />
     <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
   </EntityType>
+  <EntityType Name="DateDim">
+    <Key>
+      <PropertyRef Name="DateDimID" />
+    </Key>
+    <Property Name="DateDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Date" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Second" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Establishment">
     <Key>
       <PropertyRef Name="EstablishmentID" />
     </Key>
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="EstablishmentDim">
+    <Key>
+      <PropertyRef Name="EstablishmentDimID" />
+    </Key>
+    <Property Name="EstablishmentDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ManagerUsername" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="LoadDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="NotificationHistory">
     <Key>
@@ -37,6 +61,17 @@
     <Property Name="FromDateTime" Type="datetime" />
     <Property Name="ToDateTime" Type="datetime" />
   </EntityType>
+  <EntityType Name="ReservationDim">
+    <Key>
+      <PropertyRef Name="ReservationDimID" />
+    </Key>
+    <Property Name="ReservationDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="SaunaID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="FromDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ToDateTime" Type="datetime" Nullable="false" />
+    <Property Name="LoadDate" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Sauna">
     <Key>
       <PropertyRef Name="SaunaID" />
@@ -47,6 +82,40 @@
     <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
     <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
   </EntityType>
+  <EntityType Name="SaunaDim">
+    <Key>
+      <PropertyRef Name="SaunaDimID" />
+    </Key>
+    <Property Name="SaunaDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SaunaID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="NameOrNumber" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="CO2Threshold" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
+    <Property Name="LoadDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SaunaFact">
+    <Key>
+      <PropertyRef Name="SaunaDimID" />
+      <PropertyRef Name="ReservationDimID" />
+      <PropertyRef Name="SupervisorDimID" />
+      <PropertyRef Name="EstablishmentDimID" />
+      <PropertyRef Name="UserDimID" />
+      <PropertyRef Name="DateDimID" />
+    </Key>
+    <Property Name="SaunaDimID" Type="int" Nullable="false" />
+    <Property Name="ReservationDimID" Type="int" Nullable="false" />
+    <Property Name="SupervisorDimID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentDimID" Type="int" Nullable="false" />
+    <Property Name="UserDimID" Type="int" Nullable="false" />
+    <Property Name="DateDimID" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Temperature" Type="int" Nullable="false" />
+    <Property Name="CO2" Type="int" Nullable="false" />
+    <Property Name="Humidity" Type="int" />
+    <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="ServoSetting">
     <Key>
       <PropertyRef Name="ServoSettingID" />
@@ -56,6 +125,100 @@
     <Property Name="Datetime" Type="datetime" />
     <Property Name="Setting" Type="nchar" MaxLength="10" />
   </EntityType>
+  <EntityType Name="StageDatapoint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="Temperature" Type="int" />
+    <Property Name="CO2" Type="int" />
+    <Property Name="Humidity" Type="int" />
+    <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="StageDateDim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Date" Type="int" />
+    <Property Name="Hour" Type="int" />
+    <Property Name="Minute" Type="int" />
+    <Property Name="Second" Type="int" />
+  </EntityType>
+  <EntityType Name="StageEstablishmentDIM">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" />
+    <Property Name="Name" Type="nchar" MaxLength="10" />
+    <Property Name="Managerusername" Type="nchar" MaxLength="10" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" />
+    <Property Name="LoadDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StageReservationDim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SaunaID" Type="nchar" MaxLength="10" />
+    <Property Name="FromDateTime" Type="datetime" />
+    <Property Name="ToDateTime" Type="datetime" />
+    <Property Name="LoadDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StageSaunaDim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="SaunaID" Type="int" />
+    <Property Name="EstablishmentID" Type="int" />
+    <Property Name="NameOrNumber" Type="nchar" MaxLength="10" />
+    <Property Name="TemperatureThreshold" Type="nchar" MaxLength="10" />
+    <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
+    <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
+    <Property Name="LoadDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StageSupervisorDim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="10" />
+    <Property Name="EstShiftFromDate" Type="datetime" />
+    <Property Name="EstShiftToDate" Type="datetime" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" />
+    <Property Name="LoadDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StageUserDim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Username" Type="nchar" MaxLength="10" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" />
+    <Property Name="ActiveSince" Type="datetime" />
+    <Property Name="LoadDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SupervisorDim">
+    <Key>
+      <PropertyRef Name="SupervisorDimID" />
+    </Key>
+    <Property Name="SupervisorDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="EstShiftFromDate" Type="datetime" Nullable="false" />
+    <Property Name="EstShiftToDate" Type="datetime" Nullable="false" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="LoadDate" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserID" />
@@ -64,6 +227,17 @@
     <Property Name="Username" Type="nchar" MaxLength="10" />
     <Property Name="Password" Type="nchar" MaxLength="10" />
     <Property Name="Rights" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="UserDim">
+    <Key>
+      <PropertyRef Name="UserDimID" />
+    </Key>
+    <Property Name="UserDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="ActiveSince" Type="datetime" Nullable="false" />
+    <Property Name="LoadDate" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="EstablishmentID_Sauna">
     <End Role="Establishment" Type="Self.Establishment" Multiplicity="1">
@@ -76,6 +250,78 @@
       </Principal>
       <Dependent Role="Sauna">
         <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__DateD__208CD6FA">
+    <End Role="DateDim" Type="Self.DateDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DateDim">
+        <PropertyRef Name="DateDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="DateDimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__Estab__1EA48E88">
+    <End Role="EstablishmentDim" Type="Self.EstablishmentDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstablishmentDim">
+        <PropertyRef Name="EstablishmentDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="EstablishmentDimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__Reser__1CBC4616">
+    <End Role="ReservationDim" Type="Self.ReservationDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReservationDim">
+        <PropertyRef Name="ReservationDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="ReservationDimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__Sauna__1BC821DD">
+    <End Role="SaunaDim" Type="Self.SaunaDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SaunaDim">
+        <PropertyRef Name="SaunaDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="SaunaDimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__Super__1DB06A4F">
+    <End Role="SupervisorDim" Type="Self.SupervisorDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupervisorDim">
+        <PropertyRef Name="SupervisorDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="SupervisorDimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SaunaFact__UserD__1F98B2C1">
+    <End Role="UserDim" Type="Self.UserDim" Multiplicity="1" />
+    <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDim">
+        <PropertyRef Name="UserDimID" />
+      </Principal>
+      <Dependent Role="SaunaFact">
+        <PropertyRef Name="UserDimID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -151,15 +397,53 @@
   </Association>
   <EntityContainer Name="sep4_dbModelStoreContainer">
     <EntitySet Name="Datapoint" EntityType="Self.Datapoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DateDim" EntityType="Self.DateDim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Establishment" EntityType="Self.Establishment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstablishmentDim" EntityType="Self.EstablishmentDim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NotificationHistory" EntityType="Self.NotificationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReservationDim" EntityType="Self.ReservationDim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sauna" EntityType="Self.Sauna" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaunaDim" EntityType="Self.SaunaDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaunaFact" EntityType="Self.SaunaFact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServoSetting" EntityType="Self.ServoSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageDatapoint" EntityType="Self.StageDatapoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageDateDim" EntityType="Self.StageDateDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageEstablishmentDIM" EntityType="Self.StageEstablishmentDIM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageReservationDim" EntityType="Self.StageReservationDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageSaunaDim" EntityType="Self.StageSaunaDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageSupervisorDim" EntityType="Self.StageSupervisorDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageUserDim" EntityType="Self.StageUserDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SupervisorDim" EntityType="Self.SupervisorDim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDim" EntityType="Self.UserDim" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="EstablishmentID_Sauna" Association="Self.EstablishmentID_Sauna">
       <End Role="Establishment" EntitySet="Establishment" />
       <End Role="Sauna" EntitySet="Sauna" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__DateD__208CD6FA" Association="Self.FK__SaunaFact__DateD__208CD6FA">
+      <End Role="DateDim" EntitySet="DateDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__Estab__1EA48E88" Association="Self.FK__SaunaFact__Estab__1EA48E88">
+      <End Role="EstablishmentDim" EntitySet="EstablishmentDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__Reser__1CBC4616" Association="Self.FK__SaunaFact__Reser__1CBC4616">
+      <End Role="ReservationDim" EntitySet="ReservationDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__Sauna__1BC821DD" Association="Self.FK__SaunaFact__Sauna__1BC821DD">
+      <End Role="SaunaDim" EntitySet="SaunaDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__Super__1DB06A4F" Association="Self.FK__SaunaFact__Super__1DB06A4F">
+      <End Role="SupervisorDim" EntitySet="SupervisorDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SaunaFact__UserD__1F98B2C1" Association="Self.FK__SaunaFact__UserD__1F98B2C1">
+      <End Role="UserDim" EntitySet="UserDim" />
+      <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
     <AssociationSet Name="SaunaID_Datapoint" Association="Self.SaunaID_Datapoint">
       <End Role="Sauna" EntitySet="Sauna" />

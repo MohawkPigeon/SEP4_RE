@@ -72,5 +72,188 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DateDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.DateDim">
+        <MappingFragment StoreEntitySet="DateDim">
+          <ScalarProperty Name="Second" ColumnName="Second" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="DateDimID" ColumnName="DateDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstablishmentDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.EstablishmentDim">
+        <MappingFragment StoreEntitySet="EstablishmentDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="ManagerUsername" ColumnName="ManagerUsername" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="EstablishmentDimID" ColumnName="EstablishmentDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReservationDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.ReservationDim">
+        <MappingFragment StoreEntitySet="ReservationDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
+          <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ReservationDimID" ColumnName="ReservationDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SaunaDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.SaunaDim">
+        <MappingFragment StoreEntitySet="SaunaDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
+          <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
+          <ScalarProperty Name="TemperatureThreshold" ColumnName="TemperatureThreshold" />
+          <ScalarProperty Name="NameOrNumber" ColumnName="NameOrNumber" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="SaunaDimID" ColumnName="SaunaDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SaunaFact">
+      <EntityTypeMapping TypeName="sep4_dbModel.SaunaFact">
+        <MappingFragment StoreEntitySet="SaunaFact">
+          <ScalarProperty Name="ServoSettingAtTime" ColumnName="ServoSettingAtTime" />
+          <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+          <ScalarProperty Name="CO2" ColumnName="CO2" />
+          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="DateDimID" ColumnName="DateDimID" />
+          <ScalarProperty Name="UserDimID" ColumnName="UserDimID" />
+          <ScalarProperty Name="EstablishmentDimID" ColumnName="EstablishmentDimID" />
+          <ScalarProperty Name="SupervisorDimID" ColumnName="SupervisorDimID" />
+          <ScalarProperty Name="ReservationDimID" ColumnName="ReservationDimID" />
+          <ScalarProperty Name="SaunaDimID" ColumnName="SaunaDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageDatapoint">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageDatapoint">
+        <MappingFragment StoreEntitySet="StageDatapoint">
+          <ScalarProperty Name="ServoSettingAtTime" ColumnName="ServoSettingAtTime" />
+          <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+          <ScalarProperty Name="CO2" ColumnName="CO2" />
+          <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageDateDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageDateDim">
+        <MappingFragment StoreEntitySet="StageDateDim">
+          <ScalarProperty Name="Second" ColumnName="Second" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageEstablishmentDIM">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageEstablishmentDIM">
+        <MappingFragment StoreEntitySet="StageEstablishmentDIM">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="Managerusername" ColumnName="Managerusername" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageReservationDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageReservationDim">
+        <MappingFragment StoreEntitySet="StageReservationDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
+          <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageSaunaDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageSaunaDim">
+        <MappingFragment StoreEntitySet="StageSaunaDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
+          <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
+          <ScalarProperty Name="TemperatureThreshold" ColumnName="TemperatureThreshold" />
+          <ScalarProperty Name="NameOrNumber" ColumnName="NameOrNumber" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageSupervisorDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageSupervisorDim">
+        <MappingFragment StoreEntitySet="StageSupervisorDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
+          <ScalarProperty Name="EstShiftFromDate" ColumnName="EstShiftFromDate" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageUserDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.StageUserDim">
+        <MappingFragment StoreEntitySet="StageUserDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupervisorDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.SupervisorDim">
+        <MappingFragment StoreEntitySet="SupervisorDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
+          <ScalarProperty Name="EstShiftFromDate" ColumnName="EstShiftFromDate" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SupervisorDimID" ColumnName="SupervisorDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDim">
+      <EntityTypeMapping TypeName="sep4_dbModel.UserDim">
+        <MappingFragment StoreEntitySet="UserDim">
+          <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
+          <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
+          <ScalarProperty Name="Rights" ColumnName="Rights" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserDimID" ColumnName="UserDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

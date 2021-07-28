@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="47173bb926e34855b4a8edd75654090d" Name="Diagram1">
+      <Diagram DiagramId="47173bb926e34855b4a8edd75654090d" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="sep4_dbModel.Datapoint" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="sep4_dbModel.Establishment" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="sep4_dbModel.NotificationHistory" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
@@ -18,6 +18,26 @@
         <AssociationConnector Association="sep4_dbModel.SaunaID_Reservation" ManuallyRouted="false" />
         <AssociationConnector Association="sep4_dbModel.UserID_Reservation" ManuallyRouted="false" />
         <AssociationConnector Association="sep4_dbModel.SaunaID_ServoSetting" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="sep4_dbModel.DateDim" Width="1.5" PointX="12.75" PointY="12.875" />
+        <EntityTypeShape EntityType="sep4_dbModel.EstablishmentDim" Width="1.5" PointX="9.875" PointY="14.25" />
+        <EntityTypeShape EntityType="sep4_dbModel.ReservationDim" Width="1.5" PointX="13.125" PointY="9" />
+        <EntityTypeShape EntityType="sep4_dbModel.SaunaDim" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="sep4_dbModel.SaunaFact" Width="1.5" PointX="10" PointY="9" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageDatapoint" Width="1.5" PointX="11.625" PointY="1.5" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageDateDim" Width="1.5" PointX="13.75" PointY="1.25" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageEstablishmentDIM" Width="1.5" PointX="16.25" PointY="4.75" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageReservationDim" Width="1.5" PointX="18.75" PointY="4.375" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageSaunaDim" Width="1.5" PointX="16.125" PointY="1.125" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageSupervisorDim" Width="1.5" PointX="13.875" PointY="5" />
+        <EntityTypeShape EntityType="sep4_dbModel.StageUserDim" Width="1.5" PointX="18" PointY="1.125" />
+        <EntityTypeShape EntityType="sep4_dbModel.SupervisorDim" Width="1.5" PointX="7.125" PointY="13.25" />
+        <EntityTypeShape EntityType="sep4_dbModel.UserDim" Width="1.5" PointX="14.875" PointY="13.375" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__DateD__208CD6FA" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Estab__1EA48E88" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Reser__1CBC4616" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Sauna__1BC821DD" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Super__1DB06A4F" />
+        <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__UserD__1F98B2C1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

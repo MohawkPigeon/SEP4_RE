@@ -32,5 +32,19 @@ namespace sep4
         public virtual DbSet<Sauna> Sauna { get; set; }
         public virtual DbSet<ServoSetting> ServoSetting { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<DateDim> DateDim { get; set; }
+        public virtual DbSet<EstablishmentDim> EstablishmentDim { get; set; }
+        public virtual DbSet<ReservationDim> ReservationDim { get; set; }
+        public virtual DbSet<SaunaDim> SaunaDim { get; set; }
+        public virtual DbSet<SaunaFact> SaunaFact { get; set; }
+        public virtual DbSet<StageDatapoint> StageDatapoint { get; set; }
+        public virtual DbSet<StageDateDim> StageDateDim { get; set; }
+        public virtual DbSet<StageEstablishmentDIM> StageEstablishmentDIM { get; set; }
+        public virtual DbSet<StageReservationDim> StageReservationDim { get; set; }
+        public virtual DbSet<StageSaunaDim> StageSaunaDim { get; set; }
+        public virtual DbSet<StageSupervisorDim> StageSupervisorDim { get; set; }
+        public virtual DbSet<StageUserDim> StageUserDim { get; set; }
+        public virtual DbSet<SupervisorDim> SupervisorDim { get; set; }
+        public virtual DbSet<UserDim> UserDim { get; set; }
     }
 }
