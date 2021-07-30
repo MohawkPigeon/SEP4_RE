@@ -8,10 +8,9 @@ namespace sep4.Models.Stage
     public class Stage
     {
         private sep4_dbEntities1 db = new sep4_dbEntities1();
-        
+        DateTime dateTimeNow = new DateTime();
         public void insertIntoStage()
         {
-            DateTime dateTimeNow = new DateTime();
             dateTimeNow = DateTime.Now;
             int count = 0;
             foreach (var item in db.Datapoint)
@@ -98,20 +97,43 @@ namespace sep4.Models.Stage
             foreach (var item in db.User)
             {
                 if (item.Rights.Trim().Equals("Supervisor"))
-                {               
-                    StageSupervisorDim stage = new StageSupervisorDim();
-                    stage.Username = item.Username;
-                    stage.UserID = item.UserID;
-                    stage.Rights = item.Rights;
-                    stage.LoadDate = dateTimeNow;
-                foreach (var history in item.NotificationHistory)
+                {
+                    NotificationHistory lastHistory = new NotificationHistory();
+                    NotificationHistory shiftStart = new NotificationHistory();
+                    Boolean newShift = false;
+                    foreach (var history in item.NotificationHistory)
                     {
-                        count++;
-                        stage.EstShiftFromDate = history.DateTime.Value;
-                        stage.EstShiftToDate = history.DateTime.Value;
-                        stage.Id = count;
+                        if (newShift == true)
+                        {
+                            shiftStart.DateTime = history.DateTime.Value;
+                            newShift = false;
+                        }
+                        if (!shiftStart.DateTime.HasValue) {
+                            shiftStart.DateTime = history.DateTime.Value;
+                        }
+                        if (!lastHistory.DateTime.HasValue)
+                        {
+                            lastHistory.DateTime = history.DateTime.Value;
+                        }
+                        if (lastHistory.DateTime.Value.AddHours(1)<history.DateTime.Value)
+                        {
+                            StageSupervisorDim stage = new StageSupervisorDim();
+                            stage.Username = item.Username;
+                            stage.UserID = item.UserID;
+                            stage.Rights = item.Rights;
+                            stage.LoadDate = dateTimeNow;
 
-                        db.StageSupervisorDim.Add(stage);
+                            count++;
+                            stage.EstShiftFromDate = shiftStart.DateTime.Value;
+                            stage.EstShiftToDate = history.DateTime.Value;
+                            stage.Id = count;
+
+                            newShift = true;
+
+                            db.StageSupervisorDim.Add(stage);
+                        }
+                        lastHistory = history;
+
                     }
                 }
             }
@@ -133,5 +155,68 @@ namespace sep4.Models.Stage
             }
             db.SaveChanges();
         }
+        public void Load() { 
+            
+            foreach (var item in db.StageDateDim) {
+                DateDim dateDim = new DateDim();
+                dateDim.DateTime =  item.DateTime.Value;
+                dateDim.Year = item.Year.Value;
+                dateDim.Month = item.Month.Value;
+                dateDim.Date = item.Date.Value;
+                dateDim.Hour = item.Hour.Value;
+                dateDim.Minute = item.Minute.Value;
+                dateDim.Second = item.Second.Value;
+                db.DateDim.Add(dateDim);
+                db.SaveChanges();
+            }
+            foreach (var item in db.StageEstablishmentDIM) {
+                EstablishmentDim establishmentDim = new EstablishmentDim();
+                establishmentDim.EstablishmentID = item.EstablishmentID.Value;
+                establishmentDim.Name = item.Name;
+                establishmentDim.LoadDate = item.LoadDate.Value;
+                db.EstablishmentDim.Add(establishmentDim);
+                db.SaveChanges();
+            }
+            foreach (var item in db.StageReservationDim) {
+                ReservationDim ReservationDim = new ReservationDim();
+                ReservationDim.SaunaID = item.SaunaID;
+                ReservationDim.UserID = item.UserID.Value;
+                ReservationDim.FromDateTime = item.FromDateTime.Value;
+                ReservationDim.ToDateTime = item.FromDateTime.Value;
+                ReservationDim.LoadDate = item.LoadDate.Value;
+                db.ReservationDim.Add(ReservationDim);
+                db.SaveChanges();
+            }
+            foreach (var item in db.StageSaunaDim) {
+                SaunaDim saunaDim = new SaunaDim();
+                saunaDim.SaunaID = item.SaunaID.Value;
+                saunaDim.EstablishmentID = item.EstablishmentID.Value;
+                saunaDim.NameOrNumber = item.NameOrNumber;
+                saunaDim.TemperatureThreshold = item.TemperatureThreshold;
+                saunaDim.CO2Threshold = item.CO2Threshold;
+                saunaDim.HumidityThreshold = item.HumidityThreshold;
+                saunaDim.LoadDate = item.LoadDate.Value;
+                db.SaunaDim.Add(saunaDim);
+                db.SaveChanges();
+            }
+            foreach (var item in db.StageSupervisorDim) {
+                SupervisorDim supervisorDim = new SupervisorDim();
+                supervisorDim.UserID = item.UserID;
+                supervisorDim.Username = item.Username;
+                supervisorDim.Rights = item.Rights;
+                supervisorDim.EstShiftFromDate = item.EstShiftFromDate.Value;
+                supervisorDim.EstShiftToDate = item.EstShiftToDate.Value;
+                supervisorDim.LoadDate = item.LoadDate.Value;
+            }
+            foreach (var item in db.StageUserDim) {
+                StageUserDim stageUser = new StageUserDim();
+                stageUser.UserID = item.UserID;
+                stageUser.Username = item.Username;
+                stageUser.Rights = item.Rights;
+                stageUser.ActiveSince = item.ActiveSince;
+                stageUser.LoadDate = stageUser.LoadDate;
+            }
+            foreach (var item in db.StageDatapoint) { }
+        } 
     }
 }
