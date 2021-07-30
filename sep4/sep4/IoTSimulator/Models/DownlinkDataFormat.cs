@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sep4.HardwareSimulator.Models
+namespace sep4.IoTSimulator.Models
 {
     public class DownlinkDataFormat
     {
@@ -34,5 +34,11 @@ namespace sep4.HardwareSimulator.Models
         {
             this.data = data;
         }
+
+        public string getData()
+        {
+            return data;
+        }
+
     }
 }
