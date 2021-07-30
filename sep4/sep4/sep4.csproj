@@ -227,6 +227,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\APIDatapointsController.cs" />
     <Compile Include="Controllers\APIEstablishmentsController.cs" />
+    <Compile Include="Controllers\APIHardwareController.cs" />
     <Compile Include="Controllers\APINotificationHistoriesController.cs" />
     <Compile Include="Controllers\APIReservationsController.cs" />
     <Compile Include="Controllers\APISaunasController.cs" />
@@ -256,6 +257,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IoTSimulator\Hardware\IoTDeviceSimulator.cs" />
+    <Compile Include="IoTSimulator\Log.cs" />
+    <Compile Include="IoTSimulator\Models\DataPoint.cs" />
+    <Compile Include="IoTSimulator\Models\DoorBooleanFormat.cs" />
+    <Compile Include="IoTSimulator\Models\DownlinkDataFormat.cs" />
+    <Compile Include="IoTSimulator\Models\UplinkDataFormat.cs" />
+    <Compile Include="IoTSimulator\WebSocket\WebSocketClient.cs" />
+    <Compile Include="IoTSimulator\WebSocket\WebSocketThread.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -429,16 +438,16 @@
     <Content Include="Views\ServoSettings\Details.cshtml" />
     <Content Include="Views\ServoSettings\Edit.cshtml" />
     <Content Include="Views\ServoSettings\Index.cshtml" />
-    <Content Include="Views\Datapoints\Create.cshtml" />
-    <Content Include="Views\Datapoints\Delete.cshtml" />
-    <Content Include="Views\Datapoints\Details.cshtml" />
-    <Content Include="Views\Datapoints\Edit.cshtml" />
-    <Content Include="Views\Datapoints\Index.cshtml" />
     <Content Include="Views\Reservations\Create.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
     <Content Include="Views\Reservations\Details.cshtml" />
     <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
+    <Content Include="Views\Datapoints\Create.cshtml" />
+    <Content Include="Views\Datapoints\Delete.cshtml" />
+    <Content Include="Views\Datapoints\Details.cshtml" />
+    <Content Include="Views\Datapoints\Edit.cshtml" />
+    <Content Include="Views\Datapoints\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

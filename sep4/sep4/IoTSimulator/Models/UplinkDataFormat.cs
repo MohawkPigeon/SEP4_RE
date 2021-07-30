@@ -7,18 +7,13 @@ namespace sep4.IoTSimulator.Models
 {
     public class UplinkDataFormat
     {
-        private string cmd;
-        private string EUI;
-        private long ts;
-        private bool ack;
-        private long fcnt;
-        private long port;
-        private string data;
-
-        public string getData()
-        {
-            return data;
-        }
+        public string cmd { get; set; }
+        public string EUI { get; set; }
+        public long ts { get; set; }
+        public bool ack { get; set; }
+        public long fcnt { get; set; }
+        public long port { get; set; }
+        public string data { get; set; }
 
         public UplinkDataFormat(string cmd, string eUI, long ts, bool ack, long fcnt, long port, string data)
         {

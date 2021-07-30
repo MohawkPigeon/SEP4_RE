@@ -10,26 +10,17 @@ namespace sep4.IoTSimulator.WebSocket
     public class WebSocketClient
     {
         private static WebSocketClient instance;
-        private List<IoTDeviceSimulator> simulators;
+        private List<IoTDeviceSimulator> simulators = new List<IoTDeviceSimulator>();
 
         /**
         * Constructor used for setting up and joining the web socket connection to Loriot
         * @param url - the URL for the socket connection
         */
-        private WebSocketClient()
+        public WebSocketClient()
         {
             //make connection here
             //create and add some dummy simulators here
-            addDevice(new IoTDeviceSimulator(1,1));
-            addDevice(new IoTDeviceSimulator(1,2));
-            addDevice(new IoTDeviceSimulator(2,1));
-            addDevice(new IoTDeviceSimulator(3,1));
-            addDevice(new IoTDeviceSimulator(4,1));
-            addDevice(new IoTDeviceSimulator(5,1));
-            addDevice(new IoTDeviceSimulator(6,1));
-            addDevice(new IoTDeviceSimulator(7,1));
-            addDevice(new IoTDeviceSimulator(8,1));
-            addDevice(new IoTDeviceSimulator(9,1));
+            addDevice(1);
         }
 
         private static readonly object instanceLock = new object ();  
@@ -46,32 +37,38 @@ namespace sep4.IoTSimulator.WebSocket
         }
 
         private static readonly object deviceListLock = new object();
-        public bool addDevice(int saunaId,int datapointId)
+        public bool addDevice(int saunaId)
         {
             lock (deviceListLock)
             {
-                foreach (IoTDeviceSimulator simulator in simulators)
+                if (simulators.Count() > 0)
                 {
-                    if (simulator.getSaunaId() == saunaId)
+                    foreach (var simulator in simulators)
                     {
-                        return false;
+                        if (simulator.getSaunaId() == saunaId)
+                        {
+                            return false;
+                        }
                     }
                 }
-                simulators.Add(new IoTDeviceSimulator(saunaId, datapointId));
+                simulators.Add(new IoTDeviceSimulator(saunaId));
                 return true;
             }
         }
 
-        public bool delateDevice(int saunaId, int datapointId)
+        public bool deleteDevice(int saunaId)
         {
             lock (deviceListLock)
             {
-                foreach (IoTDeviceSimulator simulator in simulators)
+                if (simulators.Count() > 0)
                 {
-                    if (simulator.getSaunaId() == saunaId&& simulator.getDatapointId() == datapointId)
+                    foreach (var simulator in simulators)
                     {
-                        simulators.Remove(simulator);
-                        return true;
+                        if (simulator.getSaunaId() == saunaId)
+                        {
+                            simulators.Remove(simulator);
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -79,7 +76,7 @@ namespace sep4.IoTSimulator.WebSocket
         }
 
 
-        public IoTDeviceSimulator getAllDevice()
+        public List<IoTDeviceSimulator> getAllDevice()
         {
             lock (deviceListLock)
             {
@@ -89,7 +86,7 @@ namespace sep4.IoTSimulator.WebSocket
 
         // Simulate the method sending down-link message to device
         // Must be in Json format according to https://github.com/ihavn/IoT_Semester_project/blob/master/LORA_NETWORK_SERVER.md
-        public string sendDownLink(IoTDeviceSimulator simulator, String jsonTelegram)
+        public void sendDownLink(IoTDeviceSimulator simulator, String jsonTelegram)
         {
             simulator.controlTheDoor(jsonTelegram);
         }

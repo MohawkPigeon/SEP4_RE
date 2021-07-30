@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sep4.IoTSimulator.WebSocket;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,10 @@ namespace sep4
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            WebSocketClient client = new WebSocketClient();
+            WebSocketThread thread = new WebSocketThread();
+            
         }
     }
 }

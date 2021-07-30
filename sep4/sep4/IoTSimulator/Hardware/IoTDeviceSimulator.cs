@@ -1,18 +1,18 @@
 ﻿using sep4.IoTSimulator;
 using sep4.IoTSimulator.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace sep4.IoTSimulator.Hardware
 {
     public class IoTDeviceSimulator
     {
         private int saunaId;
-        private int datapointId;
         private bool isDoorOpen;
+        Log log = new Log();
 
         public static float maximumTempValue;
         public static float minimumTempValue;
@@ -21,7 +21,7 @@ namespace sep4.IoTSimulator.Hardware
         public static float maximumHumValue;
         public static float minimumHumValue;
 
-        public IoTDeviceSimulator(int SaunaId, int DatapointId)
+        public IoTDeviceSimulator(int SaunaId)
         {
             maximumTempValue = 100;
             minimumTempValue = 0;
@@ -30,13 +30,7 @@ namespace sep4.IoTSimulator.Hardware
             maximumHumValue = 1;
             minimumHumValue = 0;
             saunaId = SaunaId;
-            datapointId = DatapointId;
             isDoorOpen = false;
-        }
-
-        public int getDatapointId()
-        {
-            return datapointId;
         }
 
         public int getSaunaId()
@@ -53,11 +47,11 @@ namespace sep4.IoTSimulator.Hardware
             float CO2 = LastCO2();
             float humidity = LastHumidity();
 
-            DataPoint dataPoint = new DataPoint(saunaId, datapointId, DateTime.Now, tmp, CO2, humidity, isDoorOpen);
+            DataPoint dataPoint = new DataPoint(saunaId, DateTime.Now, tmp, CO2, humidity, isDoorOpen);
 
             string dataJson = JsonConvert.SerializeObject(dataPoint);
 
-            UplinkDataFormat uplinkData = new UplinkDataFormat("rx", string.Parse(datapointId), secondsSinceEpoch, false, 1, 1, dataJson);
+            UplinkDataFormat uplinkData = new UplinkDataFormat("rx", (saunaId).ToString(), secondsSinceEpoch, false, 1, 1, dataJson);
             
             string uplinkJson = JsonConvert.SerializeObject(uplinkData);
 
@@ -66,19 +60,19 @@ namespace sep4.IoTSimulator.Hardware
 
         public void controlTheDoor(string downlinkJson)
         {
-            DownlinkDataFormat downlinkData = JsonSerializer.Deserialize<DownlinkDataFormat>(downlinkJson);
-            string data = downlinkData.getData();
-            DoorBooleanFormat doorOpenFormat = JsonSerializer.Deserialize<DoorBooleanFormat>(data);
+            DownlinkDataFormat downlinkData = JsonConvert.DeserializeObject<DownlinkDataFormat>(downlinkJson);
+            string data = downlinkData.openDoorDataJson;
+            DoorBooleanFormat doorOpenFormat = JsonConvert.DeserializeObject<DoorBooleanFormat>(data);
 
-            isDoorOpen = doorOpenFormat.getDoorOpen();
+            isDoorOpen = doorOpenFormat.isDoorOpen;
 
             if (isDoorOpen)
             {
-                Log.printOut("the door is open");
+                log.printOut("the door is open");
             }
             else
             {
-                Log.printOut("the door is closed");
+                log.printOut("the door is closed");
             }
         }
 

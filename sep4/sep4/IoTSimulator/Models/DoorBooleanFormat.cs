@@ -7,18 +7,11 @@ namespace sep4.IoTSimulator.Models
 {
     public class DoorBooleanFormat
     {
-        private bool isDoorOpen;
+        public bool isDoorOpen { get; set; }
 
-        public DoorBooleanFormat(bool isOpen)
+        public DoorBooleanFormat(bool isDoorOpen)
         {
-            this.isDoorOpen = isOpen;
+            this.isDoorOpen = isDoorOpen;
         }
-
-        public bool getDoorOpen()
-        {
-            return isDoorOpen;
-        }
-
-
     }
 }

@@ -7,60 +7,21 @@ namespace sep4.IoTSimulator.Models
 {
     public class DataPoint
     {
-        private int SaunaId;
-        private int DataPointId;
-        private DateTime Time;
-        private float Temperature;
-        private float CO2;
-        private float Humidity;
-        private bool ServoSetting;
+        public int SaunaId { get; set; }
+        public DateTime Time { get; set; }
+        public float Temperature { get; set; }
+        public float CO2 { get; set; }
+        public float Humidity { get; set; }
+        public bool ServoSetting { get; set; }
 
-        public DataPoint(int SaunaId, int DataPointId, DateTime time, float temperature, float CO2, float humidity, bool servoSetting)
+        public DataPoint(int saunaId, DateTime time, float temperature, float cO2, float humidity, bool servoSetting)
         {
-            this.SaunaId = SaunaId;
-            this.DatapointID = DatapointID;
+            SaunaId = saunaId;
             Time = time;
             Temperature = temperature;
-            this.CO2 = CO2;
+            CO2 = cO2;
             Humidity = humidity;
             ServoSetting = servoSetting;
         }
-
-
-        public float getSaunaId()
-        {
-            return SaunaId;
-        }
-
-        public float getDataPointId()
-        {
-            return DataPointId;
-        }
-
-        public DateTime getDateTime()
-        {
-            return Time;
-        }
-
-        public float getTemperature()
-        {
-            return Temperature;
-        }
-
-        public float getCO2()
-        {
-            return CO2;
-        }
-
-        public float getHumidity()
-        {
-            return Humidity;
-        }
-
-        public bool getServoSetting()
-        {
-            return ServoSetting;
-        }
-
     }
 }
