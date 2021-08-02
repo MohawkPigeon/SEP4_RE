@@ -17,6 +17,7 @@ namespace sep4.Models.Stage
             {
                 count++;
                 StageDatapoint stage = new StageDatapoint();
+                //stage.SaunaID = item.SaunaID;
                 stage.CO2 = Int32.Parse(item.Co2.Trim());
                 stage.DateTime = item.DateTime;
                 stage.Humidity = Int32.Parse(item.Humidity.Trim());
@@ -216,7 +217,15 @@ namespace sep4.Models.Stage
                 stageUser.ActiveSince = item.ActiveSince;
                 stageUser.LoadDate = stageUser.LoadDate;
             }
-            foreach (var item in db.StageDatapoint) { }
+            foreach (var item in db.StageDatapoint) {
+                SaunaFact saunaFact = new SaunaFact();
+                saunaFact.DateDimID = db.DateDim.Where(d => d.DateTime == item.DateTime.Value).FirstOrDefault().DateDimID;
+                //saunaFact.SaunaDimID = db.SaunaDim.Where(s => s.SaunaID == item.SaunaID).FirstOrDefault().SaunaDimID; missing db.StageDatapoint SaunaID column.
+                //saunaFact.ReservationDimID = db.ReservationDim.Where(re => re.SaunaID == item.SaunaID && re.FromDateTime < item.DateTime && item.DateTime > re.ToDateTime).FirstOrDefault().ReservationDimID;
+                saunaFact.SupervisorDimID = db.SupervisorDim.Where(su => su.EstShiftFromDate < item.DateTime && item.DateTime < su.EstShiftToDate).FirstOrDefault().SupervisorDimID;
+                saunaFact.EstablishmentDimID = db.EstablishmentDim.Where(e => e.EstablishmentID == saunaFact.SaunaDim.EstablishmentID).FirstOrDefault().EstablishmentDimID;
+                saunaFact.UserDimID = db.UserDim.Where(u => u.UserID == saunaFact.ReservationDim.UserID).FirstOrDefault().UserDimID;
+            }
         } 
     }
 }
