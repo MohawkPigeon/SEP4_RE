@@ -242,6 +242,9 @@
     <Compile Include="Controllers\ServoSettingsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datapoint.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

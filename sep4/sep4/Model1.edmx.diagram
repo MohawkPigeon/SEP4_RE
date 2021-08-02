@@ -38,6 +38,7 @@
         <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Sauna__1BC821DD" />
         <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__Super__1DB06A4F" />
         <AssociationConnector Association="sep4_dbModel.FK__SaunaFact__UserD__1F98B2C1" />
+        <EntityTypeShape EntityType="sep4_dbModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

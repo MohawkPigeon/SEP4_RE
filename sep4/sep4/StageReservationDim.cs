@@ -16,7 +16,7 @@ namespace sep4
     {
         public int Id { get; set; }
         public Nullable<int> UserID { get; set; }
-        public string SaunaID { get; set; }
+        public Nullable<int> SaunaID { get; set; }
         public Nullable<System.DateTime> FromDateTime { get; set; }
         public Nullable<System.DateTime> ToDateTime { get; set; }
         public Nullable<System.DateTime> LoadDate { get; set; }

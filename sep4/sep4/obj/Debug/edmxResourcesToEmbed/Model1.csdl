@@ -235,6 +235,7 @@
       <End Role="UserDim" EntitySet="UserDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
+    <EntitySet Name="database_firewall_rules" EntityType="sep4_dbModel.database_firewall_rules" />
   </EntityContainer>
   <EntityType Name="DateDim">
     <Key>
@@ -268,7 +269,7 @@
     </Key>
     <Property Name="ReservationDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="SaunaID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SaunaID" Nullable="false" Type="Int32" />
     <Property Name="FromDateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ToDateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -325,6 +326,7 @@
     <Property Name="CO2" Type="Int32" />
     <Property Name="Humidity" Type="Int32" />
     <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SaunaID" Type="Int32" />
   </EntityType>
   <EntityType Name="StageDateDim">
     <Key>
@@ -356,7 +358,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="UserID" Type="Int32" />
-    <Property Name="SaunaID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SaunaID" Type="Int32" />
     <Property Name="FromDateTime" Type="DateTime" Precision="3" />
     <Property Name="ToDateTime" Type="DateTime" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
@@ -494,4 +496,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
 </Schema>

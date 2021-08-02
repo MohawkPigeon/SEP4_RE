@@ -22,7 +22,7 @@ namespace sep4
     
         public int ReservationDimID { get; set; }
         public int UserID { get; set; }
-        public string SaunaID { get; set; }
+        public int SaunaID { get; set; }
         public System.DateTime FromDateTime { get; set; }
         public System.DateTime ToDateTime { get; set; }
         public System.DateTime LoadDate { get; set; }

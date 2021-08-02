@@ -148,6 +148,7 @@
     <EntitySetMapping Name="StageDatapoint">
       <EntityTypeMapping TypeName="sep4_dbModel.StageDatapoint">
         <MappingFragment StoreEntitySet="StageDatapoint">
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="ServoSettingAtTime" ColumnName="ServoSettingAtTime" />
           <ScalarProperty Name="Humidity" ColumnName="Humidity" />
           <ScalarProperty Name="CO2" ColumnName="CO2" />
@@ -186,10 +187,10 @@
     <EntitySetMapping Name="StageReservationDim">
       <EntityTypeMapping TypeName="sep4_dbModel.StageReservationDim">
         <MappingFragment StoreEntitySet="StageReservationDim">
+          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
           <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
-          <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -256,6 +257,18 @@
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="UserDimID" ColumnName="UserDimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="database_firewall_rules">
+      <EntityTypeMapping TypeName="sep4_dbModel.database_firewall_rules">
+        <MappingFragment StoreEntitySet="database_firewall_rules">
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+          <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

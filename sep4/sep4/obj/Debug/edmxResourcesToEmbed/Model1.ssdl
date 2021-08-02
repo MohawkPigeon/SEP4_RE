@@ -69,7 +69,7 @@
     </Key>
     <Property Name="ReservationDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="SaunaID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="FromDateTime" Type="datetime" Nullable="false" />
     <Property Name="ToDateTime" Type="datetime" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
@@ -134,6 +134,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="DateTime" Type="datetime" />
+    <Property Name="SaunaID" Type="int" />
     <Property Name="Temperature" Type="int" />
     <Property Name="CO2" Type="int" />
     <Property Name="Humidity" Type="int" />
@@ -169,7 +170,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" />
-    <Property Name="SaunaID" Type="nchar" MaxLength="10" />
+    <Property Name="SaunaID" Type="int" />
     <Property Name="FromDateTime" Type="datetime" />
     <Property Name="ToDateTime" Type="datetime" />
     <Property Name="LoadDate" Type="datetime" />
@@ -242,6 +243,24 @@
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="ActiveSince" Type="datetime" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="EstablishmentID_Sauna">
     <End Role="Establishment" Type="Self.Establishment" Multiplicity="1">
@@ -421,6 +440,16 @@
     <EntitySet Name="SupervisorDim" EntityType="Self.SupervisorDim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserDim" EntityType="Self.UserDim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+      <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="EstablishmentID_Sauna" Association="Self.EstablishmentID_Sauna">
       <End Role="Establishment" EntitySet="Establishment" />
       <End Role="Sauna" EntitySet="Sauna" />

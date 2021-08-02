@@ -12,14 +12,13 @@ namespace sep4
     using System;
     using System.Collections.Generic;
     
-    public partial class StageDatapoint
+    public partial class database_firewall_rules
     {
-        public int Id { get; set; }
-        public Nullable<System.DateTime> DateTime { get; set; }
-        public Nullable<int> Temperature { get; set; }
-        public Nullable<int> CO2 { get; set; }
-        public Nullable<int> Humidity { get; set; }
-        public string ServoSettingAtTime { get; set; }
-        public Nullable<int> SaunaID { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string start_ip_address { get; set; }
+        public string end_ip_address { get; set; }
+        public System.DateTime create_date { get; set; }
+        public System.DateTime modify_date { get; set; }
     }
 }

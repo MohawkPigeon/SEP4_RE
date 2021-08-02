@@ -1,4 +1,5 @@
 ﻿using sep4.IoTSimulator.WebSocket;
+using sep4.Models.Stage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,12 @@ namespace sep4
 
             WebSocketClient client = new WebSocketClient();
             WebSocketThread thread = new WebSocketThread();
+
+            //Stage stage = new Stage();
+            //stage.RemoveStage();
+            //stage.InsertIntoStage();
+            //stage.Load();
+            //stage.LoadFact();
             
         }
     }
