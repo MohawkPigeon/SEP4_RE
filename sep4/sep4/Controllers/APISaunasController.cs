@@ -31,7 +31,8 @@ namespace sep4.Controllers
             return Ok(saunaDTOs);
         }
 
-        // GET: api/APISaunas/5
+        // GET: api/APISauna/5
+        [Route("api/APISauna/{id}")]
         [ResponseType(typeof(SaunaDTO))]
         public IHttpActionResult GetSauna(int id)
         {

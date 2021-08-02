@@ -33,9 +33,9 @@ namespace sep4.Controllers
 
         // GET: api/APIReservations/5
         [ResponseType(typeof(ReservationDTO))]
-        public IHttpActionResult GetReservation(int id)
+        public IHttpActionResult GetReservation(int? SaunaID, int? UserID)
         {
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID,UserID);
             if (reservation == null)
             {
                 return NotFound();
@@ -46,39 +46,39 @@ namespace sep4.Controllers
         }
 
         // PUT: api/APIReservations/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutReservation(int id, Reservation reservation)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutReservation(int id, Reservation reservation)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != reservation.UserID)
-            {
-                return BadRequest();
-            }
+        //    if (id != reservation.UserID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(reservation).State = EntityState.Modified;
+        //    db.Entry(reservation).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReservationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ReservationExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/APIReservations
         [ResponseType(typeof(Reservation))]
@@ -107,14 +107,14 @@ namespace sep4.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = reservation.UserID }, reservation);
+            return CreatedAtRoute("DefaultApi", new { id = reservation.SaunaID , reservation.UserID }, reservation);
         }
 
         // DELETE: api/APIReservations/5
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult DeleteReservation(int id)
+        public IHttpActionResult DeleteReservation(int? SaunaID, int? UserID)
         {
-            Reservation reservation = db.Reservation.Find(id);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
             if (reservation == null)
             {
                 return NotFound();
