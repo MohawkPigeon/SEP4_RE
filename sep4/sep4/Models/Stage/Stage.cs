@@ -208,14 +208,18 @@ namespace sep4.Models.Stage
                 supervisorDim.EstShiftFromDate = item.EstShiftFromDate.Value;
                 supervisorDim.EstShiftToDate = item.EstShiftToDate.Value;
                 supervisorDim.LoadDate = item.LoadDate.Value;
+                db.SupervisorDim.Add(supervisorDim);
+                db.SaveChanges();
             }
             foreach (var item in db.StageUserDim) {
-                StageUserDim stageUser = new StageUserDim();
-                stageUser.UserID = item.UserID;
+                UserDim stageUser = new UserDim();
+                stageUser.UserID = item.UserID.Value;
                 stageUser.Username = item.Username;
                 stageUser.Rights = item.Rights;
-                stageUser.ActiveSince = item.ActiveSince;
-                stageUser.LoadDate = stageUser.LoadDate;
+                stageUser.ActiveSince = item.ActiveSince.Value;
+                stageUser.LoadDate = item.LoadDate.Value;
+                db.UserDim.Add(stageUser);
+                db.SaveChanges();
             }
             foreach (var item in db.StageDatapoint) {
                 SaunaFact saunaFact = new SaunaFact();
