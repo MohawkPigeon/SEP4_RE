@@ -21,5 +21,6 @@ namespace sep4
         public Nullable<System.DateTime> EstShiftToDate { get; set; }
         public string Rights { get; set; }
         public Nullable<System.DateTime> LoadDate { get; set; }
+        public Nullable<System.DateTime> ValidTo { get; set; }
     }
 }

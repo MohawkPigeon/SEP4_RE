@@ -6,7 +6,7 @@
     </Key>
     <Property Name="DatapointID" Type="Int32" Nullable="false" />
     <Property Name="SaunaID" Type="Int32" Nullable="false" />
-    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" Nullable="false" />
     <Property Name="Temperature" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Co2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Humidity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -35,11 +35,13 @@
     <Key>
       <PropertyRef Name="UserID" />
       <PropertyRef Name="SaunaID" />
+      <PropertyRef Name="FromDateTime" />
+      <PropertyRef Name="ToDateTime" />
     </Key>
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="SaunaID" Type="Int32" Nullable="false" />
-    <Property Name="FromDateTime" Type="DateTime" Precision="3" />
-    <Property Name="ToDateTime" Type="DateTime" Precision="3" />
+    <Property Name="FromDateTime" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="ToDateTime" Type="DateTime" Precision="3" Nullable="false" />
     <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Reservation" FromRole="Reservation" ToRole="Sauna" />
     <NavigationProperty Name="User" Relationship="Self.UserID_Reservation" FromRole="Reservation" ToRole="User" />
     <Property Name="DateTime" Type="DateTime" Precision="3" />
@@ -262,6 +264,7 @@
     <Property Name="Rights" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Estab__1EA48E88" FromRole="EstablishmentDim" ToRole="SaunaFact" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="ReservationDim">
     <Key>
@@ -274,6 +277,7 @@
     <Property Name="ToDateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Reser__1CBC4616" FromRole="ReservationDim" ToRole="SaunaFact" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="SaunaDim">
     <Key>
@@ -288,6 +292,7 @@
     <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Sauna__1BC821DD" FromRole="SaunaDim" ToRole="SaunaFact" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="SaunaFact">
     <Key>
@@ -351,6 +356,7 @@
     <Property Name="Managerusername" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="StageReservationDim">
     <Key>
@@ -362,6 +368,7 @@
     <Property Name="FromDateTime" Type="DateTime" Precision="3" />
     <Property Name="ToDateTime" Type="DateTime" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="StageSaunaDim">
     <Key>
@@ -375,6 +382,7 @@
     <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="StageSupervisorDim">
     <Key>
@@ -387,6 +395,7 @@
     <Property Name="EstShiftToDate" Type="DateTime" Precision="3" />
     <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="StageUserDim">
     <Key>
@@ -398,6 +407,7 @@
     <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="ActiveSince" Type="DateTime" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Precision="3" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="SupervisorDim">
     <Key>
@@ -411,6 +421,7 @@
     <Property Name="Rights" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Super__1DB06A4F" FromRole="SupervisorDim" ToRole="SaunaFact" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="UserDim">
     <Key>
@@ -423,6 +434,7 @@
     <Property Name="ActiveSince" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__UserD__1F98B2C1" FromRole="UserDim" ToRole="SaunaFact" />
+    <Property Name="ValidTo" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK__SaunaFact__DateD__208CD6FA">
     <End Type="sep4_dbModel.DateDim" Role="DateDim" Multiplicity="1" />

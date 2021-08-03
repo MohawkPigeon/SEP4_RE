@@ -110,6 +110,18 @@ namespace sep4.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = db.User.Find(id);
+
+            if (user.Rights == "Supervisor")
+            {
+                StageSupervisorDim stageSupervisor = db.StageSupervisorDim.Where(ss => ss.UserID == user.UserID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+                stageSupervisor.ValidTo = DateTime.Now.AddDays(-1);
+            }
+            if (user.Rights == "User")
+            {
+                StageUserDim stageUser = db.StageUserDim.Where(su => su.UserID == user.UserID && su.ValidTo > DateTime.Now).FirstOrDefault();
+                stageUser.ValidTo = DateTime.Now.AddDays(-1);
+            }
+
             db.User.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");

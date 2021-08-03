@@ -20,5 +20,6 @@ namespace sep4
         public Nullable<System.DateTime> FromDateTime { get; set; }
         public Nullable<System.DateTime> ToDateTime { get; set; }
         public Nullable<System.DateTime> LoadDate { get; set; }
+        public Nullable<System.DateTime> ValidTo { get; set; }
     }
 }

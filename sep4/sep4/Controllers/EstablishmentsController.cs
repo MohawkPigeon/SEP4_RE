@@ -110,6 +110,10 @@ namespace sep4.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Establishment establishment = db.Establishment.Find(id);
+
+            StageEstablishmentDIM stageEstablishment = db.StageEstablishmentDIM.Where(se => se.EstablishmentID == establishment.EstablishmentID && se.ValidTo > DateTime.Now).FirstOrDefault();
+            stageEstablishment.ValidTo = DateTime.Now.AddDays(-1);
+
             db.Establishment.Remove(establishment);
             db.SaveChanges();
             return RedirectToAction("Index");

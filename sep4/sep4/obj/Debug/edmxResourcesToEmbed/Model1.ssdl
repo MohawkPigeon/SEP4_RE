@@ -6,7 +6,7 @@
     </Key>
     <Property Name="DatapointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
-    <Property Name="DateTime" Type="datetime" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Temperature" Type="nchar" MaxLength="10" />
     <Property Name="Co2" Type="nchar" MaxLength="10" />
     <Property Name="Humidity" Type="nchar" MaxLength="10" />
@@ -43,6 +43,7 @@
     <Property Name="ManagerUsername" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="NotificationHistory">
     <Key>
@@ -56,11 +57,13 @@
     <Key>
       <PropertyRef Name="UserID" />
       <PropertyRef Name="SaunaID" />
+      <PropertyRef Name="FromDateTime" />
+      <PropertyRef Name="ToDateTime" />
     </Key>
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
-    <Property Name="FromDateTime" Type="datetime" />
-    <Property Name="ToDateTime" Type="datetime" />
+    <Property Name="FromDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ToDateTime" Type="datetime" Nullable="false" />
     <Property Name="DateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="ReservationDim">
@@ -73,6 +76,7 @@
     <Property Name="FromDateTime" Type="datetime" Nullable="false" />
     <Property Name="ToDateTime" Type="datetime" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="Sauna">
     <Key>
@@ -97,6 +101,7 @@
     <Property Name="CO2Threshold" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="SaunaFact">
     <Key>
@@ -132,7 +137,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DateTime" Type="datetime" />
     <Property Name="SaunaID" Type="int" />
     <Property Name="Temperature" Type="int" />
@@ -144,7 +149,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DateTime" Type="datetime" />
     <Property Name="Year" Type="int" />
     <Property Name="Month" Type="int" />
@@ -157,29 +162,31 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EstablishmentID" Type="int" />
     <Property Name="Name" Type="nchar" MaxLength="10" />
     <Property Name="Managerusername" Type="nchar" MaxLength="10" />
     <Property Name="Rights" Type="nchar" MaxLength="10" />
     <Property Name="LoadDate" Type="datetime" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="StageReservationDim">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" />
     <Property Name="SaunaID" Type="int" />
     <Property Name="FromDateTime" Type="datetime" />
     <Property Name="ToDateTime" Type="datetime" />
     <Property Name="LoadDate" Type="datetime" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="StageSaunaDim">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SaunaID" Type="int" />
     <Property Name="EstablishmentID" Type="int" />
     <Property Name="NameOrNumber" Type="nchar" MaxLength="10" />
@@ -187,29 +194,32 @@
     <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
     <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
     <Property Name="LoadDate" Type="datetime" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="StageSupervisorDim">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" />
     <Property Name="EstShiftFromDate" Type="datetime" />
     <Property Name="EstShiftToDate" Type="datetime" />
     <Property Name="Rights" Type="nchar" MaxLength="10" />
     <Property Name="LoadDate" Type="datetime" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="StageUserDim">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" />
     <Property Name="Username" Type="nchar" MaxLength="10" />
     <Property Name="Rights" Type="nchar" MaxLength="10" />
     <Property Name="ActiveSince" Type="datetime" />
     <Property Name="LoadDate" Type="datetime" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="SupervisorDim">
     <Key>
@@ -222,6 +232,7 @@
     <Property Name="EstShiftToDate" Type="datetime" Nullable="false" />
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -243,6 +254,7 @@
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="ActiveSince" Type="datetime" Nullable="false" />
     <Property Name="LoadDate" Type="datetime" Nullable="false" />
+    <Property Name="ValidTo" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->

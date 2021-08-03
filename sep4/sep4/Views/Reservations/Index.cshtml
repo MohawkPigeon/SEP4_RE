@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.User.Username)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { SaunaID=item.SaunaID, UserID=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { SaunaID = item.SaunaID, UserID = item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { SaunaID = item.SaunaID, UserID = item.UserID })
+            @Html.ActionLink("Edit", "Edit", new { SaunaID=item.SaunaID, UserID=item.UserID, FromDateTime=item.FromDateTime, ToDateTime=item.ToDateTime }) |
+            @Html.ActionLink("Details", "Details", new { SaunaID = item.SaunaID, UserID = item.UserID, FromDateTime = item.FromDateTime, ToDateTime = item.ToDateTime }) |
+            @Html.ActionLink("Delete", "Delete", new { SaunaID = item.SaunaID, UserID = item.UserID, FromDateTime = item.FromDateTime, ToDateTime = item.ToDateTime })
         </td>
     </tr>
 }

@@ -33,9 +33,9 @@ namespace sep4.Controllers
 
         // GET: api/APIReservations/5
         [ResponseType(typeof(ReservationDTO))]
-        public IHttpActionResult GetReservation(int? SaunaID, int? UserID)
+        public IHttpActionResult GetReservation(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
-            Reservation reservation = db.Reservation.Find(SaunaID,UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID,UserID, FromDateTime, ToDateTime);
             if (reservation == null)
             {
                 return NotFound();
@@ -112,13 +112,16 @@ namespace sep4.Controllers
 
         // DELETE: api/APIReservations/5
         [ResponseType(typeof(Reservation))]
-        public IHttpActionResult DeleteReservation(int? SaunaID, int? UserID)
+        public IHttpActionResult DeleteReservation(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
-            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID, FromDateTime, ToDateTime);
             if (reservation == null)
             {
                 return NotFound();
             }
+
+            StageReservationDim stageReservation = db.StageReservationDim.Where(sr => sr.SaunaID == reservation.SaunaID && sr.UserID == reservation.UserID && sr.FromDateTime == reservation.FromDateTime && sr.ToDateTime == sr.ToDateTime && sr.ValidTo > DateTime.Now).FirstOrDefault();
+            stageReservation.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Reservation.Remove(reservation);
             db.SaveChanges();

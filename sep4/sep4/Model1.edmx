@@ -11,7 +11,7 @@
           </Key>
           <Property Name="DatapointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SaunaID" Type="int" Nullable="false" />
-          <Property Name="DateTime" Type="datetime" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="Temperature" Type="nchar" MaxLength="10" />
           <Property Name="Co2" Type="nchar" MaxLength="10" />
           <Property Name="Humidity" Type="nchar" MaxLength="10" />
@@ -48,6 +48,7 @@
           <Property Name="ManagerUsername" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="NotificationHistory">
           <Key>
@@ -61,11 +62,13 @@
           <Key>
             <PropertyRef Name="UserID" />
             <PropertyRef Name="SaunaID" />
+            <PropertyRef Name="FromDateTime" />
+            <PropertyRef Name="ToDateTime" />
           </Key>
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="SaunaID" Type="int" Nullable="false" />
-          <Property Name="FromDateTime" Type="datetime" />
-          <Property Name="ToDateTime" Type="datetime" />
+          <Property Name="FromDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ToDateTime" Type="datetime" Nullable="false" />
           <Property Name="DateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="ReservationDim">
@@ -78,6 +81,7 @@
           <Property Name="FromDateTime" Type="datetime" Nullable="false" />
           <Property Name="ToDateTime" Type="datetime" Nullable="false" />
           <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="Sauna">
           <Key>
@@ -102,6 +106,7 @@
           <Property Name="CO2Threshold" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
           <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="SaunaFact">
           <Key>
@@ -137,7 +142,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateTime" Type="datetime" />
           <Property Name="SaunaID" Type="int" />
           <Property Name="Temperature" Type="int" />
@@ -149,7 +154,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateTime" Type="datetime" />
           <Property Name="Year" Type="int" />
           <Property Name="Month" Type="int" />
@@ -162,29 +167,31 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EstablishmentID" Type="int" />
           <Property Name="Name" Type="nchar" MaxLength="10" />
           <Property Name="Managerusername" Type="nchar" MaxLength="10" />
           <Property Name="Rights" Type="nchar" MaxLength="10" />
           <Property Name="LoadDate" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="StageReservationDim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="SaunaID" Type="int" />
           <Property Name="FromDateTime" Type="datetime" />
           <Property Name="ToDateTime" Type="datetime" />
           <Property Name="LoadDate" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="StageSaunaDim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SaunaID" Type="int" />
           <Property Name="EstablishmentID" Type="int" />
           <Property Name="NameOrNumber" Type="nchar" MaxLength="10" />
@@ -192,29 +199,32 @@
           <Property Name="CO2Threshold" Type="nchar" MaxLength="10" />
           <Property Name="HumidityThreshold" Type="nchar" MaxLength="10" />
           <Property Name="LoadDate" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="StageSupervisorDim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Username" Type="nchar" MaxLength="10" />
           <Property Name="EstShiftFromDate" Type="datetime" />
           <Property Name="EstShiftToDate" Type="datetime" />
           <Property Name="Rights" Type="nchar" MaxLength="10" />
           <Property Name="LoadDate" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="StageUserDim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="Username" Type="nchar" MaxLength="10" />
           <Property Name="Rights" Type="nchar" MaxLength="10" />
           <Property Name="ActiveSince" Type="datetime" />
           <Property Name="LoadDate" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="SupervisorDim">
           <Key>
@@ -227,6 +237,7 @@
           <Property Name="EstShiftToDate" Type="datetime" Nullable="false" />
           <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -248,6 +259,7 @@
           <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="ActiveSince" Type="datetime" Nullable="false" />
           <Property Name="LoadDate" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -514,7 +526,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           </Key>
           <Property Name="DatapointID" Type="Int32" Nullable="false" />
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
-          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="Temperature" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Co2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Humidity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -543,11 +555,13 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Key>
             <PropertyRef Name="UserID" />
             <PropertyRef Name="SaunaID" />
+            <PropertyRef Name="FromDateTime" />
+            <PropertyRef Name="ToDateTime" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="SaunaID" Type="Int32" Nullable="false" />
-          <Property Name="FromDateTime" Type="DateTime" Precision="3" />
-          <Property Name="ToDateTime" Type="DateTime" Precision="3" />
+          <Property Name="FromDateTime" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ToDateTime" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Sauna" Relationship="Self.SaunaID_Reservation" FromRole="Reservation" ToRole="Sauna" />
           <NavigationProperty Name="User" Relationship="Self.UserID_Reservation" FromRole="Reservation" ToRole="User" />
           <Property Name="DateTime" Type="DateTime" Precision="3" />
@@ -770,6 +784,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Rights" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Estab__1EA48E88" FromRole="EstablishmentDim" ToRole="SaunaFact" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ReservationDim">
           <Key>
@@ -782,6 +797,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="ToDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Reser__1CBC4616" FromRole="ReservationDim" ToRole="SaunaFact" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SaunaDim">
           <Key>
@@ -796,6 +812,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Sauna__1BC821DD" FromRole="SaunaDim" ToRole="SaunaFact" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SaunaFact">
           <Key>
@@ -859,6 +876,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Managerusername" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StageReservationDim">
           <Key>
@@ -870,6 +888,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="FromDateTime" Type="DateTime" Precision="3" />
           <Property Name="ToDateTime" Type="DateTime" Precision="3" />
           <Property Name="LoadDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StageSaunaDim">
           <Key>
@@ -883,6 +902,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="CO2Threshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="HumidityThreshold" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StageSupervisorDim">
           <Key>
@@ -895,6 +915,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="EstShiftToDate" Type="DateTime" Precision="3" />
           <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="StageUserDim">
           <Key>
@@ -906,6 +927,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Rights" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="ActiveSince" Type="DateTime" Precision="3" />
           <Property Name="LoadDate" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SupervisorDim">
           <Key>
@@ -919,6 +941,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Rights" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__Super__1DB06A4F" FromRole="SupervisorDim" ToRole="SaunaFact" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserDim">
           <Key>
@@ -931,6 +954,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="ActiveSince" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LoadDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__UserD__1F98B2C1" FromRole="UserDim" ToRole="SaunaFact" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK__SaunaFact__DateD__208CD6FA">
           <End Type="sep4_dbModel.DateDim" Role="DateDim" Multiplicity="1" />
@@ -1118,6 +1142,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="EstablishmentDim">
             <EntityTypeMapping TypeName="sep4_dbModel.EstablishmentDim">
               <MappingFragment StoreEntitySet="EstablishmentDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />
                 <ScalarProperty Name="ManagerUsername" ColumnName="ManagerUsername" />
@@ -1130,6 +1155,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="ReservationDim">
             <EntityTypeMapping TypeName="sep4_dbModel.ReservationDim">
               <MappingFragment StoreEntitySet="ReservationDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
                 <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
@@ -1142,6 +1168,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="SaunaDim">
             <EntityTypeMapping TypeName="sep4_dbModel.SaunaDim">
               <MappingFragment StoreEntitySet="SaunaDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
                 <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
@@ -1200,6 +1227,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="StageEstablishmentDIM">
             <EntityTypeMapping TypeName="sep4_dbModel.StageEstablishmentDIM">
               <MappingFragment StoreEntitySet="StageEstablishmentDIM">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />
                 <ScalarProperty Name="Managerusername" ColumnName="Managerusername" />
@@ -1212,6 +1240,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="StageReservationDim">
             <EntityTypeMapping TypeName="sep4_dbModel.StageReservationDim">
               <MappingFragment StoreEntitySet="StageReservationDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
@@ -1224,6 +1253,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="StageSaunaDim">
             <EntityTypeMapping TypeName="sep4_dbModel.StageSaunaDim">
               <MappingFragment StoreEntitySet="StageSaunaDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
                 <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
@@ -1238,6 +1268,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="StageSupervisorDim">
             <EntityTypeMapping TypeName="sep4_dbModel.StageSupervisorDim">
               <MappingFragment StoreEntitySet="StageSupervisorDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />
                 <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
@@ -1251,6 +1282,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="StageUserDim">
             <EntityTypeMapping TypeName="sep4_dbModel.StageUserDim">
               <MappingFragment StoreEntitySet="StageUserDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />
@@ -1263,6 +1295,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="SupervisorDim">
             <EntityTypeMapping TypeName="sep4_dbModel.SupervisorDim">
               <MappingFragment StoreEntitySet="SupervisorDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />
                 <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
@@ -1276,6 +1309,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <EntitySetMapping Name="UserDim">
             <EntityTypeMapping TypeName="sep4_dbModel.UserDim">
               <MappingFragment StoreEntitySet="UserDim">
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
                 <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
                 <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
                 <ScalarProperty Name="Rights" ColumnName="Rights" />

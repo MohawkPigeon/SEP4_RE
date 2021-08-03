@@ -22,5 +22,6 @@ namespace sep4
         public string CO2Threshold { get; set; }
         public string HumidityThreshold { get; set; }
         public Nullable<System.DateTime> LoadDate { get; set; }
+        public Nullable<System.DateTime> ValidTo { get; set; }
     }
 }

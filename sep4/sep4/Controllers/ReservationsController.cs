@@ -22,13 +22,13 @@ namespace sep4.Controllers
         }
 
         // GET: Reservations/Details/5
-        public ActionResult Details(int? SaunaID, int? UserID)
+        public ActionResult Details(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
             if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID, FromDateTime, ToDateTime);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -64,13 +64,13 @@ namespace sep4.Controllers
         }
 
         // GET: Reservations/Edit/5
-        public ActionResult Edit(int? SaunaID, int? UserID)
+        public ActionResult Edit(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
             if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID, FromDateTime, ToDateTime);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -99,13 +99,13 @@ namespace sep4.Controllers
         }
 
         // GET: Reservations/Delete/5
-        public ActionResult Delete(int? SaunaID, int? UserID)
+        public ActionResult Delete(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
             if (SaunaID == null || UserID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID, FromDateTime, ToDateTime);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -116,9 +116,13 @@ namespace sep4.Controllers
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? SaunaID, int? UserID)
+        public ActionResult DeleteConfirmed(int? SaunaID, int? UserID, DateTime? FromDateTime, DateTime? ToDateTime)
         {
-            Reservation reservation = db.Reservation.Find(SaunaID, UserID);
+            Reservation reservation = db.Reservation.Find(SaunaID, UserID, FromDateTime, ToDateTime);
+
+            StageReservationDim stageReservation = db.StageReservationDim.Where(sr => sr.SaunaID == reservation.SaunaID && sr.UserID == reservation.UserID && sr.FromDateTime == reservation.FromDateTime && sr.ToDateTime == sr.ToDateTime && sr.ValidTo > DateTime.Now).FirstOrDefault();
+            stageReservation.ValidTo = DateTime.Now.AddDays(-1);
+
             db.Reservation.Remove(reservation);
             db.SaveChanges();
             return RedirectToAction("Index");

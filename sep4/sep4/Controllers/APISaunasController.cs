@@ -159,6 +159,8 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+            stageSauna.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Sauna.Remove(sauna);
             db.SaveChanges();

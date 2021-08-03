@@ -20,5 +20,6 @@ namespace sep4
         public string Rights { get; set; }
         public Nullable<System.DateTime> ActiveSince { get; set; }
         public Nullable<System.DateTime> LoadDate { get; set; }
+        public Nullable<System.DateTime> ValidTo { get; set; }
     }
 }

@@ -120,7 +120,6 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
-
             db.Datapoint.Remove(datapoint);
             db.SaveChanges();
 

@@ -16,7 +16,7 @@ namespace sep4
     {
         public int DatapointID { get; set; }
         public int SaunaID { get; set; }
-        public Nullable<System.DateTime> DateTime { get; set; }
+        public System.DateTime DateTime { get; set; }
         public string Temperature { get; set; }
         public string Co2 { get; set; }
         public string Humidity { get; set; }

@@ -119,6 +119,8 @@ namespace sep4.Controllers
             {
                 return NotFound();
             }
+            StageEstablishmentDIM stageEstablishment = db.StageEstablishmentDIM.Where(se => se.EstablishmentID == establishment.EstablishmentID && se.ValidTo > DateTime.Now).FirstOrDefault();
+            stageEstablishment.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Establishment.Remove(establishment);
             db.SaveChanges();

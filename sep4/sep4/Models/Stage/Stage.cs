@@ -26,45 +26,35 @@ namespace sep4.Models.Stage
         public void InsertIntoStage()
         {
             dateTimeNow = DateTime.Now;
-            int count = 0;
-            foreach (var item in db.Datapoint)
+
+            foreach (var item in db.Datapoint.Where(dp => dp.DateTime > DateTime.Now.AddDays(-1)))
             {
-                //if(item.DateTime > dateTimeNow.AddDays(-1)){
-                    count++;
                     StageDatapoint stage = new StageDatapoint();
-                    stage.Id = count;
                     stage.DateTime = item.DateTime;
                     stage.SaunaID = item.SaunaID;
                     stage.Temperature = (int)Convert.ToDouble(item.Temperature);
                     stage.CO2 = (int)Convert.ToDouble(item.Co2);
                     stage.Humidity = (int)Double.Parse(item.Humidity);
                     stage.ServoSettingAtTime = item.ServoSettingAtTime;
-                    db.StageDatapoint.Add(stage);
-                //}            
+                    db.StageDatapoint.Add(stage);           
             }
-            count = 0;
-            DateTime dateTimeForInsert = DateTime.Now;
-            foreach (var item in db.Datapoint)
+
+            DateTime lastInsertTime = db.StageDateDim.FirstOrDefault().DateTime.Value;
+            while (dateTimeNow.CompareTo(lastInsertTime) > 0)
             {
-                if (dateTimeForInsert.CompareTo(item.DateTime.Value) > 0) dateTimeForInsert = item.DateTime.Value;
-            }
-            while (dateTimeNow.CompareTo(dateTimeForInsert) > 0)
-            {
-                count++;
                 StageDateDim stage = new StageDateDim();
-                stage.DateTime = dateTimeForInsert;
-                stage.Date = dateTimeForInsert.Day;
-                stage.Hour = dateTimeForInsert.Hour;
-                stage.Id = count;
-                stage.Minute = dateTimeForInsert.Minute;
-                stage.Month = dateTimeForInsert.Month;
-                stage.Second = dateTimeForInsert.Second;
-                stage.Year = dateTimeForInsert.Year;
+                stage.DateTime = lastInsertTime;
+                stage.Date = lastInsertTime.Day;
+                stage.Hour = lastInsertTime.Hour;
+                stage.Minute = lastInsertTime.Minute;
+                stage.Month = lastInsertTime.Month;
+                stage.Second = lastInsertTime.Second;
+                stage.Year = lastInsertTime.Year;
                 db.StageDateDim.Add(stage);
-                dateTimeForInsert.AddSeconds(1);
+                lastInsertTime.AddSeconds(1);
             }
-            count = 0;
-            foreach (var item in db.Establishment)
+
+            foreach (var item in db.Establishment.Where(x => x.DateTime > DateTime.Now.AddDays(-1)))
             {       
                 StageEstablishmentDIM stage = new StageEstablishmentDIM();
                 stage.EstablishmentID = item.EstablishmentID;
@@ -78,8 +68,6 @@ namespace sep4.Models.Stage
                         if(reservation.User.Rights != null)
                         if (reservation.User.Rights.Trim().Equals("Owner"))
                         {
-                            count++;
-                            stage.Id = count;
                             stage.Managerusername = reservation.User.Username;
                             stage.Rights = reservation.User.Rights;
                             db.StageEstablishmentDIM.Add(stage);
@@ -87,13 +75,11 @@ namespace sep4.Models.Stage
                     }
                 }
             }
-            count = 0;
-            foreach (var item in db.Reservation)
+
+            foreach (var item in db.Reservation.Where(x => x.DateTime > DateTime.Now.AddDays(-1)))
             {
-                count++;
                 StageReservationDim stage = new StageReservationDim();
                 stage.FromDateTime = item.FromDateTime;
-                stage.Id = count;
                 stage.LoadDate = dateTimeNow;
                 stage.SaunaID = item.SaunaID;
                 stage.ToDateTime = item.ToDateTime;
@@ -101,15 +87,13 @@ namespace sep4.Models.Stage
 
                 db.StageReservationDim.Add(stage);
             }
-            count = 0;
-            foreach (var item in db.Sauna)
+
+            foreach (var item in db.Sauna.Where(x => x.DateTime > DateTime.Now.AddDays(-1)))
             {
-                count++;
                 StageSaunaDim stage = new StageSaunaDim();
                 stage.CO2Threshold = item.CO2Threshold;
                 stage.EstablishmentID = item.EstablishmentID;
                 stage.HumidityThreshold = item.HumidityThreshold;
-                stage.Id = count;
                 stage.LoadDate = dateTimeNow;
                 stage.NameOrNumber = item.SaunaID.ToString();
                 stage.SaunaID = item.SaunaID;
@@ -117,8 +101,8 @@ namespace sep4.Models.Stage
 
                 db.StageSaunaDim.Add(stage);
             }
-            count = 0;
-            foreach (var item in db.User)
+
+            foreach (var item in db.User.Where(x => x.DateTime > DateTime.Now.AddDays(-1)))
             {
                 if(item.Rights != null)
                 if (item.Rights.Trim().Equals("Supervisor"))
@@ -148,10 +132,8 @@ namespace sep4.Models.Stage
                             stage.Rights = item.Rights;
                             stage.LoadDate = dateTimeNow;
 
-                            count++;
                             stage.EstShiftFromDate = shiftStart.DateTime.Value;
                             stage.EstShiftToDate = history.DateTime.Value;
-                            stage.Id = count;
 
                             newShift = true;
 
@@ -162,15 +144,14 @@ namespace sep4.Models.Stage
                     }
                 }
             }
-            count = 0;
-            foreach (var item in db.User)
+
+            foreach (var item in db.User.Where(x => x.DateTime > DateTime.Now.AddDays(-1)))
             {
                 if(item.Rights != null)
                 if (item.Rights.Trim().Equals("User"))
                 {
                     StageUserDim stage = new StageUserDim();
                     stage.ActiveSince = item.Reservation.First().FromDateTime;
-                    stage.Id = count;
                     stage.LoadDate = dateTimeNow;
                     stage.Rights = item.Rights;
                     stage.UserID = item.UserID;

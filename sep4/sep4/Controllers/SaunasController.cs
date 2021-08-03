@@ -115,6 +115,10 @@ namespace sep4.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Sauna sauna = db.Sauna.Find(id);
+
+            StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+            stageSauna.ValidTo = DateTime.Now.AddDays(-1);
+
             db.Sauna.Remove(sauna);
             db.SaveChanges();
             return RedirectToAction("Index");

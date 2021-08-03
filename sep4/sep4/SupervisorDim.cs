@@ -27,6 +27,7 @@ namespace sep4
         public System.DateTime EstShiftToDate { get; set; }
         public string Rights { get; set; }
         public System.DateTime LoadDate { get; set; }
+        public Nullable<System.DateTime> ValidTo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaunaFact> SaunaFact { get; set; }

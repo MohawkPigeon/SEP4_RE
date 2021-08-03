@@ -93,6 +93,7 @@
     <EntitySetMapping Name="EstablishmentDim">
       <EntityTypeMapping TypeName="sep4_dbModel.EstablishmentDim">
         <MappingFragment StoreEntitySet="EstablishmentDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
           <ScalarProperty Name="ManagerUsername" ColumnName="ManagerUsername" />
@@ -105,6 +106,7 @@
     <EntitySetMapping Name="ReservationDim">
       <EntityTypeMapping TypeName="sep4_dbModel.ReservationDim">
         <MappingFragment StoreEntitySet="ReservationDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
           <ScalarProperty Name="FromDateTime" ColumnName="FromDateTime" />
@@ -117,6 +119,7 @@
     <EntitySetMapping Name="SaunaDim">
       <EntityTypeMapping TypeName="sep4_dbModel.SaunaDim">
         <MappingFragment StoreEntitySet="SaunaDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
           <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
@@ -175,6 +178,7 @@
     <EntitySetMapping Name="StageEstablishmentDIM">
       <EntityTypeMapping TypeName="sep4_dbModel.StageEstablishmentDIM">
         <MappingFragment StoreEntitySet="StageEstablishmentDIM">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
           <ScalarProperty Name="Managerusername" ColumnName="Managerusername" />
@@ -187,6 +191,7 @@
     <EntitySetMapping Name="StageReservationDim">
       <EntityTypeMapping TypeName="sep4_dbModel.StageReservationDim">
         <MappingFragment StoreEntitySet="StageReservationDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="SaunaID" ColumnName="SaunaID" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="ToDateTime" ColumnName="ToDateTime" />
@@ -199,6 +204,7 @@
     <EntitySetMapping Name="StageSaunaDim">
       <EntityTypeMapping TypeName="sep4_dbModel.StageSaunaDim">
         <MappingFragment StoreEntitySet="StageSaunaDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="HumidityThreshold" ColumnName="HumidityThreshold" />
           <ScalarProperty Name="CO2Threshold" ColumnName="CO2Threshold" />
@@ -213,6 +219,7 @@
     <EntitySetMapping Name="StageSupervisorDim">
       <EntityTypeMapping TypeName="sep4_dbModel.StageSupervisorDim">
         <MappingFragment StoreEntitySet="StageSupervisorDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
           <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
@@ -226,6 +233,7 @@
     <EntitySetMapping Name="StageUserDim">
       <EntityTypeMapping TypeName="sep4_dbModel.StageUserDim">
         <MappingFragment StoreEntitySet="StageUserDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
@@ -238,6 +246,7 @@
     <EntitySetMapping Name="SupervisorDim">
       <EntityTypeMapping TypeName="sep4_dbModel.SupervisorDim">
         <MappingFragment StoreEntitySet="SupervisorDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
           <ScalarProperty Name="EstShiftToDate" ColumnName="EstShiftToDate" />
@@ -251,6 +260,7 @@
     <EntitySetMapping Name="UserDim">
       <EntityTypeMapping TypeName="sep4_dbModel.UserDim">
         <MappingFragment StoreEntitySet="UserDim">
+          <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
           <ScalarProperty Name="LoadDate" ColumnName="LoadDate" />
           <ScalarProperty Name="ActiveSince" ColumnName="ActiveSince" />
           <ScalarProperty Name="Rights" ColumnName="Rights" />
