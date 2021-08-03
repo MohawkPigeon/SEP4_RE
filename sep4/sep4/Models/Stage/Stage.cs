@@ -43,19 +43,25 @@ namespace sep4.Models.Stage
                 //}            
             }
             count = 0;
+            DateTime dateTimeForInsert = DateTime.Now;
             foreach (var item in db.Datapoint)
+            {
+                if (dateTimeForInsert.CompareTo(item.DateTime.Value) > 0) dateTimeForInsert = item.DateTime.Value;
+            }
+            while (dateTimeNow.CompareTo(dateTimeForInsert) > 0)
             {
                 count++;
                 StageDateDim stage = new StageDateDim();
-                stage.DateTime = item.DateTime;
-                stage.Date = item.DateTime.Value.Day;
-                stage.Hour = item.DateTime.Value.Hour;
+                stage.DateTime = dateTimeForInsert;
+                stage.Date = dateTimeForInsert.Day;
+                stage.Hour = dateTimeForInsert.Hour;
                 stage.Id = count;
-                stage.Minute = item.DateTime.Value.Minute;
-                stage.Month = item.DateTime.Value.Month;
-                stage.Second = item.DateTime.Value.Second;
-                stage.Year = item.DateTime.Value.Year;
+                stage.Minute = dateTimeForInsert.Minute;
+                stage.Month = dateTimeForInsert.Month;
+                stage.Second = dateTimeForInsert.Second;
+                stage.Year = dateTimeForInsert.Year;
                 db.StageDateDim.Add(stage);
+                dateTimeForInsert.AddSeconds(1);
             }
             count = 0;
             foreach (var item in db.Establishment)
@@ -175,6 +181,70 @@ namespace sep4.Models.Stage
             }
             db.SaveChanges();
         }
+
+        public void Transform()
+        {
+            foreach (var item in db.StageDateDim)
+            {
+                if (!item.DateTime.HasValue) item.DateTime = new DateTime(0, 0, 0, 0, 0, 0, 0);
+                if (!item.Year.HasValue) item.Year = 0;
+                if (!item.Month.HasValue) item.Month = 0;
+                if (!item.Date.HasValue) item.Date = 0;
+                if (!item.Hour.HasValue) item.Hour = 0;
+                if (!item.Minute.HasValue) item.Minute = 0;
+                if (!item.Second.HasValue) item.Second = 0;
+            }
+
+            foreach (var item in db.StageEstablishmentDIM)
+            {
+                if (!item.EstablishmentID.HasValue) item.EstablishmentID = -99;
+                if (item.Name.Length==0) item.Name = "null";
+                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+            }
+            foreach (var item in db.StageReservationDim)
+            {
+                if (!item.SaunaID.HasValue) item.SaunaID = -99;
+                if (!item.UserID.HasValue) item.UserID = -99;
+                if (!item.FromDateTime.HasValue) item.FromDateTime = new DateTime(0, 0, 0, 0, 0, 0, 0);
+                if (!item.ToDateTime.HasValue) item.ToDateTime = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+            }
+            foreach (var item in db.StageSaunaDim)
+            {
+                if (!item.SaunaID.HasValue) item.SaunaID = -99;
+                if (!item.EstablishmentID.HasValue) item.EstablishmentID = -99;
+                if (item.NameOrNumber.Length == 0) item.NameOrNumber = "null";
+                if (item.TemperatureThreshold.Length == 0) item.TemperatureThreshold = "null";
+                if (item.CO2Threshold.Length == 0) item.CO2Threshold = "null";
+                if (item.HumidityThreshold.Length == 0) item.HumidityThreshold = "null";
+                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+
+            }
+            foreach (var item in db.StageSupervisorDim)
+            {
+                if (item.Username.Length == 0) item.Username = "null";
+                if (item.Rights.Length == 0) item.Rights = "null";
+                if (!item.EstShiftFromDate.HasValue) item.EstShiftFromDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                if (!item.EstShiftToDate.HasValue) item.EstShiftToDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+            }
+            foreach (var item in db.StageUserDim)
+            {
+                if (item.Username.Length == 0) item.Username = "null";
+                if (item.Rights.Length == 0) item.Rights = "null";
+                if (!item.ActiveSince.HasValue) item.ActiveSince = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw;
+            }
+        }
+
         public void Load() { 
             
             foreach (var item in db.StageDateDim) {
