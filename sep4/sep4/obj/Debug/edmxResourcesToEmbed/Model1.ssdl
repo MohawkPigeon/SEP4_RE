@@ -248,7 +248,7 @@
     <Key>
       <PropertyRef Name="UserDimID" />
     </Key>
-    <Property Name="UserDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />

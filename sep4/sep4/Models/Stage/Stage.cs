@@ -66,6 +66,23 @@ namespace sep4.Models.Stage
                     lastInsertTime.AddSeconds(1);
                 }
             }
+            else
+            {
+                DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DateTime > daysSinceLastUpdateDate).OrderByDescending(dp => dp.DatapointID).FirstOrDefault().DateTime;
+                while (dateTimeNow.CompareTo(lastInsertTime) > 0)
+                {
+                    StageDateDim stage = new StageDateDim();
+                    stage.DateTime = lastInsertTime;
+                    stage.Date = lastInsertTime.Day;
+                    stage.Hour = lastInsertTime.Hour;
+                    stage.Minute = lastInsertTime.Minute;
+                    stage.Month = lastInsertTime.Month;
+                    stage.Second = lastInsertTime.Second;
+                    stage.Year = lastInsertTime.Year;
+                    db.StageDateDim.Add(stage);
+                    lastInsertTime.AddSeconds(1);
+                }
+            }
 
             foreach (var item in db.Establishment.Where(x => x.DateTime > daysSinceLastUpdateDate))
             {       

@@ -427,7 +427,7 @@
     <Key>
       <PropertyRef Name="UserDimID" />
     </Key>
-    <Property Name="UserDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="Username" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Rights" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />

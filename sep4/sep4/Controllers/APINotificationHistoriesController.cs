@@ -22,32 +22,51 @@ namespace sep4.Controllers
     public IHttpActionResult GetNotificationHistorys()
     {
             var notificationHistory = db.NotificationHistory.Include(n => n.User);
-            List<int> userIDList = new List<int>();
+            List<int> saunaIDList = new List<int>();
 
-            foreach (var user in notificationHistory.ToList())
+            foreach (var notification in notificationHistory.ToList())
             {
-                userIDList.Add(user.UserID);
+                foreach (var reservation in notification.User.Reservation.ToList())
+                {
+                    saunaIDList.Add(reservation.SaunaID);
+                }
             }
 
-            return Ok(userIDList);
+            return Ok(saunaIDList);
     }
 
-    // GET: api/APINotificationHistories
-    //[ResponseType(typeof(List<NotificationHistoryDTO>))]
-    //    public IHttpActionResult GetNotificationHistorys()
-    //    {
-    //        List<NotificationHistoryDTO> notificationHistoryDTOs = new List<NotificationHistoryDTO>();
-    //        foreach (var notificationHistory in db.NotificationHistory.ToList())
-    //        {
-    //            NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
-    //            notificationHistoryDTOs.Add(notificationHistoryDTO);
-    //        }
+        //// GET: api/APINotificationHistories
+        //[ResponseType(typeof(List<int>))]
+        //public IHttpActionResult GetNotificationHistorys()
+        //{
+        //    var notificationHistory = db.NotificationHistory.Include(n => n.User);
+        //    List<int> userIDList = new List<int>();
 
-    //        return Ok(notificationHistoryDTOs);
-    //    }
+        //    foreach (var user in notificationHistory.ToList())
+        //    {
+        //        userIDList.Add(user.UserID);
+        //    }
 
-    // GET: api/APINotificationHistories/5
-    [ResponseType(typeof(NotificationHistoryDTO))]
+        //    return Ok(userIDList);
+        //}
+
+
+        // GET: api/APINotificationHistories
+        //[ResponseType(typeof(List<NotificationHistoryDTO>))]
+        //    public IHttpActionResult GetNotificationHistorys()
+        //    {
+        //        List<NotificationHistoryDTO> notificationHistoryDTOs = new List<NotificationHistoryDTO>();
+        //        foreach (var notificationHistory in db.NotificationHistory.ToList())
+        //        {
+        //            NotificationHistoryDTO notificationHistoryDTO = new NotificationHistoryDTO(notificationHistory.NotificationID, notificationHistory.UserID, notificationHistory.DateTime);
+        //            notificationHistoryDTOs.Add(notificationHistoryDTO);
+        //        }
+
+        //        return Ok(notificationHistoryDTOs);
+        //    }
+
+        // GET: api/APINotificationHistories/5
+        [ResponseType(typeof(NotificationHistoryDTO))]
         public IHttpActionResult GetNotificationHistory(int id)
         {
             NotificationHistory notificationHistory = db.NotificationHistory.Find(id);
