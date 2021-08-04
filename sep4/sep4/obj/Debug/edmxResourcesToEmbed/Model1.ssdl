@@ -16,7 +16,7 @@
     <Key>
       <PropertyRef Name="DateDimID" />
     </Key>
-    <Property Name="DateDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Year" Type="int" Nullable="false" />
     <Property Name="Month" Type="int" Nullable="false" />
@@ -37,7 +37,7 @@
     <Key>
       <PropertyRef Name="EstablishmentDimID" />
     </Key>
-    <Property Name="EstablishmentDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EstablishmentDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="ManagerUsername" Type="nchar" MaxLength="10" Nullable="false" />
@@ -70,7 +70,7 @@
     <Key>
       <PropertyRef Name="ReservationDimID" />
     </Key>
-    <Property Name="ReservationDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReservationDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="FromDateTime" Type="datetime" Nullable="false" />
@@ -93,7 +93,7 @@
     <Key>
       <PropertyRef Name="SaunaDimID" />
     </Key>
-    <Property Name="SaunaDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SaunaDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="NameOrNumber" Type="nchar" MaxLength="10" Nullable="false" />
@@ -225,7 +225,7 @@
     <Key>
       <PropertyRef Name="SupervisorDimID" />
     </Key>
-    <Property Name="SupervisorDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupervisorDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="EstShiftFromDate" Type="datetime" Nullable="false" />
@@ -248,7 +248,7 @@
     <Key>
       <PropertyRef Name="UserDimID" />
     </Key>
-    <Property Name="UserDimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserDimID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
@@ -288,7 +288,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__DateD__208CD6FA">
+  <Association Name="FK__SaunaFact__DateD__7FEAFD3E">
     <End Role="DateDim" Type="Self.DateDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -300,7 +300,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__Estab__1EA48E88">
+  <Association Name="FK__SaunaFact__Estab__00DF2177">
     <End Role="EstablishmentDim" Type="Self.EstablishmentDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -312,7 +312,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__Reser__1CBC4616">
+  <Association Name="FK__SaunaFact__Reser__01D345B0">
     <End Role="ReservationDim" Type="Self.ReservationDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -324,7 +324,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__Sauna__1BC821DD">
+  <Association Name="FK__SaunaFact__Sauna__02C769E9">
     <End Role="SaunaDim" Type="Self.SaunaDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -336,7 +336,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__Super__1DB06A4F">
+  <Association Name="FK__SaunaFact__Super__03BB8E22">
     <End Role="SupervisorDim" Type="Self.SupervisorDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -348,7 +348,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__SaunaFact__UserD__1F98B2C1">
+  <Association Name="FK__SaunaFact__UserD__04AFB25B">
     <End Role="UserDim" Type="Self.UserDim" Multiplicity="1" />
     <End Role="SaunaFact" Type="Self.SaunaFact" Multiplicity="*" />
     <ReferentialConstraint>
@@ -466,27 +466,27 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
       <End Role="Establishment" EntitySet="Establishment" />
       <End Role="Sauna" EntitySet="Sauna" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__DateD__208CD6FA" Association="Self.FK__SaunaFact__DateD__208CD6FA">
+    <AssociationSet Name="FK__SaunaFact__DateD__7FEAFD3E" Association="Self.FK__SaunaFact__DateD__7FEAFD3E">
       <End Role="DateDim" EntitySet="DateDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__Estab__1EA48E88" Association="Self.FK__SaunaFact__Estab__1EA48E88">
+    <AssociationSet Name="FK__SaunaFact__Estab__00DF2177" Association="Self.FK__SaunaFact__Estab__00DF2177">
       <End Role="EstablishmentDim" EntitySet="EstablishmentDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__Reser__1CBC4616" Association="Self.FK__SaunaFact__Reser__1CBC4616">
+    <AssociationSet Name="FK__SaunaFact__Reser__01D345B0" Association="Self.FK__SaunaFact__Reser__01D345B0">
       <End Role="ReservationDim" EntitySet="ReservationDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__Sauna__1BC821DD" Association="Self.FK__SaunaFact__Sauna__1BC821DD">
+    <AssociationSet Name="FK__SaunaFact__Sauna__02C769E9" Association="Self.FK__SaunaFact__Sauna__02C769E9">
       <End Role="SaunaDim" EntitySet="SaunaDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__Super__1DB06A4F" Association="Self.FK__SaunaFact__Super__1DB06A4F">
+    <AssociationSet Name="FK__SaunaFact__Super__03BB8E22" Association="Self.FK__SaunaFact__Super__03BB8E22">
       <End Role="SupervisorDim" EntitySet="SupervisorDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>
-    <AssociationSet Name="FK__SaunaFact__UserD__1F98B2C1" Association="Self.FK__SaunaFact__UserD__1F98B2C1">
+    <AssociationSet Name="FK__SaunaFact__UserD__04AFB25B" Association="Self.FK__SaunaFact__UserD__04AFB25B">
       <End Role="UserDim" EntitySet="UserDim" />
       <End Role="SaunaFact" EntitySet="SaunaFact" />
     </AssociationSet>

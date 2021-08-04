@@ -48,19 +48,23 @@ namespace sep4.Models.Stage
                     db.StageDatapoint.Add(stage);           
             }
 
-            DateTime lastInsertTime = db.StageDateDim.FirstOrDefault().DateTime.Value;
-            while (dateTimeNow.CompareTo(lastInsertTime) > 0)
+            StageDateDim stageDateDim = db.StageDateDim.FirstOrDefault();
+            if (stageDateDim != null)
             {
-                StageDateDim stage = new StageDateDim();
-                stage.DateTime = lastInsertTime;
-                stage.Date = lastInsertTime.Day;
-                stage.Hour = lastInsertTime.Hour;
-                stage.Minute = lastInsertTime.Minute;
-                stage.Month = lastInsertTime.Month;
-                stage.Second = lastInsertTime.Second;
-                stage.Year = lastInsertTime.Year;
-                db.StageDateDim.Add(stage);
-                lastInsertTime.AddSeconds(1);
+                DateTime lastInsertTime = stageDateDim.DateTime.Value;
+                while (dateTimeNow.CompareTo(lastInsertTime) > 0)
+                {
+                    StageDateDim stage = new StageDateDim();
+                    stage.DateTime = lastInsertTime;
+                    stage.Date = lastInsertTime.Day;
+                    stage.Hour = lastInsertTime.Hour;
+                    stage.Minute = lastInsertTime.Minute;
+                    stage.Month = lastInsertTime.Month;
+                    stage.Second = lastInsertTime.Second;
+                    stage.Year = lastInsertTime.Year;
+                    db.StageDateDim.Add(stage);
+                    lastInsertTime.AddSeconds(1);
+                }
             }
 
             foreach (var item in db.Establishment.Where(x => x.DateTime > daysSinceLastUpdateDate))
@@ -99,7 +103,7 @@ namespace sep4.Models.Stage
                 db.StageReservationDim.Add(stage);
             }
 
-            foreach (var item in db.Sauna.Where(x => x.DateTime > DateTime.Now.AddDays(-daysSinceLastUpdate)))
+            foreach (var item in db.Sauna.Where(x => x.DateTime > daysSinceLastUpdateDate))
             {
                 StageSaunaDim stage = new StageSaunaDim();
                 stage.CO2Threshold = item.CO2Threshold;
@@ -164,7 +168,11 @@ namespace sep4.Models.Stage
                 if (item.Rights.Trim().Equals("User"))
                 {
                     StageUserDim stage = new StageUserDim();
-                    stage.ActiveSince = item.Reservation.First().FromDateTime;
+                        if(item.Reservation.Count > 0)
+                        if(item.Reservation.LastOrDefault() != null)
+                        {
+                            stage.ActiveSince = item.Reservation.LastOrDefault().FromDateTime;
+                        }
                     stage.LoadDate = dateTimeNow;
                     stage.Rights = item.Rights;
                     stage.UserID = item.UserID;
@@ -213,7 +221,7 @@ namespace sep4.Models.Stage
                 if (item.TemperatureThreshold.Length == 0) item.TemperatureThreshold = "null";
                 if (item.CO2Threshold.Length == 0) item.CO2Threshold = "null";
                 if (item.HumidityThreshold.Length == 0) item.HumidityThreshold = "null";
-                if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                //if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
 
             }
             foreach (var item in db.StageSupervisorDim.Where(x => x.LoadDate > daysSinceLastUpdateDate && x.ValidTo > dateTimeNow))
@@ -228,7 +236,7 @@ namespace sep4.Models.Stage
             {
                 if (item.Username.Length == 0) item.Username = "null";
                 if (item.Rights.Length == 0) item.Rights = "null";
-                if (!item.ActiveSince.HasValue) item.ActiveSince = new DateTime(0, 0, 0, 0, 0, 0, 0); 
+                if (!item.ActiveSince.HasValue) item.ActiveSince = DateTime.Now.AddYears(100);
                 if (!item.LoadDate.HasValue) item.LoadDate = new DateTime(0, 0, 0, 0, 0, 0, 0); 
             }
             try
