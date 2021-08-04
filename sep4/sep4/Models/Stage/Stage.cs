@@ -230,6 +230,7 @@ namespace sep4.Models.Stage
             
             foreach (var item in db.StageDateDim) {
                 DateDim dateDim = new DateDim();
+                dateDim.DateDimID = item.Id;
                 dateDim.DateTime =  item.DateTime.Value;
                 dateDim.Year = item.Year.Value;
                 dateDim.Month = item.Month.Value;
@@ -241,6 +242,7 @@ namespace sep4.Models.Stage
             }
             foreach (var item in db.StageEstablishmentDIM) {
                 EstablishmentDim establishmentDim = new EstablishmentDim();
+                establishmentDim.EstablishmentDimID = item.Id;
                 establishmentDim.EstablishmentID = item.EstablishmentID.Value;
                 establishmentDim.Name = item.Name;
                 establishmentDim.LoadDate = item.LoadDate.Value;
@@ -249,6 +251,7 @@ namespace sep4.Models.Stage
             }
             foreach (var item in db.StageReservationDim) {
                 ReservationDim ReservationDim = new ReservationDim();
+                ReservationDim.ReservationDimID = item.Id;
                 ReservationDim.SaunaID = (int)item.SaunaID;
                 ReservationDim.UserID = item.UserID.Value;
                 ReservationDim.FromDateTime = item.FromDateTime.Value;
@@ -259,6 +262,7 @@ namespace sep4.Models.Stage
             }
             foreach (var item in db.StageSaunaDim) {
                 SaunaDim saunaDim = new SaunaDim();
+                saunaDim.SaunaDimID = item.Id;
                 saunaDim.SaunaID = item.SaunaID.Value;
                 saunaDim.EstablishmentID = item.EstablishmentID.Value;
                 saunaDim.NameOrNumber = item.NameOrNumber;
@@ -271,6 +275,7 @@ namespace sep4.Models.Stage
             }
             foreach (var item in db.StageSupervisorDim) {
                 SupervisorDim supervisorDim = new SupervisorDim();
+                supervisorDim.SupervisorDimID = item.Id;
                 supervisorDim.UserID = item.UserID;
                 supervisorDim.Username = item.Username;
                 supervisorDim.Rights = item.Rights;
@@ -282,6 +287,7 @@ namespace sep4.Models.Stage
             }
             foreach (var item in db.StageUserDim) {
                 UserDim stageUser = new UserDim();
+                stageUser.UserDimID = item.Id;
                 stageUser.UserID = item.UserID.Value;
                 stageUser.Username = item.Username;
                 stageUser.Rights = item.Rights;
