@@ -244,6 +244,7 @@ namespace sep4.Models.Stage
                 establishmentDim.EstablishmentID = item.EstablishmentID.Value;
                 establishmentDim.Name = item.Name;
                 establishmentDim.LoadDate = item.LoadDate.Value;
+                establishmentDim.ValidTo = item.ValidTo;
                 db.EstablishmentDim.Add(establishmentDim);
             }
             foreach (var item in db.StageReservationDim) {
@@ -253,6 +254,7 @@ namespace sep4.Models.Stage
                 ReservationDim.FromDateTime = item.FromDateTime.Value;
                 ReservationDim.ToDateTime = item.FromDateTime.Value;
                 ReservationDim.LoadDate = item.LoadDate.Value;
+                ReservationDim.ValidTo = item.ValidTo;
                 db.ReservationDim.Add(ReservationDim);
             }
             foreach (var item in db.StageSaunaDim) {
@@ -264,6 +266,7 @@ namespace sep4.Models.Stage
                 saunaDim.CO2Threshold = item.CO2Threshold;
                 saunaDim.HumidityThreshold = item.HumidityThreshold;
                 saunaDim.LoadDate = item.LoadDate.Value;
+                saunaDim.ValidTo = item.ValidTo;
                 db.SaunaDim.Add(saunaDim);
             }
             foreach (var item in db.StageSupervisorDim) {
@@ -274,6 +277,7 @@ namespace sep4.Models.Stage
                 supervisorDim.EstShiftFromDate = item.EstShiftFromDate.Value;
                 supervisorDim.EstShiftToDate = item.EstShiftToDate.Value;
                 supervisorDim.LoadDate = item.LoadDate.Value;
+                supervisorDim.ValidTo = item.ValidTo;
                 db.SupervisorDim.Add(supervisorDim);
             }
             foreach (var item in db.StageUserDim) {
@@ -283,6 +287,7 @@ namespace sep4.Models.Stage
                 stageUser.Rights = item.Rights;
                 stageUser.ActiveSince = item.ActiveSince.Value;
                 stageUser.LoadDate = item.LoadDate.Value;
+                stageUser.ValidTo = item.ValidTo;
                 db.UserDim.Add(stageUser);
             }
             try
