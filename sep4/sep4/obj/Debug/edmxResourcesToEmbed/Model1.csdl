@@ -243,7 +243,7 @@
     <Key>
       <PropertyRef Name="DateDimID" />
     </Key>
-    <Property Name="DateDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Year" Type="Int32" Nullable="false" />
     <Property Name="Month" Type="Int32" Nullable="false" />
@@ -257,7 +257,7 @@
     <Key>
       <PropertyRef Name="EstablishmentDimID" />
     </Key>
-    <Property Name="EstablishmentDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EstablishmentDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="ManagerUsername" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -270,7 +270,7 @@
     <Key>
       <PropertyRef Name="ReservationDimID" />
     </Key>
-    <Property Name="ReservationDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReservationDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="SaunaID" Nullable="false" Type="Int32" />
     <Property Name="FromDateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -283,7 +283,7 @@
     <Key>
       <PropertyRef Name="SaunaDimID" />
     </Key>
-    <Property Name="SaunaDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SaunaDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="SaunaID" Type="Int32" Nullable="false" />
     <Property Name="EstablishmentID" Type="Int32" Nullable="false" />
     <Property Name="NameOrNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -413,7 +413,7 @@
     <Key>
       <PropertyRef Name="SupervisorDimID" />
     </Key>
-    <Property Name="SupervisorDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupervisorDimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="UserID" Type="Int32" Nullable="false" />
     <Property Name="Username" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="EstShiftFromDate" Type="DateTime" Nullable="false" Precision="3" />

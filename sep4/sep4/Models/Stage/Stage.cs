@@ -52,7 +52,7 @@ namespace sep4.Models.Stage
             if (stageDateDim != null)
             {
                 DateTime lastInsertTime = stageDateDim.DateTime.Value;
-                while (dateTimeNow.CompareTo(lastInsertTime) > 0)
+                while (dateTimeNow > lastInsertTime)
                 {
                     StageDateDim stage = new StageDateDim();
                     stage.DateTime = lastInsertTime;
@@ -63,13 +63,22 @@ namespace sep4.Models.Stage
                     stage.Second = lastInsertTime.Second;
                     stage.Year = lastInsertTime.Year;
                     db.StageDateDim.Add(stage);
-                    lastInsertTime.AddSeconds(1);
+                    lastInsertTime = lastInsertTime.AddMinutes(1);
                 }
             }
             else
             {
-                DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DateTime > daysSinceLastUpdateDate).OrderByDescending(dp => dp.DatapointID).FirstOrDefault().DateTime;
-                while (dateTimeNow.CompareTo(lastInsertTime) > 0)
+                var small = db.Datapoint.Where(dp => dp.DateTime > daysSinceLastUpdateDate).ToList();
+                int smallId = small.First().DatapointID;
+                foreach (var item in small)
+                {
+                    if(item.DatapointID < smallId)
+                    {
+                        smallId = item.DatapointID;
+                    }           
+                }
+                DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DatapointID == smallId).First().DateTime;
+                while (dateTimeNow > lastInsertTime)
                 {
                     StageDateDim stage = new StageDateDim();
                     stage.DateTime = lastInsertTime;
@@ -80,7 +89,7 @@ namespace sep4.Models.Stage
                     stage.Second = lastInsertTime.Second;
                     stage.Year = lastInsertTime.Year;
                     db.StageDateDim.Add(stage);
-                    lastInsertTime.AddSeconds(1);
+                    lastInsertTime = lastInsertTime.AddMinutes(1);
                 }
             }
 
