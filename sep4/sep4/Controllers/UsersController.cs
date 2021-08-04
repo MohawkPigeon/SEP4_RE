@@ -50,6 +50,7 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.DateTime = DateTime.Now;
                 db.User.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

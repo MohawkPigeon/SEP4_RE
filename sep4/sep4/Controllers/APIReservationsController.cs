@@ -88,7 +88,7 @@ namespace sep4.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            reservation.DateTime = DateTime.Now;
             db.Reservation.Add(reservation);
 
             try

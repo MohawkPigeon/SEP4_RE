@@ -88,7 +88,7 @@ namespace sep4.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            establishment.DateTime = DateTime.Now;
             db.Establishment.Add(establishment);
 
             try

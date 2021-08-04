@@ -113,7 +113,7 @@ namespace sep4.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            user.DateTime = DateTime.Now;
             db.User.Add(user);
 
             try

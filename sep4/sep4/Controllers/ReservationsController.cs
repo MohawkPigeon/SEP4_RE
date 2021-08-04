@@ -53,6 +53,7 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                reservation.DateTime = DateTime.Now;
                 db.Reservation.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");

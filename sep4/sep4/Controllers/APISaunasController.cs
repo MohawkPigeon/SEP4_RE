@@ -128,7 +128,7 @@ namespace sep4.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            sauna.DateTime = DateTime.Now;
             db.Sauna.Add(sauna);
 
             try

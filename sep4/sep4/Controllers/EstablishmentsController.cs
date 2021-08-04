@@ -50,6 +50,7 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                establishment.DateTime = DateTime.Now;
                 db.Establishment.Add(establishment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
