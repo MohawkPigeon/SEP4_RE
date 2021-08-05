@@ -56,6 +56,20 @@ namespace sep4.IoTSimulator.WebSocket
                     datapoint.Temperature = dataPoint.Temperature.ToString();
                     db.Datapoint.Add(datapoint);
 
+                    Sauna sauna = db.Sauna.Find(datapoint.SaunaID);
+                    if(double.Parse(datapoint.Co2.Trim()) > double.Parse(sauna.CO2Threshold.Trim()) || double.Parse(datapoint.Humidity.Trim()) > double.Parse(sauna.HumidityThreshold.Trim()) || double.Parse(datapoint.Temperature.Trim()) > double.Parse(sauna.TemperatureThreshold.Trim()))
+                    {
+                        NotificationHistory notificationHistory = new NotificationHistory();
+                        notificationHistory.DateTime = DateTime.Now;
+                        Reservation reservation = sauna.Reservation.Where(x => x.User.Rights.Trim() == "Supervisor").FirstOrDefault();
+                        if(reservation != null)
+                        {
+                            notificationHistory.UserID = reservation.UserID;
+                            notificationHistory.User = reservation.User;
+                            db.NotificationHistory.Add(notificationHistory);
+                        }
+                    }
+
                     try
                     {
                         db.SaveChanges();

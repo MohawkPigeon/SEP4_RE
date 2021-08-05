@@ -28,6 +28,7 @@ namespace sep4.Controllers
             {
                 foreach (var reservation in notification.User.Reservation.ToList())
                 {
+                    if(!saunaIDList.Contains(reservation.SaunaID))
                     saunaIDList.Add(reservation.SaunaID);
                 }
             }

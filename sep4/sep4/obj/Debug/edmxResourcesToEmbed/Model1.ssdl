@@ -16,7 +16,7 @@
     <Key>
       <PropertyRef Name="DateDimID" />
     </Key>
-    <Property Name="DateDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="DateDimID" Type="int" Nullable="false" />
     <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Year" Type="int" Nullable="false" />
     <Property Name="Month" Type="int" Nullable="false" />
@@ -37,7 +37,7 @@
     <Key>
       <PropertyRef Name="EstablishmentDimID" />
     </Key>
-    <Property Name="EstablishmentDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="EstablishmentDimID" Type="int" Nullable="false" />
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="ManagerUsername" Type="nchar" MaxLength="10" Nullable="false" />
@@ -49,7 +49,7 @@
     <Key>
       <PropertyRef Name="NotificationID" />
     </Key>
-    <Property Name="NotificationID" Type="int" Nullable="false" />
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="DateTime" Type="datetime" />
   </EntityType>
@@ -70,7 +70,7 @@
     <Key>
       <PropertyRef Name="ReservationDimID" />
     </Key>
-    <Property Name="ReservationDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="ReservationDimID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="FromDateTime" Type="datetime" Nullable="false" />
@@ -93,7 +93,7 @@
     <Key>
       <PropertyRef Name="SaunaDimID" />
     </Key>
-    <Property Name="SaunaDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="SaunaDimID" Type="int" Nullable="false" />
     <Property Name="SaunaID" Type="int" Nullable="false" />
     <Property Name="EstablishmentID" Type="int" Nullable="false" />
     <Property Name="NameOrNumber" Type="nchar" MaxLength="10" Nullable="false" />
@@ -225,7 +225,7 @@
     <Key>
       <PropertyRef Name="SupervisorDimID" />
     </Key>
-    <Property Name="SupervisorDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="SupervisorDimID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="EstShiftFromDate" Type="datetime" Nullable="false" />
@@ -248,7 +248,7 @@
     <Key>
       <PropertyRef Name="UserDimID" />
     </Key>
-    <Property Name="UserDimID" Type="int" Nullable="false" StoreGeneratedPattern="None" />
+    <Property Name="UserDimID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="Username" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Rights" Type="nchar" MaxLength="10" Nullable="false" />
