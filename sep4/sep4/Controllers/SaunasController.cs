@@ -87,6 +87,7 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                sauna.DateTime = DateTime.Now;
                 db.Entry(sauna).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

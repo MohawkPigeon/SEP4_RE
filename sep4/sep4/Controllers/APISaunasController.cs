@@ -65,7 +65,7 @@ namespace sep4.Controllers
             {
                 return BadRequest();
             }
-
+            sauna.DateTime = DateTime.Now;
             db.Entry(sauna).State = EntityState.Modified;
 
             try

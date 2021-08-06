@@ -83,7 +83,7 @@ namespace sep4.Controllers
             {
                 return BadRequest();
             }
-
+            user.DateTime = DateTime.Now;
             db.Entry(user).State = EntityState.Modified;
 
             try

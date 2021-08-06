@@ -83,6 +83,7 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                establishment.DateTime = DateTime.Now;
                 db.Entry(establishment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

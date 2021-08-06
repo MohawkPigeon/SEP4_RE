@@ -29,6 +29,16 @@ namespace sep4.Models.Stage
             db.StageUserDim.RemoveRange(db.StageUserDim);
             db.SaveChanges();
         }
+        public void RemoveDim()
+        {
+            db.DateDim.RemoveRange(db.DateDim);
+            db.EstablishmentDim.RemoveRange(db.EstablishmentDim);
+            db.ReservationDim.RemoveRange(db.ReservationDim);
+            db.SaunaDim.RemoveRange(db.SaunaDim);
+            db.SupervisorDim.RemoveRange(db.SupervisorDim);
+            db.UserDim.RemoveRange(db.UserDim);
+            db.SaveChanges();
+        }
 
         public void InsertIntoStage()
         {
