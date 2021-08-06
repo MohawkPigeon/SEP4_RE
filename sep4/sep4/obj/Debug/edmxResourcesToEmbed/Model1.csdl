@@ -309,11 +309,10 @@
     <Property Name="EstablishmentDimID" Type="Int32" Nullable="false" />
     <Property Name="UserDimID" Type="Int32" Nullable="false" />
     <Property Name="DateDimID" Type="Int32" Nullable="false" />
-    <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Temperature" Type="Int32" Nullable="false" />
     <Property Name="CO2" Type="Int32" Nullable="false" />
-    <Property Name="Humidity" Type="Int32" />
-    <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Humidity" Type="Int32" Nullable="false" />
+    <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
     <NavigationProperty Name="DateDim" Relationship="sep4_dbModel.FK__SaunaFact__DateD__208CD6FA" FromRole="SaunaFact" ToRole="DateDim" />
     <NavigationProperty Name="EstablishmentDim" Relationship="sep4_dbModel.FK__SaunaFact__Estab__1EA48E88" FromRole="SaunaFact" ToRole="EstablishmentDim" />
     <NavigationProperty Name="ReservationDim" Relationship="sep4_dbModel.FK__SaunaFact__Reser__1CBC4616" FromRole="SaunaFact" ToRole="ReservationDim" />

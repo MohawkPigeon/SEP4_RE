@@ -359,6 +359,10 @@ namespace sep4.Models.Stage
                 saunaFact.SupervisorDimID = db.SupervisorDim.Where(su => su.EstShiftFromDate < item.DateTime && item.DateTime < su.EstShiftToDate).FirstOrDefault().SupervisorDimID;
                 saunaFact.EstablishmentDimID = db.EstablishmentDim.Where(x => x.EstablishmentID == db.SaunaDim.Where(y => y.SaunaID == item.SaunaID).FirstOrDefault().EstablishmentID).FirstOrDefault().EstablishmentDimID;
                 saunaFact.UserDimID = db.UserDim.Where(u => u.UserID == db.ReservationDim.Where(x => x.SaunaID == item.SaunaID).FirstOrDefault().UserID).FirstOrDefault().UserDimID;
+                saunaFact.CO2 = (int)item.CO2;
+                saunaFact.Temperature = (int)item.Temperature;
+                saunaFact.Humidity = (int)item.Humidity;
+                saunaFact.ServoSettingAtTime = item.ServoSettingAtTime;
                 db.SaunaFact.Add(saunaFact);
             }
             try

@@ -118,11 +118,10 @@
     <Property Name="EstablishmentDimID" Type="int" Nullable="false" />
     <Property Name="UserDimID" Type="int" Nullable="false" />
     <Property Name="DateDimID" Type="int" Nullable="false" />
-    <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Temperature" Type="int" Nullable="false" />
     <Property Name="CO2" Type="int" Nullable="false" />
-    <Property Name="Humidity" Type="int" />
-    <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+    <Property Name="Humidity" Type="int" Nullable="false" />
+    <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="ServoSetting">
     <Key>

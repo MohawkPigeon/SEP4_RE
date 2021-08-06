@@ -123,11 +123,10 @@
           <Property Name="EstablishmentDimID" Type="int" Nullable="false" />
           <Property Name="UserDimID" Type="int" Nullable="false" />
           <Property Name="DateDimID" Type="int" Nullable="false" />
-          <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="Temperature" Type="int" Nullable="false" />
           <Property Name="CO2" Type="int" Nullable="false" />
-          <Property Name="Humidity" Type="int" />
-          <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" />
+          <Property Name="Humidity" Type="int" Nullable="false" />
+          <Property Name="ServoSettingAtTime" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="ServoSetting">
           <Key>
@@ -829,11 +828,10 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="EstablishmentDimID" Type="Int32" Nullable="false" />
           <Property Name="UserDimID" Type="Int32" Nullable="false" />
           <Property Name="DateDimID" Type="Int32" Nullable="false" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Temperature" Type="Int32" Nullable="false" />
           <Property Name="CO2" Type="Int32" Nullable="false" />
-          <Property Name="Humidity" Type="Int32" />
-          <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Humidity" Type="Int32" Nullable="false" />
+          <Property Name="ServoSettingAtTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DateDim" Relationship="sep4_dbModel.FK__SaunaFact__DateD__208CD6FA" FromRole="SaunaFact" ToRole="DateDim" />
           <NavigationProperty Name="EstablishmentDim" Relationship="sep4_dbModel.FK__SaunaFact__Estab__1EA48E88" FromRole="SaunaFact" ToRole="EstablishmentDim" />
           <NavigationProperty Name="ReservationDim" Relationship="sep4_dbModel.FK__SaunaFact__Reser__1CBC4616" FromRole="SaunaFact" ToRole="ReservationDim" />
@@ -1187,7 +1185,6 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
                 <ScalarProperty Name="Humidity" ColumnName="Humidity" />
                 <ScalarProperty Name="CO2" ColumnName="CO2" />
                 <ScalarProperty Name="Temperature" ColumnName="Temperature" />
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="DateDimID" ColumnName="DateDimID" />
                 <ScalarProperty Name="UserDimID" ColumnName="UserDimID" />
                 <ScalarProperty Name="EstablishmentDimID" ColumnName="EstablishmentDimID" />

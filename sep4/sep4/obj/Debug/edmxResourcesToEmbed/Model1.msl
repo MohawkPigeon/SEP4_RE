@@ -138,7 +138,6 @@
           <ScalarProperty Name="Humidity" ColumnName="Humidity" />
           <ScalarProperty Name="CO2" ColumnName="CO2" />
           <ScalarProperty Name="Temperature" ColumnName="Temperature" />
-          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
           <ScalarProperty Name="DateDimID" ColumnName="DateDimID" />
           <ScalarProperty Name="UserDimID" ColumnName="UserDimID" />
           <ScalarProperty Name="EstablishmentDimID" ColumnName="EstablishmentDimID" />

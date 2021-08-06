@@ -20,10 +20,9 @@ namespace sep4
         public int EstablishmentDimID { get; set; }
         public int UserDimID { get; set; }
         public int DateDimID { get; set; }
-        public System.DateTime DateTime { get; set; }
         public int Temperature { get; set; }
         public int CO2 { get; set; }
-        public Nullable<int> Humidity { get; set; }
+        public int Humidity { get; set; }
         public string ServoSettingAtTime { get; set; }
     
         public virtual DateDim DateDim { get; set; }
