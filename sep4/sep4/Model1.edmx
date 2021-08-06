@@ -28,7 +28,7 @@
           <Property Name="Date" Type="int" Nullable="false" />
           <Property Name="Hour" Type="int" Nullable="false" />
           <Property Name="Minute" Type="int" Nullable="false" />
-          <Property Name="Second" Type="int" Nullable="false" />
+          <Property Name="Second" Type="int" />
         </EntityType>
         <EntityType Name="Establishment">
           <Key>
@@ -770,7 +770,7 @@ warning 6002: The table/view 'sep4_db.sys.database_firewall_rules' does not have
           <Property Name="Date" Type="Int32" Nullable="false" />
           <Property Name="Hour" Type="Int32" Nullable="false" />
           <Property Name="Minute" Type="Int32" Nullable="false" />
-          <Property Name="Second" Type="Int32" Nullable="false" />
+          <Property Name="Second" Type="Int32" />
           <NavigationProperty Name="SaunaFact" Relationship="sep4_dbModel.FK__SaunaFact__DateD__208CD6FA" FromRole="DateDim" ToRole="SaunaFact" />
         </EntityType>
         <EntityType Name="EstablishmentDim">

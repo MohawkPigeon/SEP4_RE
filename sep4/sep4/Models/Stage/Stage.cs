@@ -159,25 +159,8 @@ namespace sep4.Models.Stage
                 if(item.Rights != null)
                 if (item.Rights.Trim().Equals("Supervisor"))
                 {
-                    NotificationHistory lastHistory = new NotificationHistory();
-                    NotificationHistory shiftStart = new NotificationHistory();
-                    Boolean newShift = false;
-                    foreach (var history in item.NotificationHistory)
+                    foreach (var reservation in item.Reservation)
                     {
-                        if (newShift == true)
-                        {
-                            shiftStart.DateTime = history.DateTime.Value;
-                            newShift = false;
-                        }
-                        if (!shiftStart.DateTime.HasValue) {
-                            shiftStart.DateTime = history.DateTime.Value;
-                        }
-                        if (!lastHistory.DateTime.HasValue)
-                        {
-                            lastHistory.DateTime = history.DateTime.Value;
-                        }
-                        if (lastHistory.DateTime.Value.AddHours(1)<history.DateTime.Value)
-                        {
                             StageSupervisorDim stage = new StageSupervisorDim();
                             stage.Username = item.Username;
                             stage.UserID = item.UserID;
@@ -185,15 +168,10 @@ namespace sep4.Models.Stage
                             stage.LoadDate = dateTimeNow;
                             stage.ValidTo = validToDate;
 
-                            stage.EstShiftFromDate = shiftStart.DateTime.Value;
-                            stage.EstShiftToDate = history.DateTime.Value;
-
-                            newShift = true;
+                            stage.EstShiftFromDate = reservation.FromDateTime;
+                            stage.EstShiftToDate = reservation.ToDateTime;
 
                             db.StageSupervisorDim.Add(stage);
-                        }
-                        lastHistory = history;
-
                     }
                 }
             }
@@ -307,6 +285,8 @@ namespace sep4.Models.Stage
                 establishmentDim.Name = item.Name;
                 establishmentDim.LoadDate = item.LoadDate.Value;
                 establishmentDim.ValidTo = item.ValidTo;
+                establishmentDim.ManagerUsername = item.Managerusername;
+                establishmentDim.Rights = item.Rights;
                 db.EstablishmentDim.Add(establishmentDim);
             }
             foreach (var item in db.StageReservationDim.Where(x => x.LoadDate > daysSinceLastUpdateDate && x.ValidTo > dateTimeNow)) {
@@ -373,15 +353,22 @@ namespace sep4.Models.Stage
             foreach (var item in db.StageDatapoint)
             {
                 SaunaFact saunaFact = new SaunaFact();
-                saunaFact.DateDimID = db.DateDim.Where(d => d.DateTime == item.DateTime.Value).FirstOrDefault().DateDimID;
+                saunaFact.DateDimID = db.DateDim.Where(d => d.DateTime.Year == item.DateTime.Value.Year && d.DateTime.Month == item.DateTime.Value.Month && d.DateTime.Day == item.DateTime.Value.Day && d.DateTime.Hour == item.DateTime.Value.Hour && d.DateTime.Minute == item.DateTime.Value.Minute).FirstOrDefault().DateDimID;
                 saunaFact.SaunaDimID = db.SaunaDim.Where(s => s.SaunaID == item.SaunaID).FirstOrDefault().SaunaDimID;
                 saunaFact.ReservationDimID = db.ReservationDim.Where(re => re.SaunaID == item.SaunaID && re.FromDateTime < item.DateTime && item.DateTime > re.ToDateTime).FirstOrDefault().ReservationDimID;
                 saunaFact.SupervisorDimID = db.SupervisorDim.Where(su => su.EstShiftFromDate < item.DateTime && item.DateTime < su.EstShiftToDate).FirstOrDefault().SupervisorDimID;
-                saunaFact.EstablishmentDimID = db.EstablishmentDim.Where(e => e.EstablishmentID == saunaFact.SaunaDim.EstablishmentID).FirstOrDefault().EstablishmentDimID;
-                saunaFact.UserDimID = db.UserDim.Where(u => u.UserID == saunaFact.ReservationDim.UserID).FirstOrDefault().UserDimID;
+                saunaFact.EstablishmentDimID = db.EstablishmentDim.Where(x => x.EstablishmentID == db.SaunaDim.Where(y => y.SaunaID == item.SaunaID).FirstOrDefault().EstablishmentID).FirstOrDefault().EstablishmentDimID;
+                saunaFact.UserDimID = db.UserDim.Where(u => u.UserID == db.ReservationDim.Where(x => x.SaunaID == item.SaunaID).FirstOrDefault().UserID).FirstOrDefault().UserDimID;
                 db.SaunaFact.Add(saunaFact);
             }
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw;
+            }
         }
     }
 }

@@ -23,7 +23,7 @@
     <Property Name="Date" Type="int" Nullable="false" />
     <Property Name="Hour" Type="int" Nullable="false" />
     <Property Name="Minute" Type="int" Nullable="false" />
-    <Property Name="Second" Type="int" Nullable="false" />
+    <Property Name="Second" Type="int" />
   </EntityType>
   <EntityType Name="Establishment">
     <Key>

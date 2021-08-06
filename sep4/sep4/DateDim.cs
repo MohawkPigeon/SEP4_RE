@@ -27,7 +27,7 @@ namespace sep4
         public int Date { get; set; }
         public int Hour { get; set; }
         public int Minute { get; set; }
-        public int Second { get; set; }
+        public Nullable<int> Second { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaunaFact> SaunaFact { get; set; }
