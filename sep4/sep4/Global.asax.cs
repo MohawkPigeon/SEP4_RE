@@ -25,9 +25,9 @@ namespace sep4
             WebSocketClient client = new WebSocketClient();
             WebSocketThread thread = new WebSocketThread();
 
-            Stage stage = new Stage(10);
-            stage.RemoveStage();
-            stage.RemoveDim();
+            //Stage stage = new Stage(10);
+            //stage.RemoveStage();
+            //stage.RemoveDim();
             //stage.InsertIntoStage();
             //stage.Transform();
             //stage.Load();
