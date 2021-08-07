@@ -83,6 +83,20 @@ namespace sep4.Controllers
             {
                 return BadRequest();
             }
+
+            if (user.Rights == "Supervisor")
+            {
+                StageSupervisorDim stageSupervisor = db.StageSupervisorDim.Where(ss => ss.UserID == user.UserID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+                if (stageSupervisor != null)
+                    stageSupervisor.ValidTo = DateTime.Now.AddDays(-1);
+            }
+            if (user.Rights == "User")
+            {
+                StageUserDim stageUser = db.StageUserDim.Where(su => su.UserID == user.UserID && su.ValidTo > DateTime.Now).FirstOrDefault();
+                if (stageUser != null)
+                    stageUser.ValidTo = DateTime.Now.AddDays(-1);
+            }
+
             user.DateTime = DateTime.Now;
             db.Entry(user).State = EntityState.Modified;
 
@@ -148,11 +162,13 @@ namespace sep4.Controllers
             if(user.Rights == "Supervisor")
             {
                 StageSupervisorDim stageSupervisor = db.StageSupervisorDim.Where(ss => ss.UserID == user.UserID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+                if(stageSupervisor != null)
                 stageSupervisor.ValidTo = DateTime.Now.AddDays(-1);
             }
             if (user.Rights == "User")
             {
                 StageUserDim stageUser = db.StageUserDim.Where(su => su.UserID == user.UserID && su.ValidTo > DateTime.Now).FirstOrDefault();
+                if(stageUser != null)
                 stageUser.ValidTo = DateTime.Now.AddDays(-1);
             }
 

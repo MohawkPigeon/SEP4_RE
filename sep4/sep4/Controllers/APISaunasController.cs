@@ -65,6 +65,10 @@ namespace sep4.Controllers
             {
                 return BadRequest();
             }
+            StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+            if (stageSauna != null)
+                stageSauna.ValidTo = DateTime.Now.AddDays(-1);
+
             sauna.DateTime = DateTime.Now;
             db.Entry(sauna).State = EntityState.Modified;
 
@@ -160,6 +164,7 @@ namespace sep4.Controllers
                 return NotFound();
             }
             StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+            if(stageSauna != null)
             stageSauna.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Sauna.Remove(sauna);

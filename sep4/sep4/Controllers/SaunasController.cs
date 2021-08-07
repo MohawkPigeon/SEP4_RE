@@ -87,6 +87,10 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
+                if (stageSauna != null)
+                    stageSauna.ValidTo = DateTime.Now.AddDays(-1);
+
                 sauna.DateTime = DateTime.Now;
                 db.Entry(sauna).State = EntityState.Modified;
                 db.SaveChanges();
@@ -119,7 +123,8 @@ namespace sep4.Controllers
             Sauna sauna = db.Sauna.Find(id);
 
             StageSaunaDim stageSauna = db.StageSaunaDim.Where(ss => ss.SaunaID == sauna.SaunaID && ss.ValidTo > DateTime.Now).FirstOrDefault();
-            stageSauna.ValidTo = DateTime.Now.AddDays(-1);
+            if (stageSauna != null)
+                stageSauna.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Sauna.Remove(sauna);
             db.SaveChanges();

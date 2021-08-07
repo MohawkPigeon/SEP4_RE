@@ -21,6 +21,8 @@ namespace sep4.IoTSimulator.WebSocket
             //make connection here
             //create and add some dummy simulators here
             addDevice(1);
+            addDevice(2);
+            addDevice(3);
         }
 
         private static readonly object instanceLock = new object ();  

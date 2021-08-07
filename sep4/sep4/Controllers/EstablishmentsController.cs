@@ -83,6 +83,10 @@ namespace sep4.Controllers
         {
             if (ModelState.IsValid)
             {
+                StageEstablishmentDIM stageEstablishment = db.StageEstablishmentDIM.Where(se => se.EstablishmentID == establishment.EstablishmentID && se.ValidTo > DateTime.Now).FirstOrDefault();
+                if (stageEstablishment != null)
+                    stageEstablishment.ValidTo = DateTime.Now.AddDays(-1);
+
                 establishment.DateTime = DateTime.Now;
                 db.Entry(establishment).State = EntityState.Modified;
                 db.SaveChanges();
@@ -114,7 +118,8 @@ namespace sep4.Controllers
             Establishment establishment = db.Establishment.Find(id);
 
             StageEstablishmentDIM stageEstablishment = db.StageEstablishmentDIM.Where(se => se.EstablishmentID == establishment.EstablishmentID && se.ValidTo > DateTime.Now).FirstOrDefault();
-            stageEstablishment.ValidTo = DateTime.Now.AddDays(-1);
+            if (stageEstablishment != null)
+                stageEstablishment.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Establishment.Remove(establishment);
             db.SaveChanges();

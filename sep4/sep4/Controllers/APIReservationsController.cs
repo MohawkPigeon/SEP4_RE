@@ -121,6 +121,7 @@ namespace sep4.Controllers
             }
 
             StageReservationDim stageReservation = db.StageReservationDim.Where(sr => sr.SaunaID == reservation.SaunaID && sr.UserID == reservation.UserID && sr.FromDateTime == reservation.FromDateTime && sr.ToDateTime == sr.ToDateTime && sr.ValidTo > DateTime.Now).FirstOrDefault();
+            if(stageReservation != null)
             stageReservation.ValidTo = DateTime.Now.AddDays(-1);
 
             db.Reservation.Remove(reservation);

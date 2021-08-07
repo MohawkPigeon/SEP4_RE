@@ -25,9 +25,9 @@ namespace sep4.IoTSimulator.Hardware
         {
             maximumTempValue = 100;
             minimumTempValue = 0;
-            maximumCO2Value = 12800;
-            minimumCO2Value = 0;
-            maximumHumValue = 1;
+            maximumCO2Value = 1500;
+            minimumCO2Value = 300;
+            maximumHumValue = 100;
             minimumHumValue = 0;
             saunaId = SaunaId;
             isDoorOpen = false;
