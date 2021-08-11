@@ -37,6 +37,7 @@ namespace sep4.Models.Stage
             db.SaunaDim.RemoveRange(db.SaunaDim);
             db.SupervisorDim.RemoveRange(db.SupervisorDim);
             db.UserDim.RemoveRange(db.UserDim);
+            db.SaunaFact.RemoveRange(db.SaunaFact);
             db.SaveChanges();
         }
 
@@ -51,11 +52,11 @@ namespace sep4.Models.Stage
                     StageDatapoint stage = new StageDatapoint();
                     stage.DateTime = item.DateTime;
                     stage.SaunaID = item.SaunaID;
-                    stage.Temperature = (int)Convert.ToDouble(item.Temperature);
-                    stage.CO2 = (int)Convert.ToDouble(item.Co2);
-                    stage.Humidity = (int)Double.Parse(item.Humidity);
+                    stage.Temperature = Convert.ToInt32(item.Temperature.Substring(0, item.Temperature.IndexOf('.') > 0 ? item.Temperature.IndexOf('.') : item.Temperature.Length));
+                    stage.CO2 = Convert.ToInt32(item.Co2.Substring(0, item.Co2.IndexOf('.') > 0 ? item.Co2.IndexOf('.') : item.Co2.Length));
+                    stage.Humidity = Convert.ToInt32(item.Humidity.Substring(0, item.Humidity.IndexOf('.') > 0 ? item.Humidity.IndexOf('.') : item.Humidity.Length));
                     stage.ServoSettingAtTime = item.ServoSettingAtTime;
-                    db.StageDatapoint.Add(stage);           
+                    db.StageDatapoint.Add(stage);
             }
 
             StageDateDim stageDateDim = db.StageDateDim.FirstOrDefault();
