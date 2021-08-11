@@ -12,7 +12,22 @@ namespace sep4.Models.Stage
         DateTime dateTimeNow = new DateTime();
         private static DateTime lastUpdateDate;
 
-        public Stage() { }
+        public Stage()
+        {
+            if(db.StageDateDim != null)
+            {
+                int greatestID = 0;
+                foreach (var item in db.StageDateDim)
+                {
+                    if(item.Id > greatestID)
+                    {
+                        greatestID = item.Id;
+                    }
+
+                }
+                lastUpdateDate = db.StageDateDim.Find(greatestID).DateTime.Value.AddSeconds(1);
+            }
+        }
 
         public void RemoveStage()
         {
@@ -54,50 +69,30 @@ namespace sep4.Models.Stage
                     db.StageDatapoint.Add(stage);
             }
 
-            StageDateDim stageDateDim = db.StageDateDim.FirstOrDefault();
-            if (stageDateDim != null)
+            var small = db.Datapoint.ToList();
+            int smallId = small.First().DatapointID;
+            foreach (var item in small)
             {
-                DateTime lastInsertTime = lastUpdateDate;
-                while (dateTimeNow > lastInsertTime)
+                if (item.DatapointID < smallId)
                 {
-                    StageDateDim stage = new StageDateDim();
-                    stage.DateTime = lastInsertTime;
-                    stage.Date = lastInsertTime.Day;
-                    stage.Hour = lastInsertTime.Hour;
-                    stage.Minute = lastInsertTime.Minute;
-                    stage.Month = lastInsertTime.Month;
-                    stage.Second = lastInsertTime.Second;
-                    stage.Year = lastInsertTime.Year;
-                    db.StageDateDim.Add(stage);
-                    lastInsertTime = lastInsertTime.AddMinutes(1);
+                    smallId = item.DatapointID;
                 }
             }
-            else
+            DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DatapointID == smallId).First().DateTime;
+            while (dateTimeNow > lastInsertTime)
             {
-                var small = db.Datapoint.ToList();
-                int smallId = small.First().DatapointID;
-                foreach (var item in small)
-                {
-                    if(item.DatapointID < smallId)
-                    {
-                        smallId = item.DatapointID;
-                    }           
-                }
-                DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DatapointID == smallId).First().DateTime;
-                while (dateTimeNow > lastInsertTime)
-                {
-                    StageDateDim stage = new StageDateDim();
-                    stage.DateTime = lastInsertTime;
-                    stage.Date = lastInsertTime.Day;
-                    stage.Hour = lastInsertTime.Hour;
-                    stage.Minute = lastInsertTime.Minute;
-                    stage.Month = lastInsertTime.Month;
-                    stage.Second = lastInsertTime.Second;
-                    stage.Year = lastInsertTime.Year;
-                    db.StageDateDim.Add(stage);
-                    lastInsertTime = lastInsertTime.AddMinutes(1);
-                }
+                StageDateDim stage = new StageDateDim();
+                stage.DateTime = lastInsertTime;
+                stage.Date = lastInsertTime.Day;
+                stage.Hour = lastInsertTime.Hour;
+                stage.Minute = lastInsertTime.Minute;
+                stage.Month = lastInsertTime.Month;
+                stage.Second = lastInsertTime.Second;
+                stage.Year = lastInsertTime.Year;
+                db.StageDateDim.Add(stage);
+                lastInsertTime = lastInsertTime.AddMinutes(1);
             }
+
 
             foreach (var item in db.Establishment)
             {       
@@ -213,49 +208,19 @@ namespace sep4.Models.Stage
                 db.StageDatapoint.Add(stage);
             }
 
-            StageDateDim stageDateDim = db.StageDateDim.FirstOrDefault();
-            if (stageDateDim != null)
+            DateTime lastInsertTime = lastUpdateDate;
+            while (dateTimeNow.AddMinutes(-1) > lastInsertTime)
             {
-                DateTime lastInsertTime = stageDateDim.DateTime.Value;
-                while (dateTimeNow > lastInsertTime)
-                {
-                    StageDateDim stage = new StageDateDim();
-                    stage.DateTime = lastInsertTime;
-                    stage.Date = lastInsertTime.Day;
-                    stage.Hour = lastInsertTime.Hour;
-                    stage.Minute = lastInsertTime.Minute;
-                    stage.Month = lastInsertTime.Month;
-                    stage.Second = lastInsertTime.Second;
-                    stage.Year = lastInsertTime.Year;
-                    db.StageDateDim.Add(stage);
-                    lastInsertTime = lastInsertTime.AddMinutes(1);
-                }
-            }
-            else
-            {
-                var small = db.Datapoint.Where(dp => dp.DateTime > lastUpdateDate).ToList();
-                int smallId = small.First().DatapointID;
-                foreach (var item in small)
-                {
-                    if (item.DatapointID < smallId)
-                    {
-                        smallId = item.DatapointID;
-                    }
-                }
-                DateTime lastInsertTime = db.Datapoint.Where(dp => dp.DatapointID == smallId).First().DateTime;
-                while (dateTimeNow > lastInsertTime)
-                {
-                    StageDateDim stage = new StageDateDim();
-                    stage.DateTime = lastInsertTime;
-                    stage.Date = lastInsertTime.Day;
-                    stage.Hour = lastInsertTime.Hour;
-                    stage.Minute = lastInsertTime.Minute;
-                    stage.Month = lastInsertTime.Month;
-                    stage.Second = lastInsertTime.Second;
-                    stage.Year = lastInsertTime.Year;
-                    db.StageDateDim.Add(stage);
-                    lastInsertTime = lastInsertTime.AddMinutes(1);
-                }
+                StageDateDim stage = new StageDateDim();
+                lastInsertTime = lastInsertTime.AddMinutes(1);
+                stage.DateTime = lastInsertTime;
+                stage.Date = lastInsertTime.Day;
+                stage.Hour = lastInsertTime.Hour;
+                stage.Minute = lastInsertTime.Minute;
+                stage.Month = lastInsertTime.Month;
+                stage.Second = lastInsertTime.Second;
+                stage.Year = lastInsertTime.Year;
+                db.StageDateDim.Add(stage);
             }
 
             foreach (var item in db.Establishment.Where(x => x.DateTime > lastUpdateDate))
@@ -340,7 +305,7 @@ namespace sep4.Models.Stage
             //check data already in data warehouse
             foreach (var itemInDW in db.ReservationDim.Where(x => x.ValidTo > dateTimeNow))
             {
-                var item = db.Reservation.Where(x => x.UserID == itemInDW.UserID && x.DateTime > lastUpdateDate);
+                var item = db.Reservation.Where(x => x.UserID == itemInDW.UserID && x.SaunaID == itemInDW.SaunaID && x.ToDateTime == itemInDW.ToDateTime && x.FromDateTime == itemInDW.FromDateTime && x.DateTime > lastUpdateDate);
                 if (item.Any())
                 {
                     //if data exists, check if all columns equal
@@ -526,7 +491,6 @@ namespace sep4.Models.Stage
                     itemInDW.ValidTo = dateTimeNow;
                 }
             }
-            lastUpdateDate = dateTimeNow;
             db.SaveChanges();
         }
 
@@ -876,6 +840,7 @@ namespace sep4.Models.Stage
             }
             try
             {
+                lastUpdateDate = dateTimeNow;
                 db.SaveChanges();
             }
             catch (DbEntityValidationException e)
